@@ -1,10 +1,10 @@
 # syl-frontend
 
-This repo is part of https://github.com/xiaoxuwu/ShopYourLinks
+This repo is part of https://github.com/xiaoxuwu/ShopYourLinks. See the backend source code here: https://github.com/xiaoxuwu/syl-api.git.
 
 ## 1 Introduction
 
-This project contains frontend source code for ShopYourLinks, a [Shop Your Likes](https://shopyourlikes.com/) competitor to [Linktree](https://linktr.ee/). This document contains high-level information about this repository as well as set-up and run instructions for the react frontend.
+This project contains frontend source code for ShopYourLinks, a [Shop Your Likes](https://shopyourlikes.com/) competitor to [Linktree](https://linktr.ee/). This document contains high-level information about this repository as well as set-up and run instructions for the React frontend.
 
 ### 1.2 Maintainers
 
@@ -18,31 +18,48 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## 2 Set Up
 
+- Clone this repository: https://github.com/xiaoxuwu/syl-frontend.git
+
+- Set up Docker
+
+  - Mac: https://docs.docker.com/docker-for-mac/install/
+  - PC: https://docs.docker.com/toolbox/toolbox_install_windows/
+
+- Build container
+
+  - Startup a terminal (Mac) or the docker-toolbox shell (PC), and type in the following commands:
+
+  ```bash
+  $ make build
+  ```
+
+## 3 Run
+
 Build container if necessary (when Carter says to)
 
 ```bash
 $ make build
 ```
 
-## 3 Run
+1. For development, run the following to start the server:
 
-```bash
-$ make build
-```
+  ```bash
+  $ make run-dev
+  ```
 
-For development, run the following to start the server:
+2. Navigate to http://localhost:3000 with your browser to see the site.
 
-```bash
-$ make run-dev
-```
+3. Use `CTRL+C` to quit the running server. To stop all containers, run:
 
-Navigate to http://localhost:8000 with your browser to see the site.
+   ```bash
+   $ make exit
+   ```
 
-To deploy, run:
+4. To deploy, run:
 
-```bash
-$ make deploy
-```
+  ```bash
+  $ make deploy
+  ```
 
 ## 4 Makefile Commands
 
@@ -56,7 +73,7 @@ $ make deploy
 
 `make exit` shut down all containers
 
-## 3 Other Available Scripts
+## 5 Other Available Scripts
 
 In the project directory, you can run:
 
@@ -93,7 +110,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## 6 Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
