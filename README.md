@@ -1,6 +1,32 @@
+# syl-frontend
+
+## 1 Introduction
+
+This project contains frontend source code for ShopYourLinks, a [Shop Your Likes](https://shopyourlikes.com/) competitor to [Linktree](https://linktr.ee/). This document contains high-level information about this repository as well as set-up and run instructions for the react frontend.
+
+### 1.2 Maintainers
+
+- Katie Luangkote
+- Katrina Wijaya
+- Xiaoxu (Carter) Wu
+- Jennifer Xu
+- Yun Xu
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## 2 Makefile Commands
+
+`make build` build containers (ask Carter)
+
+`run-dev` start containers with dev settings and hot-reloading
+
+`make run-prd` build react app and simulate deployment
+
+`make deploy` deploy for real
+
+`make exit` shut down all containers
+
+## 3 Other Available Scripts
 
 In the project directory, you can run:
 
