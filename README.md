@@ -14,7 +14,35 @@ This project contains frontend source code for ShopYourLinks, a [Shop Your Likes
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## 2 Makefile Commands
+## 2 Set Up
+
+Build container if necessary (when Carter says to)
+
+```bash
+$ make build
+```
+
+## 3 Run
+
+```bash
+$ make build
+```
+
+For development, run the following to start the server:
+
+```bash
+$ make run-dev
+```
+
+Navigate to http://localhost:8000 with your browser to see the site.
+
+To deploy, run:
+
+```bash
+$ make deploy
+```
+
+## 4 Makefile Commands
 
 `make build` build containers (ask Carter)
 
