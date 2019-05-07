@@ -18,7 +18,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 `make build` build containers (ask Carter)
 
-`run-dev` start containers with dev settings and hot-reloading
+`make run-dev` start containers with dev settings and hot-reloading
 
 `make run-prd` build react app and simulate deployment
 
