@@ -36,7 +36,7 @@ For development, run the following to start the server:
 $ make run-dev
 ```
 
-Navigate to http://localhost:8000 with your browser to see the site.
+Navigate to http://localhost:3000 with your browser to see the site.
 
 To deploy, run:
 
