@@ -24,6 +24,13 @@ Build container if necessary (when Carter says to)
 $ make build
 ```
 
+Install packages in Docker container
+
+```
+$ make run-sh
+# yarn install
+```
+
 ## 3 Run
 
 ```bash
