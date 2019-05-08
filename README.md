@@ -29,6 +29,7 @@ Install packages in Docker container
 ```
 $ make run-sh
 # yarn install
+# exit
 ```
 
 ## 3 Run
