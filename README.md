@@ -33,6 +33,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
   $ make build
   ```
 
+Install packages in Docker container
+
+```
+$ make run-sh
+# yarn install
+# exit
+```
+
 ## 3 Run
 
 Build container if necessary (when Carter says to)

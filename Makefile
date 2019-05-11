@@ -1,5 +1,8 @@
 build:
 	docker-compose build
+run-sh:
+	docker-compose run syl-frontend-dev sh
+	exit
 run-dev:
 	docker-compose up
 run-prd:
