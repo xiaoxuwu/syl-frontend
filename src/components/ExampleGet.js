@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import axios from './AxiosClient';
 
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -32,7 +32,7 @@ class ExampleGet extends Component {
     //     key: 'value'
     //   }
     // }
-    axios.get('http://localhost:8000/api/links/', {})
+    axios.get('/api/links/', {})
       .then(result => {
         let links = result.data.map(function(link) { 
           return { 
