@@ -21,7 +21,8 @@ const NavBar = (props) => {
         </Typography>
         <Button href="/">Home</Button>
         <Button component={Link} to="/example">Example</Button>
-        <Button color="primary" variant="outlined">
+        <Button component={Link} to="/dashboard">Dashboard</Button>
+        <Button component={Link} to="/login" color="primary" variant="outlined">
           Login
         </Button>
       </Toolbar>
