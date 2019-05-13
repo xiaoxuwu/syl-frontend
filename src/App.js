@@ -6,6 +6,7 @@ import Footer from './components/Footer.js';
 import Example from './components/Example.js';
 import Dashboard from './components/Dashboard.js';
 import Login from './components/Login.js';
+import Links from './components/Links.js';
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
         <Route path="/example" component={Example} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/login" component={Login} />
+        <Route path="/links" component={Links} />
       </Router>
     )
   }
