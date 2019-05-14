@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -11,32 +11,49 @@ import Typography from '@material-ui/core/Typography';
 
 import LinkCardStyles from '../styles/LinkCard.js'
 
-const LinkCard = (props) => {
-  const { classes } = props;
-  var URL = props.URL;
-  var IMG = props.image;
-  var title = props.title;
-  var desc = props.desc;
+class LinkCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      URL: this.props.URL,
+      IMG: this.props.image,
+      title: this.props.title,
+      desc: this.props.desc,
+      count: 0,
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
 
-  return(
-  	<Card className={classes.card}>
-      <CardMedia
-        className={classes.media}
-        image={IMG}
-        title="ShopYourLikes"
-      />
-  		<CardActionArea onClick={()=>window.open(URL)}>
-  			<CardContent>
-  				<Typography gutterBottom variant="h5" component="h2">
-  					{title}
-  				</Typography>
-  				<Typography component="p">
-  					{desc}
-  				</Typography>
-  			</CardContent>
-  		</CardActionArea>
-  	</Card>
-  );
+  handleClick(e) {
+    window.open(this.state.URL);
+    this.setState({count: this.state.count+1});
+  }
+
+  render() {
+    const { classes } = this.props;
+    return(
+    	<Card className={classes.card}>
+        <CardMedia
+          className={classes.media}
+          image={this.state.IMG}
+          title="ShopYourLikes"
+        />
+    		<CardActionArea onClick={this.handleClick}>
+    			<CardContent>
+    				<Typography gutterBottom variant="h5" component="h2">
+    					{this.state.title}
+    				</Typography>
+    				<Typography component="p">
+    					{this.state.desc}
+    				</Typography>
+    			</CardContent>
+    		</CardActionArea>
+        <CardContent>
+          {this.state.count}
+        </CardContent>
+    	</Card>
+    );
+  }
 }
 
 export default withStyles(LinkCardStyles)(LinkCard);
