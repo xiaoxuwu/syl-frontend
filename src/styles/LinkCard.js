@@ -1,8 +1,7 @@
 const LinkCardStyles = {
 	card: {
-		width: 500,
+		width: '100%',
 		display: 'inline-flex',
-		margin: '10px 10px 10px 10px'
 	},
 	media: {
 		height: 90,
