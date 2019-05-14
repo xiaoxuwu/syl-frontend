@@ -8,28 +8,30 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import IMG from './SYL_logo.png';
 
 import LinkCardStyles from '../styles/LinkCard.js'
 
 const LinkCard = (props) => {
   const { classes } = props;
-  var URL = 'https://google.com';
+  var URL = props.URL;
+  var IMG = props.image;
+  var title = props.title;
+  var desc = props.desc;
 
   return(
   	<Card className={classes.card}>
       <CardMedia
         className={classes.media}
-        image= {IMG}
+        image={IMG}
         title="ShopYourLikes"
       />
   		<CardActionArea onClick={()=>window.open(URL)}>
   			<CardContent>
   				<Typography gutterBottom variant="h5" component="h2">
-  					FirstLink
+  					{title}
   				</Typography>
   				<Typography component="p">
-  					Hello from ShopYourLinks
+  					{desc}
   				</Typography>
   			</CardContent>
   		</CardActionArea>
