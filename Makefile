@@ -5,6 +5,7 @@ run-sh:
 	exit
 run-dev:
 	docker-compose up
+	exit
 run-prd:
 	docker-compose -f docker-compose-prod.yml up --build
 deploy:
