@@ -2123,6 +2123,15 @@ chardet@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
 
+check-files@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/check-files/-/check-files-0.0.2.tgz#79216272e4aeb44c2c1ba417680b7b5cbaa2ac55"
+  integrity sha1-eSFicuSutEwsG6QXaAt7XLqirFU=
+  dependencies:
+    extend "1.2.1"
+    nopt "2.1.2"
+    vow "0.4.1"
+
 chokidar@^2.0.0, chokidar@^2.0.2, chokidar@^2.0.4:
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.1.5.tgz#0ae8434d962281a5f56c72869e79cb6d9d86ad4d"
@@ -3500,6 +3509,11 @@ extend-shallow@^3.0.0, extend-shallow@^3.0.2:
   dependencies:
     assign-symbols "^1.0.0"
     is-extendable "^1.0.1"
+
+extend@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/extend/-/extend-1.2.1.tgz#a0f5fd6cfc83a5fe49ef698d60ec8a624dd4576c"
+  integrity sha1-oPX9bPyDpf5J72mNYOyKYk3UV2w=
 
 extend@^3.0.0, extend@~3.0.2:
   version "3.0.2"
@@ -5893,6 +5907,13 @@ node-releases@^1.1.14:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.15.tgz#9e76a73b0eca3bf7801addaa0e6ce90c795f2b9a"
   dependencies:
     semver "^5.3.0"
+
+nopt@2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/nopt/-/nopt-2.1.2.tgz#6cccd977b80132a07731d6e8ce58c2c8303cf9af"
+  integrity sha1-bMzZd7gBMqB3MdbozljCyDA8+a8=
+  dependencies:
+    abbrev "1"
 
 nopt@^4.0.1:
   version "4.0.1"
@@ -8831,6 +8852,11 @@ vm-browserify@0.0.4:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-0.0.4.tgz#5d7ea45bbef9e4a6ff65f95438e0a87c357d5a73"
   dependencies:
     indexof "0.0.1"
+
+vow@0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/vow/-/vow-0.4.1.tgz#97c816578b2547d59083898bd65a1bff6c016454"
+  integrity sha1-l8gWV4slR9WQg4mL1lob/2wBZFQ=
 
 w3c-hr-time@^1.0.1:
   version "1.0.1"
