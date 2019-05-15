@@ -18,7 +18,6 @@ class LinkCard extends Component {
       URL: this.props.URL,
       IMG: this.props.image,
       title: this.props.title,
-      desc: this.props.desc,
       count: 0,
     };
     this.handleClick = this.handleClick.bind(this);
@@ -42,9 +41,6 @@ class LinkCard extends Component {
     			<CardContent>
     				<Typography gutterBottom variant="h5" component="h2">
     					{this.state.title}
-    				</Typography>
-    				<Typography component="p">
-    					{this.state.desc}
     				</Typography>
     			</CardContent>
     		</CardActionArea>

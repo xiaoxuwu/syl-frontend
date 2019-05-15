@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
-import ListStyles from '../styles/Lists.js';
+import ListStyles from '../styles/Links.js';
 
 import LinkCard from '../components/LinkCard.js';
 
@@ -21,60 +22,61 @@ class Links extends Component {
     this.state = { 
       pCol: '', 
       dCol: '', 
-      links: [] 
+      links: [],
+      username: '', 
     };
     this.state.pCol = 12;
     this.state.dCol = 4;
+    this.state.username = 'Team ShopYourLinks';
     this.state.links.push(<LinkCard 
       image={IMG0} 
       URL='https://shopyourlikes.com/'
-      title='SYL'
-      desc="ShopYourLike website"  />
+      title='SYL'  />
     );
     this.state.links.push(<LinkCard 
       image={IMG1} 
       URL='https://www.facebook.com/carterwoohoo' 
-      title='Carter Wu'
-      desc="link to Cater's facebook page"/>
+      title='Carter Wu' />
     );
     this.state.links.push(<LinkCard 
       image={IMG2} 
       URL='https://www.facebook.com/jennifer.xu.5074'
-      title='Jennifer Xu'
-      desc="link to Jennifer's facebook page" />
+      title='Jennifer Xu' />
     );
     this.state.links.push(<LinkCard 
       image={IMG3} 
       URL='https://www.facebook.com/katie.luangkote' 
-      title='Katie LuangKote'
-      desc="link to Katie's facebook page" />
+      title='Katie LuangKote' />
     );
     this.state.links.push(<LinkCard 
       image={IMG4} 
       URL='https://www.facebook.com/TrinaKinz' 
-      title='Katrina Wijaya'
-      desc="link to Katrina's facebook page" />
+      title='Katrina Wijaya' />
     );
     this.state.links.push(<LinkCard 
       image={IMG5} 
       URL='https://www.facebook.com/xonexuyun' 
-      title='Yun Xu'
-      desc="link to Yun's facebook page" />
+      title='Yun Xu' />
     );
   }
 
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.list}>
-        <Grid container spacing={16}>
-          {this.state.links.map(linkCard =>
-            <Grid item xs={this.state.pCol} md={this.state.dCol}>
-              {linkCard}
-            </Grid>
-            )  
-          }
-        </Grid>
+      <div className={classes.content}>
+        <Typography variant="display3" component="h2" align="center">
+          {this.state.username}
+        </Typography>
+        <div className={classes.list}>
+          <Grid container spacing={16}>
+            {this.state.links.map(linkCard =>
+              <Grid item xs={this.state.pCol} md={this.state.dCol}>
+                {linkCard}
+              </Grid>
+              )  
+            }
+          </Grid>
+        </div>
       </div>
     );
   }
