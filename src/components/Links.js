@@ -55,15 +55,17 @@ class Links extends Component {
 
   render() {
     const { classes } = this.props;
-    var links = this.state.links.sort((a,b) => (a.order > b.order) ? 1 : -1).map(link => {
-      var IMG = this.state.baseURL + '/' + link.media_prefix + link.image;
-      return <LinkCard 
-        key={link.id} 
-        image={IMG} 
-        URL={link.url} 
-        title={link.text}  />
-      }
-    );
+    var links = this.state.links
+      .sort((a,b) => (a.order > b.order) ? 1 : -1)
+      .map(link => {
+        var IMG = this.state.baseURL + '/' + link.media_prefix + link.image;
+        return <LinkCard 
+          key={link.id} 
+          image={IMG} 
+          URL={link.url} 
+          title={link.text}  />
+    });
+
     return (
       <div className={classes.content}>
         <Typography variant="display3" component="h2" align="center">
