@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from './AxiosClient';
 
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -9,13 +10,6 @@ import ListStyles from '../styles/Links.js';
 
 import LinkCard from '../components/LinkCard.js';
 
-import IMG0 from './IMG0.png';
-import IMG1 from './IMG1.jpg';
-import IMG2 from './IMG2.jpg';
-import IMG3 from './IMG3.jpg';
-import IMG4 from './IMG4.jpg';
-import IMG5 from './IMG5.jpg';
-
 class Links extends Component {
   constructor() {
     super();
@@ -23,45 +17,53 @@ class Links extends Component {
       pCol: '', 
       dCol: '', 
       links: [],
-      username: '', 
+      username: '',
+      baseURL: process.env.REACT_APP_API_URL 
     };
     this.state.pCol = 12;
     this.state.dCol = 4;
     this.state.username = 'Team ShopYourLinks';
-    this.state.links.push(<LinkCard 
-      image={IMG0} 
-      URL='https://shopyourlikes.com/'
-      title='SYL'  />
-    );
-    this.state.links.push(<LinkCard 
-      image={IMG1} 
-      URL='https://www.facebook.com/carterwoohoo' 
-      title='Carter Wu' />
-    );
-    this.state.links.push(<LinkCard 
-      image={IMG2} 
-      URL='https://www.facebook.com/jennifer.xu.5074'
-      title='Jennifer Xu' />
-    );
-    this.state.links.push(<LinkCard 
-      image={IMG3} 
-      URL='https://www.facebook.com/katie.luangkote' 
-      title='Katie LuangKote' />
-    );
-    this.state.links.push(<LinkCard 
-      image={IMG4} 
-      URL='https://www.facebook.com/TrinaKinz' 
-      title='Katrina Wijaya' />
-    );
-    this.state.links.push(<LinkCard 
-      image={IMG5} 
-      URL='https://www.facebook.com/xonexuyun' 
-      title='Yun Xu' />
-    );
+  }
+
+  // Called when component has been initialized
+  componentDidMount() {
+    this.getLinks();
+  }
+
+  // Call GET function for links
+  getLinks = () => {
+    axios.get('/api/links/', {})
+      .then(result => {
+        let links = result.data.map(function(link) { 
+          return { 
+            id: link.id, 
+            url: link.url, 
+            creator_id: link.creator,
+            text: link.text,
+            image: link.image,
+            order: link.order,
+            media_prefix: link.media_prefix
+          }
+        });
+
+        this.setState({ 
+          links: links,
+        });
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
     const { classes } = this.props;
+    var links = this.state.links.sort((a,b) => (a.order > b.order) ? 1 : -1).map(link => {
+      var IMG = this.state.baseURL + '/' + link.media_prefix + link.image;
+      return <LinkCard 
+        key={link.id} 
+        image={IMG} 
+        URL={link.url} 
+        title={link.text}  />
+      }
+    );
     return (
       <div className={classes.content}>
         <Typography variant="display3" component="h2" align="center">
@@ -69,7 +71,7 @@ class Links extends Component {
         </Typography>
         <div className={classes.list}>
           <Grid container spacing={16}>
-            {this.state.links.map(linkCard =>
+            {links.map(linkCard =>
               <Grid item xs={this.state.pCol} md={this.state.dCol}>
                 {linkCard}
               </Grid>
