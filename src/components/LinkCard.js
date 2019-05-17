@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from './AxiosClient';
 
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -15,6 +16,7 @@ class LinkCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      link_id: this.props.link_id,
       URL: this.props.URL,
       IMG: this.props.image,
       title: this.props.title,
@@ -25,7 +27,12 @@ class LinkCard extends Component {
 
   handleClick(e) {
     window.open(this.state.URL);
-    this.setState({count: this.state.count+1});
+    // this.setState({count: this.state.count+1});
+    var apiEndpoint = '/api/events/';
+    var currentTime = new Date();
+    var eventData = { link: this.state.link_id};
+    console.log(this.state.link_id);
+    axios.post(apiEndpoint, eventData).then(console.log(currentTime)).catch(err => console.log(err.response));
   }
 
   render() {

@@ -31,8 +31,8 @@ class Links extends Component {
 
   // Call GET function for links
   getLinks = () => {
-    var apiCall = '/api/links/?username=' + this.state.username;
-    axios.get(apiCall, {})
+    var apiEndpoint = '/api/links/?username=' + this.state.username;
+    axios.get(apiEndpoint, {})
       .then(result => {
         let links = result.data.map(function(link) { 
           return { 
@@ -60,7 +60,8 @@ class Links extends Component {
       .map(link => {
         var IMG = this.state.baseURL + '/' + link.media_prefix + link.image;
         return <LinkCard 
-          key={link.id} 
+          key={link.id}
+          link_id={link.id} 
           image={IMG} 
           URL={link.url} 
           title={link.text}  />
