@@ -20,7 +20,7 @@ class App extends Component {
         <Route path="/get" component={ExampleGet} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/login" component={Login} />
-        <Route path="/links" component={Links} />
+        <Route path="/links/:username" component={Links} />
       </Router>
     )
   }

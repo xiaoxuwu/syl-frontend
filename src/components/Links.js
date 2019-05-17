@@ -11,18 +11,17 @@ import ListStyles from '../styles/Links.js';
 import LinkCard from '../components/LinkCard.js';
 
 class Links extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { 
       pCol: '', 
       dCol: '', 
       links: [],
-      username: '',
+      username: this.props.match.params.username,
       baseURL: process.env.REACT_APP_API_URL 
     };
     this.state.pCol = 12;
     this.state.dCol = 4;
-    this.state.username = 'Team ShopYourLinks';
   }
 
   // Called when component has been initialized
@@ -32,7 +31,8 @@ class Links extends Component {
 
   // Call GET function for links
   getLinks = () => {
-    axios.get('/api/links/', {})
+    var apiCall = '/api/links/?username=' + this.state.username;
+    axios.get(apiCall, {})
       .then(result => {
         let links = result.data.map(function(link) { 
           return { 
@@ -65,11 +65,12 @@ class Links extends Component {
           URL={link.url} 
           title={link.text}  />
     });
+    var user = this.state.username;
 
     return (
       <div className={classes.content}>
         <Typography variant="display3" component="h2" align="center">
-          {this.state.username}
+          Welcome to {user}'s Page
         </Typography>
         <div className={classes.list}>
           <Grid container spacing={16}>
