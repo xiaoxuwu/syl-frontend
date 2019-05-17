@@ -19,8 +19,7 @@ class LinkCard extends Component {
       link_id: this.props.link_id,
       URL: this.props.URL,
       IMG: this.props.image,
-      title: this.props.title,
-      count: 0,
+      title: this.props.title
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -40,7 +39,6 @@ class LinkCard extends Component {
         <CardMedia
           className={classes.media}
           image={this.state.IMG}
-          title="ShopYourLikes"
         />
     		<CardActionArea onClick={this.handleClick}>
     			<CardContent>
@@ -49,9 +47,6 @@ class LinkCard extends Component {
     				</Typography>
     			</CardContent>
     		</CardActionArea>
-        <CardContent>
-          {this.state.count}
-        </CardContent>
     	</Card>
     );
   }

@@ -29,7 +29,7 @@ const Footer = (props) => {
           component="a" href="https://twitter.com/" 
         />
       </BottomNavigation>
-      <p className={classes.trademark}>© 2019 Katrina da Queen </p>
+      <p className={classes.trademark}>© 2019 ShopYourLinks </p>
     </div>
   )
 }

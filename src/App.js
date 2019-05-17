@@ -13,7 +13,6 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <NavBar />
         <Footer />
         
         <Route path="/example" component={Example} />
