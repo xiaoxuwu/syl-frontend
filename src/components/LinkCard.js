@@ -29,10 +29,8 @@ class LinkCard extends Component {
     window.open(this.state.URL);
     // this.setState({count: this.state.count+1});
     var apiEndpoint = '/api/events/';
-    var currentTime = new Date();
-    var eventData = { link: this.state.link_id};
-    console.log(this.state.link_id);
-    axios.post(apiEndpoint, eventData).then(console.log(currentTime)).catch(err => console.log(err.response));
+    var eventData = 'link=' + this.state.link_id;
+    axios.post(apiEndpoint, eventData).catch(err => console.log(err));
   }
 
   render() {
