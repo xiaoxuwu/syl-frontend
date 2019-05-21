@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import SylSnackBar from './SylSnackBar';
 import LoginStyles from '../styles/Login'
-import {authenticate, setToken, isAuthenticated} from './AuthService'
+import {authenticate, setToken} from './AuthService'
 
 
 class Login extends Component {
@@ -23,7 +23,6 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
-      loggedIn: false,
       errMsg: "",
     };
   }
@@ -49,6 +48,7 @@ class Login extends Component {
         // store token on success
         console.log(res)
         setToken(res)
+        this.props.setLoginCallback(true)
       })
       .catch(err => {
         console.log(err.response);
@@ -61,23 +61,23 @@ class Login extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, getLoginCallback } = this.props;
 
-    if (isAuthenticated()) {
+    if (getLoginCallback()) {
+      console.log("redirect")
       return <Redirect to='/' />
     }
 
-    let errorBanner
-
+    let errorSnackBar
     if (this.state.errMsg !== '') {
-      errorBanner = <SylSnackBar
+      errorSnackBar = <SylSnackBar
         onClose={this.handleSnackClose}
         variant="warning"
         className={classes.margin}
         message={this.state.errMsg}
       />
     } else {
-      errorBanner = null
+      errorSnackBar = null
     }
 
 
@@ -91,7 +91,7 @@ class Login extends Component {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          {errorBanner}
+          {errorSnackBar}
           <form className={classes.form} onSubmit={this.handleSubmit}>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="username">Username</InputLabel>

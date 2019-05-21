@@ -5,14 +5,18 @@ export function authenticate(credentials) {
 }
 
 export function isAuthenticated() {
-    console.log(localStorage.getItem('token'))
-    return localStorage.getItem('token') !== ''
+    var token = localStorage.getItem('token')
+    if (token !== undefined) {
+        return token !== ''
+    } else {
+        return false
+    }
 }
 
 export function setToken(res) {
     localStorage.setItem('token', res.data.token);
 }
 
-export function logout() {
+export function removeToken() {
     localStorage.setItem('token', '')
 }
