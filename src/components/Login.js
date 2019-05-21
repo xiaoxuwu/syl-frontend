@@ -5,8 +5,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -15,10 +13,10 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import axios from './AxiosClient';
 
-import LoginStyles from '../styles/LogIn.js'
+import LoginStyles from '../styles/Login'
 
 
-class LogIn extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -89,10 +87,6 @@ class LogIn extends Component {
                 onChange={this.handleChange}
               />
             </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               type="submit"
               fullWidth
@@ -109,8 +103,8 @@ class LogIn extends Component {
   }
 }
 
-LogIn.propTypes = {
+Login.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(LoginStyles)(LogIn);
+export default withStyles(LoginStyles)(Login);
