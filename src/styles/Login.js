@@ -1,4 +1,9 @@
 const LoginStyles = theme => ({
+  '@global': {
+    body: {
+      backgroundColor: theme.palette.common.white,
+    }
+  },
   main: {
     width: 'auto',
     display: 'block', // Fix IE 11 issue.
@@ -19,7 +24,6 @@ const LoginStyles = theme => ({
   },
   avatar: {
     margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.

@@ -6,6 +6,8 @@ const NavBarStyles = theme => ({
   },
   appBar: {
     position: 'relative',
+    boxShadow: 'none',
+    backgroundColor: theme.palette.common.white,
   },
   toolbarTitle: {
     flex: 1,

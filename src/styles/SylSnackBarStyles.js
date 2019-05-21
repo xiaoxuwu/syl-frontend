@@ -3,12 +3,15 @@ import amber from '@material-ui/core/colors/amber';
 
 const SnackBarStyles = theme => ({
     success: {
+        marginTop: 20,
         backgroundColor: green[600],
     },
     error: {
+        marginTop: 20,
         backgroundColor: theme.palette.error.dark,
     },
     info: {
+        marginTop: 20,
         backgroundColor: theme.palette.primary.dark,
     },
     warning: {
