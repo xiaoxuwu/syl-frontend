@@ -11,9 +11,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import axios from './AxiosClient';
-
+import SylSnackBar from './SylSnackBar';
 import LoginStyles from '../styles/Login'
+import {authenticate, setToken, isAuthenticated} from './AuthService'
 
 
 class Login extends Component {
@@ -23,9 +23,18 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
-      loggedIn: false
+      loggedIn: false,
+      errMsg: "",
     };
   }
+
+  handleSnackClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ errMsg: "" });
+  };
 
   handleChange = event => {
     this.setState({
@@ -35,25 +44,42 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    axios.post('/auth/', this.state)
-      .then(result => {
+    authenticate(this.state)
+      .then(res => {
         // store token on success
-        localStorage.setItem('token', result.data.token);
-        this.setState(() => ({
-          loggedIn: true
-        }))
+        console.log(res)
+        setToken(res)
       })
       .catch(err => {
         console.log(err.response);
+        if (err.response.status === 400) {
+          this.setState(() => ({
+            errMsg: "Wrong username or password."
+          }))
+        }
       });
   }
 
   render() {
     const { classes } = this.props;
 
-    if (this.state.loggedIn === true) {
+    if (isAuthenticated()) {
       return <Redirect to='/' />
     }
+
+    let errorBanner
+
+    if (this.state.errMsg !== '') {
+      errorBanner = <SylSnackBar
+        onClose={this.handleSnackClose}
+        variant="warning"
+        className={classes.margin}
+        message={this.state.errMsg}
+      />
+    } else {
+      errorBanner = null
+    }
+
 
     return (
       <main className={classes.main}>
@@ -65,6 +91,7 @@ class Login extends Component {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
+          {errorBanner}
           <form className={classes.form} onSubmit={this.handleSubmit}>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="username">Username</InputLabel>
