@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button'
 import Toolbar from '@material-ui/core/Toolbar'
 import { withStyles } from '@material-ui/core/styles'
 import NavBarStyles from '../styles/NavBar.js'
-import { injectLogo } from './Injectors'
+import { injectLogo } from './SVGInjectors'
 
 class NavBar extends Component {
 
@@ -30,9 +30,9 @@ class NavBar extends Component {
       <div>
       <AppBar position="static" color="default" className={classes.appBar}>
         <Toolbar>
-          <div className={classes.logo}>
+          <span className={classes.logo}>
             {injectLogo()}
-          </div>
+          </span>
           <div className={classes.grow} />
           <Button href="/">Home</Button>
           {getLoginCallback() ? <Button component={Link} to="/dashboard">Dashboard</Button> : null }
