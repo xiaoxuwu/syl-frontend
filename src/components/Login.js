@@ -46,12 +46,10 @@ class Login extends Component {
     authenticate(this.state)
       .then(res => {
         // store token on success
-        console.log(res)
         setToken(res)
         this.props.setLoginCallback(true)
       })
       .catch(err => {
-        console.log(err.response);
         if (err.response.status === 400) {
           this.setState(() => ({
             errMsg: "Wrong username or password."
@@ -64,7 +62,6 @@ class Login extends Component {
     const { classes, getLoginCallback } = this.props;
 
     if (getLoginCallback()) {
-      console.log("redirect")
       return <Redirect to='/' />
     }
 
