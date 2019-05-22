@@ -18,6 +18,9 @@ const NavBarStyles = theme => ({
   logo: {
     width: '175px',
     paddingTop: '10px'
+  },
+  navlink: {
+    marginRight: '10px',
   }
 });
 

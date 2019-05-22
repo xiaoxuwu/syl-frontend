@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Switch, BrowserRouter as Router, Route } from 'react-router-dom'
 
-import NavBar from './components/NavBar.js';
-import Dashboard from './components/Dashboard.js';
+import NavBar from './components/NavBar';
+import Home from './components/Home';
+import Dashboard from './components/Dashboard';
+import NotFound from './components/NotFound'
 import Login from './components/Login';
 import Logout from './components/Logout';
-import { isAuthenticated } from './components/AuthService.js';
+import { isAuthenticated } from './components/AuthService';
 
 class App extends Component {
   constructor(props) {
@@ -31,10 +33,14 @@ class App extends Component {
     return (
       <Router>
         <NavBar getLoginCallback={this.getLoggedIn} />
+        <Switch>
+        <Route exact path="/" component={Home} />
         {this.getLoggedIn() ? <Route path="/dashboard" component={Dashboard} /> : null}
-        <Route path="/login" render={() => <Login setLoginCallback={this.setLoggedIn} 
+        <Route exact path="/login" render={() => <Login setLoginCallback={this.setLoggedIn} 
                                                   getLoginCallback={this.getLoggedIn}></Login>} />
-        <Route path="/logout" render={() => <Logout setLoginCallback={this.setLoggedIn}></Logout>} />
+        <Route exact path="/logout" render={() => <Logout setLoginCallback={this.setLoggedIn}></Logout>} />
+        <Route path="" component={NotFound} />
+        </Switch>
       </Router>
     )
   }
