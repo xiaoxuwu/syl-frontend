@@ -22,11 +22,11 @@ class NavBar extends Component {
     } else {
       authButton = 
         <Button component={Link} to="/logout" color="primary" variant="outlined">
-            Logout
+          Logout
         </Button>
     }
 
-    return(
+    return (
       <div>
       <AppBar position="static" color="default" className={classes.appBar}>
         <Toolbar>

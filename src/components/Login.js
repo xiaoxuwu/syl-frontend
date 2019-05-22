@@ -31,7 +31,7 @@ class Login extends Component {
     if (reason === 'clickaway') {
       return;
     }
-
+    // if errMsg != "", we display errMsg in output
     this.setState({ errMsg: "" });
   };
 
@@ -61,11 +61,12 @@ class Login extends Component {
   render() {
     const { classes, getLoginCallback } = this.props;
 
+    // if already logged in, redirect to home
     if (getLoginCallback()) {
       return <Redirect to='/' />
     }
 
-    let errorSnackBar
+    let errorSnackBar = null
     if (this.state.errMsg !== '') {
       errorSnackBar = <SylSnackBar
         onClose={this.handleSnackClose}
@@ -73,10 +74,7 @@ class Login extends Component {
         className={classes.margin}
         message={this.state.errMsg}
       />
-    } else {
-      errorSnackBar = null
     }
-
 
     return (
       <main className={classes.main}>

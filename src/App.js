@@ -10,8 +10,10 @@ import { isAuthenticated } from './components/AuthService.js';
 class App extends Component {
   constructor(props) {
     super(props);
+    // bind callbacks for setting auth status
     this.setLoggedIn = this.setLoggedIn.bind(this);
     this.getLoggedIn = this.getLoggedIn.bind(this);
+    // global state, which may be propgated to children
     this.state = {
       loggedIn: isAuthenticated()
     }
