@@ -12,19 +12,13 @@ class NavBar extends Component {
   render() {
     const { classes, getLoginCallback } = this.props;
 
-    let authButton
-    // change loging/logout button depending on auth state
-    if (!getLoginCallback()) {
-      authButton = 
-        <Button component={Link} to="/login" color="primary" variant="outlined">
-          Login
+    let loggedIn = getLoginCallback()
+    let url = loggedIn ? "/logout" : "/login"
+    let text = loggedIn ? "Logout" : "Login"
+    let authButton = 
+        <Button component={Link} to={url} color="primary" variant="outlined">
+          {text}
         </Button>
-    } else {
-      authButton = 
-        <Button component={Link} to="/logout" color="primary" variant="outlined">
-          Logout
-        </Button>
-    }
 
     return (
       <div>
@@ -35,7 +29,7 @@ class NavBar extends Component {
           </span>
           <div className={classes.grow} />
           <Button href="/">Home</Button>
-          {getLoginCallback() ? <Button component={Link} to="/dashboard">Dashboard</Button> : null }
+          {loggedIn ? <Button component={Link} to="/dashboard">Dashboard</Button> : null }
           {authButton}
         </Toolbar>
       </AppBar>
