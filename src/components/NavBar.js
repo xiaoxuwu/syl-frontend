@@ -1,12 +1,11 @@
-import React, { Component }from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-
 import AppBar from '@material-ui/core/AppBar'
 import Button from '@material-ui/core/Button'
 import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import NavBarStyles from '../styles/NavBar.js'
+import { injectLogo } from './Injectors'
 
 class NavBar extends Component {
 
@@ -14,6 +13,7 @@ class NavBar extends Component {
     const { classes, getLoginCallback } = this.props;
 
     let authButton
+    // change loging/logout button depending on auth state
     if (!getLoginCallback()) {
       authButton = 
         <Button component={Link} to="/login" color="primary" variant="outlined">
@@ -30,9 +30,10 @@ class NavBar extends Component {
       <div>
       <AppBar position="static" color="default" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-            SYL NavBar
-          </Typography>
+          <div className={classes.logo}>
+            {injectLogo()}
+          </div>
+          <div className={classes.grow} />
           <Button href="/">Home</Button>
           {getLoginCallback() ? <Button component={Link} to="/dashboard">Dashboard</Button> : null }
           {authButton}

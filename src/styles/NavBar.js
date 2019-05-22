@@ -11,6 +11,13 @@ const NavBarStyles = theme => ({
   },
   toolbarTitle: {
     flex: 1,
+  }, 
+  grow: {
+    flexGrow: 1,
+  },
+  logo: {
+    width: '175px',
+    paddingTop: '10px'
   }
 });
 
