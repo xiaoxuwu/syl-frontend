@@ -40,9 +40,9 @@ class App extends Component {
         <Route exact path="/login" render={() => <Login setLoginCallback={this.setLoggedIn} 
                                                   getLoginCallback={this.getLoggedIn}></Login>} />
         <Route exact path="/logout" render={() => <Logout setLoginCallback={this.setLoggedIn}></Logout>} />
+        <Route path="/links/:username" component={Links} />
         <Route path="" component={NotFound} />
         </Switch>
-        <Route path="/links/:username" component={Links} />
       </Router>
     )
   }
