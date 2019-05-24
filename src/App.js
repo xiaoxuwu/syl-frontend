@@ -8,6 +8,7 @@ import NotFound from './components/NotFound'
 import Login from './components/auth/Login';
 import Logout from './components/auth/Logout';
 import { isAuthenticated } from './components/auth/AuthService';
+import Links from './components/Links.js';
 
 class App extends Component {
   constructor(props) {
@@ -41,6 +42,7 @@ class App extends Component {
         <Route exact path="/logout" render={() => <Logout setLoginCallback={this.setLoggedIn}></Logout>} />
         <Route path="" component={NotFound} />
         </Switch>
+        <Route path="/links/:username" component={Links} />
       </Router>
     )
   }
