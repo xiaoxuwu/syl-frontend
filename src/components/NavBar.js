@@ -13,7 +13,7 @@ class NavBar extends Component {
     const { classes, getLoginCallback } = this.props;
 
     let loggedIn = getLoginCallback()
-    let url = loggedIn ? "/logout" : "/login"
+    let url = loggedIn ? "/influencer/logout" : "/influencer/login"
     let text = loggedIn ? "Logout" : "Login"
     let authButton = 
         <Button component={Link} to={url} color="primary" variant="outlined">
@@ -29,7 +29,7 @@ class NavBar extends Component {
           </span>
           <div className={classes.grow} />
           <Button className={classes.navlink} href="/">Home</Button>
-          {loggedIn ? <Button component={Link} className={classes.navlink} to="/dashboard">Dashboard</Button> : null }
+          {loggedIn ? <Button component={Link} className={classes.navlink} to="/influencer/dashboard/">Dashboard</Button> : null }
           {authButton}
         </Toolbar>
       </AppBar>

@@ -33,17 +33,15 @@ class App extends Component {
   render() {
     return (
       <Router>
+        <Route path="/influencer/*" render={() => <NavBar getLoginCallback={this.getLoggedIn} />} />
         <Switch>
-        <Route exact path="/links/:username" component={Links} />
-        <Route path="/" render={() => <NavBar getLoginCallback={this.getLoggedIn} />} />
-        </Switch>
-        <Switch>
-        <Route exact path="/" component={Home} />
-        {this.getLoggedIn() ? <Route path="/dashboard" component={Dashboard} /> : null}
-        <Route exact path="/login" render={() => <Login setLoginCallback={this.setLoggedIn} 
-                                                  getLoginCallback={this.getLoggedIn}></Login>} />
-        <Route exact path="/logout" render={() => <Logout setLoginCallback={this.setLoggedIn}></Logout>} />
-        <Route exact path="" component={NotFound} />
+          <Route exact path="/influencer/" component={Home} />
+          {this.getLoggedIn() ? <Route exact path="/influencer/dashboard/" component={Dashboard} /> : null}
+          <Route exact path="/influencer/login" render={() => <Login setLoginCallback={this.setLoggedIn} 
+                                                    getLoginCallback={this.getLoggedIn}></Login>} />
+          <Route exact path="/influencer/logout" render={() => <Logout setLoginCallback={this.setLoggedIn}></Logout>} />
+          <Route exact path="/links/:username" component={Links} />
+          <NotFound default />
         </Switch>
       </Router>
     )
