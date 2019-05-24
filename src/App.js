@@ -5,9 +5,9 @@ import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 import NotFound from './components/NotFound'
-import Login from './components/Login';
-import Logout from './components/Logout';
-import { isAuthenticated } from './components/AuthService';
+import Login from './components/auth/Login';
+import Logout from './components/auth/Logout';
+import { isAuthenticated } from './components/auth/AuthService';
 
 class App extends Component {
   constructor(props) {
