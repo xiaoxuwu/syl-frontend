@@ -9,7 +9,6 @@ import { injectLogo } from './SVGInjectors'
 
 class NavBar extends Component {
 
-<<<<<<< HEAD
   render() {
     const { classes, getLoginCallback } = this.props;
 
@@ -19,21 +18,6 @@ class NavBar extends Component {
     let authButton = 
         <Button component={Link} to={url} color="primary" variant="outlined">
           {text}
-=======
-  return(
-    <div>
-    <AppBar position="static" color="default" className={classes.appBar}>
-      <Toolbar>
-        <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-          SYL NavBar
-        </Typography>
-        <Button href="/">Home</Button>
-        <Button component={Link} to="/get">Get</Button>
-        <Button component={Link} to="/links">Links</Button>
-        <Button component={Link} to="/dashboard">Dashboard</Button>
-        <Button component={Link} to="/login" color="primary" variant="outlined">
-          Login
->>>>>>> Yun-Link-List
         </Button>
 
     return (
