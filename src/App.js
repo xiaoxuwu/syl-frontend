@@ -35,11 +35,11 @@ class App extends Component {
       <Router>
         <NavBar getLoginCallback={this.getLoggedIn} />
         <Switch>
-        <Route exact path="/" component={Home} />
+        <Route path="/" component={Home} />
         {this.getLoggedIn() ? <Route path="/dashboard" component={Dashboard} /> : null}
-        <Route exact path="/login" render={() => <Login setLoginCallback={this.setLoggedIn} 
+        <Route path="/login" render={() => <Login setLoginCallback={this.setLoggedIn} 
                                                   getLoginCallback={this.getLoggedIn}></Login>} />
-        <Route exact path="/logout" render={() => <Logout setLoginCallback={this.setLoggedIn}></Logout>} />
+        <Route path="/logout" render={() => <Logout setLoginCallback={this.setLoggedIn}></Logout>} />
         <Route path="/links/:username" component={Links} />
         <Route path="" component={NotFound} />
         </Switch>
