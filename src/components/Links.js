@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
 import axios from './AxiosClient';
 
 import { withStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import AppBar from '@material-ui/core/AppBar'
-import Button from '@material-ui/core/Button'
-import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography';
 
 import ListStyles from '../styles/Links.js';
@@ -26,7 +20,7 @@ class Links extends Component {
       baseURL: process.env.REACT_APP_API_URL 
     };
     this.state.pCol = 12;
-    this.state.dCol = 6;
+    this.state.dCol = 12;
   }
 
   // Called when component has been initialized
@@ -76,19 +70,17 @@ class Links extends Component {
     return (
 
         <div className={classes.content}>
-          <Typography variant="display3" component="h2" align="center">
-            Welcome to {user}'s Page
+          <Typography variant="display3" component="h2">
+            @{user}
           </Typography>
-          <div className={classes.list}>
-            <Grid container spacing={16}>
-              {links.map(linkCard =>
-                <Grid item xs={this.state.pCol} md={this.state.dCol}>
-                  {linkCard}
-                </Grid>
-                )  
-              }
-            </Grid>
-          </div>
+          <Grid container spacing={16} md="6" className={classes.list}>
+            {links.map(linkCard =>
+              <Grid item xs={this.state.pCol} md={this.state.dCol} lg={this.state.dCol}>
+                {linkCard}
+              </Grid>
+              )  
+            }
+          </Grid>
         </div>
     );
   }
