@@ -1,25 +1,48 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Switch, BrowserRouter as Router, Route } from 'react-router-dom'
 
-import NavBar from './components/NavBar.js';
-import Footer from './components/Footer.js';
-import Example from './components/Example.js';
-import ExampleGet from './components/ExampleGet.js';
-import Dashboard from './components/Dashboard.js';
-import Login from './components/Login.js';
+import NavBar from './components/NavBar';
+import Home from './components/Home';
+import Dashboard from './components/Dashboard';
+import NotFound from './components/NotFound'
+import Login from './components/auth/Login';
+import Logout from './components/auth/Logout';
+import { isAuthenticated } from './components/auth/AuthService';
 import Links from './components/Links.js';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    // bind callbacks for setting auth status
+    this.setLoggedIn = this.setLoggedIn.bind(this);
+    this.getLoggedIn = this.getLoggedIn.bind(this);
+    // global state, which may be propgated to children
+    this.state = {
+      loggedIn: isAuthenticated()
+    }
+  }
+
+  setLoggedIn(state) {
+    this.setState({loggedIn: state })
+  }
+
+  getLoggedIn() {
+    return this.state.loggedIn
+  }
+
   render() {
     return (
       <Router>
-        <Footer />
-        
-        <Route path="/example" component={Example} />
-        <Route path="/get" component={ExampleGet} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/login" component={Login} />
-        <Route path="/links/:username" component={Links} />
+        <Route path="/influencer/*" render={() => <NavBar getLoginCallback={this.getLoggedIn} />} />
+        <Switch>
+          <Route exact path="/influencer/" component={Home} />
+          {this.getLoggedIn() ? <Route exact path="/influencer/dashboard/" component={Dashboard} /> : null}
+          <Route exact path="/influencer/login" render={() => <Login setLoginCallback={this.setLoggedIn} 
+                                                    getLoginCallback={this.getLoggedIn}></Login>} />
+          <Route exact path="/influencer/logout" render={() => <Logout setLoginCallback={this.setLoggedIn}></Logout>} />
+          <Route exact path="/links/:username" component={Links} />
+          <NotFound default />
+        </Switch>
       </Router>
     )
   }

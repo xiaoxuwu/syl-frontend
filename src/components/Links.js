@@ -74,17 +74,7 @@ class Links extends Component {
     var user = this.state.username;
 
     return (
-      <div>
-        <AppBar position="static" color="default" className={classes.appBar}>
-          <Toolbar>
-            <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-              SYL NavBar
-            </Typography>
-            <Button component={Link} to="/login" color="primary" variant="outlined">
-              Login
-            </Button>
-          </Toolbar>
-        </AppBar>
+
         <div className={classes.content}>
           <Typography variant="display3" component="h2" align="center">
             Welcome to {user}'s Page
@@ -100,7 +90,6 @@ class Links extends Component {
             </Grid>
           </div>
         </div>
-      </div>
     );
   }
 }
