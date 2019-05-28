@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom'
-
 import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
@@ -9,6 +8,7 @@ import Login from './components/auth/Login';
 import Logout from './components/auth/Logout';
 import { isAuthenticated } from './components/auth/AuthService';
 import Links from './components/Links.js';
+import CreateAccount from './components/CreateAccount';
 
 class App extends Component {
   constructor(props) {
@@ -37,10 +37,13 @@ class App extends Component {
         <Switch>
           <Route exact path="/influencer/" component={Home} />
           {this.getLoggedIn() ? <Route exact path="/influencer/dashboard/" component={Dashboard} /> : null}
-          <Route exact path="/influencer/login" render={() => <Login setLoginCallback={this.setLoggedIn} 
+          <Route exact path="/influencer/login" render={() => <Login setLoginCallback={this.setLoggedIn}
                                                     getLoginCallback={this.getLoggedIn}></Login>} />
           <Route exact path="/influencer/logout" render={() => <Logout setLoginCallback={this.setLoggedIn}></Logout>} />
           <Route exact path="/links/:username" component={Links} />
+          <Route exact path="/influencer/create_account" render={(props) => <CreateAccount {...props} setLoginCallback={this.setLoggedIn}
+                                                    getLoginCallback={this.getLoggedIn}
+                                                    ></CreateAccount>} />
           <NotFound default />
         </Switch>
       </Router>
