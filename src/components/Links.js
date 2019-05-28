@@ -50,6 +50,8 @@ class Links extends Component {
         this.setState({ 
           links: links,
         });
+
+        console.log(links);
       })
       .catch(err => console.log(err));
   }
@@ -72,7 +74,8 @@ class Links extends Component {
     var links = this.state.links
       .sort((a,b) => (a.order > b.order) ? 1 : -1)
       .map(link => {
-        var IMG = this.state.baseURL + '/' + link.media_prefix + link.image;
+        var IMG = link.image? this.state.baseURL + '/' + link.media_prefix + link.image : null;
+        console.log(IMG);
         return <LinkCard 
           key={link.id}
           link_id={link.id} 

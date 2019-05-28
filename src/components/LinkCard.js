@@ -34,16 +34,25 @@ class LinkCard extends Component {
     const { classes } = this.props;
     return(
     	<Card className={classes.card}>
-        <CardMedia
-          className={classes.media}
-          image={this.state.IMG}
-        />
-    		<CardActionArea onClick={this.handleClick}>
-    			<CardContent>
-    				<Typography gutterBottom variant="h5" component="h2">
-    					{this.state.title}
-    				</Typography>
-    			</CardContent>
+        {this.state.IMG ?
+          <CardMedia
+            className={classes.media}
+            image={this.state.IMG}
+          /> 
+          : null
+        }
+    		<CardActionArea onClick={this.handleClick}> 
+          <CardContent>
+            {this.state.IMG ? 
+      				<Typography gutterBottom variant="h5" component="h2">
+      					{this.state.title}
+      				</Typography> 
+              : 
+              <Typography gutterBottom variant="h5" component="h2" align='center'>
+                {this.state.title}
+              </Typography>
+            }
+          </CardContent>
     		</CardActionArea>
     	</Card>
     );
