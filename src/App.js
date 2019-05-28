@@ -9,7 +9,10 @@ import Logout from './components/auth/Logout';
 import { isAuthenticated } from './components/auth/AuthService';
 import Links from './components/Links.js';
 import CreateAccount from './components/CreateAccount';
+<<<<<<< HEAD
 import { loadCSS } from 'fg-loadcss';
+=======
+>>>>>>> Instagram redirect stuff
 
 class App extends Component {
   constructor(props) {

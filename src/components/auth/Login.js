@@ -134,9 +134,15 @@ class Login extends Component {
             onClick={this.redirectToIG}
             fullWidth
             variant="contained"
+<<<<<<< HEAD
             className={classes.submit}
           >
             <Icon className={clsx(classes.icon, classes.mr, 'fab fa-instagram')} />
+=======
+            color="primary"
+            className={classes.submit}
+          >
+>>>>>>> Instagram redirect stuff
             Connect with Instagram
           </Button>
         </Paper>
