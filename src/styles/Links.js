@@ -1,7 +1,8 @@
 const ListStyles = theme => ({
   content: {
-  	margin: '25px 25px 80px 25px',
     textAlign: 'center',
+    padding: '25px 25px 25px 25px',
+    minHeight: '100vh',
   },
   list: {
     display: 'inline-flex',

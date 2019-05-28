@@ -85,8 +85,14 @@ class Links extends Component {
     var profile_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.profile_img;
     var background_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.background_img;
 
+    const background = {
+      backgroundImage: `url(${background_pic})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+    };
+
     return (
-        <div className={classes.content}>
+        <div style={background} className={classes.content} >
           <img
             src={profile_pic}
             className={classes.media}
