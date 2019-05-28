@@ -50,6 +50,7 @@ class Links extends Component {
         });
 
         console.log(links);
+<<<<<<< HEAD
       })
       .catch(err => console.log(err));
   }
@@ -63,6 +64,8 @@ class Links extends Component {
         this.setState({ 
           userPref: users,
         });
+=======
+>>>>>>> circle profile pic and center title if no image provided
       })
       .catch(err => console.log(err));
   }
