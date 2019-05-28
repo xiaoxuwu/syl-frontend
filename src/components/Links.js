@@ -67,6 +67,19 @@ class Links extends Component {
       .catch(err => console.log(err));
   }
 
+  getPreferences = () => {
+    var apiEndpoint = '/api/preferences/?username=' + this.state.username;
+    axios.get(apiEndpoint, {})
+      .then(result => {
+        let users = result.data;
+
+        this.setState({ 
+          userPref: users,
+        });
+      })
+      .catch(err => console.log(err));
+  }
+
   render() {
     const { classes } = this.props;
     var links = this.state.links
@@ -86,7 +99,6 @@ class Links extends Component {
     var userPref = this.state.userPref;
     var profile_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.profile_img;
     var background_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.background_img;
-
 
     const background = userPref.background_img ? {
       backgroundImage: `url(${background_pic})`,
