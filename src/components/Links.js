@@ -16,6 +16,7 @@ class Links extends Component {
       pCol: '', 
       dCol: '', 
       links: [],
+      userPref: {},
       username: this.props.match.params.username,
       baseURL: process.env.REACT_APP_API_URL 
     };
@@ -26,6 +27,7 @@ class Links extends Component {
   // Called when component has been initialized
   componentDidMount() {
     this.getLinks();
+    this.getPreferences();
   }
 
   // Call GET function for links
@@ -52,6 +54,19 @@ class Links extends Component {
       .catch(err => console.log(err));
   }
 
+  getPreferences = () => {
+    var apiEndpoint = '/api/preferences/?username=' + this.state.username;
+    axios.get(apiEndpoint, {})
+      .then(result => {
+        let users = result.data;
+
+        this.setState({ 
+          userPref: users,
+        });
+      })
+      .catch(err => console.log(err));
+  }
+
   render() {
     const { classes } = this.props;
     var links = this.state.links
@@ -66,11 +81,17 @@ class Links extends Component {
           title={link.text}  />
     });
     var user = this.state.username;
+    var userPref = this.state.userPref;
+    var profile_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.profile_img;
+    var background_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.background_img;
 
     return (
-
         <div className={classes.content}>
-          <Typography variant="display3" component="h2">
+          <img
+            src={profile_pic}
+            className={classes.media}
+          />
+          <Typography variant="h4" component="h4">
             @{user}
           </Typography>
           <Grid container spacing={16} md="6" className={classes.list}>
