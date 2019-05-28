@@ -20,3 +20,8 @@ export function setToken(res) {
 export function removeToken() {
     localStorage.setItem('token', '')
 }
+
+export function createUser(credentials) {
+  axios.post('/users/create_account', credentials)
+  return authenticate(credentials)
+}

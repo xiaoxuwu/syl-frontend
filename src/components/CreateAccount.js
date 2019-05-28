@@ -1,5 +1,6 @@
+import axios from './AxiosClient';
 import React, { Component } from 'react';
-import { Redirect } from 'react-router';
+import { Redirect } from 'react-router'
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -11,20 +12,44 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import SylSnackBar from '../SylSnackBar';
-import LoginStyles from '../../styles/Login'
-import {authenticate, setToken} from './AuthService'
+import SylSnackBar from './SylSnackBar';
+import LoginStyles from '../styles/Login'
+import {setToken, createUser} from './auth/AuthService'
 
 
-class Login extends Component {
+class CreateAccount extends Component {
   constructor(props) {
     super(props);
-
+    const params = new URLSearchParams(props.location.search);
     this.state = {
+      code: params.get('code'),
       username: "",
       password: "",
-      errMsg: "",
+      errMsg: ""
     };
+  }
+
+  getIGUsername(state) {
+    let config = {
+      params: {
+        code: state['code']
+      },
+    }
+    var resp = axios.get('/api/users/ig_response', config)
+    console.log(resp)
+    return resp.json()['user']['username']
+  }
+
+  componentDidMount() {
+    this.getIGUsername(this.state)
+      .then(res => {
+        document.getElementById('username').value = res
+      })
+      .catch(err => {
+        this.setState(() => ({
+          errMsg: "Problem authenticating with Instagram."
+        }))
+      });
   }
 
   handleSnackClose = (event, reason) => {
@@ -43,7 +68,7 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    authenticate(this.state)
+    createUser(this.state)
       .then(res => {
         // store token on success
         setToken(res)
@@ -52,16 +77,10 @@ class Login extends Component {
       .catch(err => {
         if (err.response.status === 400) {
           this.setState(() => ({
-            errMsg: "Wrong username or password."
+            errMsg: "Problem authenticating with Instagram."
           }))
         }
       });
-  }
-
-  redirectToIG = event => {
-    let client_id = 'f296ed176092447582392cbec8f2d914'
-    let redirect_uri = 'http://localhost:3000/influencer/create_account'
-    window.location.href = `https://api.instagram.com/oauth/authorize/?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code`
   }
 
   render() {
@@ -73,6 +92,7 @@ class Login extends Component {
     }
 
     let errorSnackBar = null
+    console.log(this.state.errMsg)
     if (this.state.errMsg !== '') {
       errorSnackBar = <SylSnackBar
         onClose={this.handleSnackClose}
@@ -90,7 +110,7 @@ class Login extends Component {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign up
           </Typography>
           {errorSnackBar}
           <form className={classes.form} onSubmit={this.handleSubmit}>
@@ -100,8 +120,8 @@ class Login extends Component {
                 id="username"
                 name="username_syl"
                 autoComplete="username"
+                disabled
                 value={this.state.username}
-                onChange={this.handleChange}
                 autoFocus />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
@@ -122,26 +142,17 @@ class Login extends Component {
               color="primary"
               className={classes.submit}
             >
-              Sign in
+              Sign up
             </Button>
           </form>
-          <Button
-            onClick={this.redirectToIG}
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Connect with Instagram
-          </Button>
         </Paper>
       </main>
     );
   }
 }
 
-Login.propTypes = {
+CreateAccount.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(LoginStyles)(Login);
+export default withStyles(LoginStyles)(CreateAccount);
