@@ -99,7 +99,7 @@ class Links extends Component {
     var userPref = this.state.userPref;
     var profile_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.profile_img;
     var background_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.background_img;
-
+    
     const background = userPref.background_img ? {
       backgroundImage: `url(${background_pic})`,
       backgroundRepeat: 'no-repeat',
