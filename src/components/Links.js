@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import ListStyles from '../styles/Links.js';
+import LinksStyles from '../styles/Links.js';
 
 import LinkCard from '../components/LinkCard.js';
 
@@ -117,4 +117,4 @@ class Links extends Component {
   }
 }
 
-export default withStyles(ListStyles)(Links);
+export default withStyles(LinksStyles)(Links);
