@@ -22,6 +22,12 @@ export function removeToken() {
 }
 
 export function createUser(credentials) {
-  axios.post('/users/create_account', credentials)
-  return authenticate(credentials)
+  let config = {
+    token: credentials['ig_token'],
+    username: credentials['username'],
+    password: credentials['password'],
+    name: credentials['name'],
+    profile_img: credentials['profile_img']
+  }
+  return axios.post('/api/users/create_account/', config)
 }
