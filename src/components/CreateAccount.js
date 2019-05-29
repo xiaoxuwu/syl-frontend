@@ -6,23 +6,14 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
-<<<<<<< HEAD
 import TextField from '@material-ui/core/TextField';
-=======
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
->>>>>>> Instagram redirect stuff
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import SylSnackBar from './SylSnackBar';
 import LoginStyles from '../styles/Login'
-<<<<<<< HEAD
 import {setToken, authenticate} from './auth/AuthService'
-=======
-import {setToken, createUser} from './auth/AuthService'
->>>>>>> Instagram redirect stuff
 
 
 class CreateAccount extends Component {
@@ -31,6 +22,7 @@ class CreateAccount extends Component {
     const params = new URLSearchParams(props.location.search);
     this.state = {
       code: params.get('code'),
+<<<<<<< HEAD
 <<<<<<< HEAD
       ig_token: "",
       username: "fetching instagram username...",
@@ -45,19 +37,29 @@ class CreateAccount extends Component {
 
   getIGInfo(state) {
 =======
+=======
+      ig_token: "",
+>>>>>>> Trying to do post request to create account. Authenticate not working
       username: "",
       password: "",
+      profile_img: "",
+      name: "",
       errMsg: ""
     };
   }
 
+<<<<<<< HEAD
   getIGUsername(state) {
 >>>>>>> Instagram redirect stuff
+=======
+  getIGInfo(state) {
+>>>>>>> Trying to do post request to create account. Authenticate not working
     let config = {
       params: {
         code: state['code']
       },
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
     return axios.get('/api/users/ig_response', config)
   }
@@ -82,12 +84,19 @@ class CreateAccount extends Component {
     var resp = axios.get('/api/users/ig_response', config)
     console.log(resp)
     return resp.json()['user']['username']
+=======
+    return axios.get('/api/users/ig_response', config)
+>>>>>>> Trying to do post request to create account. Authenticate not working
   }
 
   componentDidMount() {
-    this.getIGUsername(this.state)
+    this.getIGInfo(this.state)
       .then(res => {
-        document.getElementById('username').value = res
+        this.state.ig_token = res.data['access_token']
+        this.state.username = res.data['user']['username']
+        this.state.profile_img = res.data['user']['profile_picture']
+        this.state.name = res.data['user']['full_name']
+        document.getElementById('username').value = this.state.username
       })
       .catch(err => {
         this.setState(() => ({
@@ -160,10 +169,27 @@ class CreateAccount extends Component {
     return errMsg
 =======
     createUser(this.state)
-      .then(res => {
-        // store token on success
-        setToken(res)
-        this.props.setLoginCallback(true)
+      .then(() => {
+        let auth_config = {
+          username: this.state.username,
+          password: this.state.password,
+          errMsg: this.state.errMsg
+        }
+        console.log(this.state)
+        setTimeout(function(){
+          authenticate(auth_config)
+            .then(res => {
+              setToken(res)
+              this.props.setLoginCallback(true)
+            })
+            .catch(err => {
+              if (err.response.status === 400) {
+                this.setState(() => ({
+                  errMsg: "Problem creating new account."
+                }))
+              }
+            });
+        }, 1000)
       })
       .catch(err => {
         if (err.response.status === 400) {
@@ -247,8 +273,8 @@ class CreateAccount extends Component {
           </Typography>
           {errorSnackBar}
           <form className={classes.form} onSubmit={this.handleSubmit}>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="username">Username</InputLabel>
+            <FormControl margin="normal" fullWidth>
+              <InputLabel htmlFor="username"></InputLabel>
               <Input
                 id="username"
                 name="username_syl"
