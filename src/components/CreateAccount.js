@@ -22,8 +22,6 @@ class CreateAccount extends Component {
     const params = new URLSearchParams(props.location.search);
     this.state = {
       code: params.get('code'),
-<<<<<<< HEAD
-<<<<<<< HEAD
       ig_token: "",
       username: "fetching instagram username...",
       password: "",
@@ -36,31 +34,11 @@ class CreateAccount extends Component {
   }
 
   getIGInfo(state) {
-=======
-=======
-      ig_token: "",
->>>>>>> Trying to do post request to create account. Authenticate not working
-      username: "",
-      password: "",
-      profile_img: "",
-      name: "",
-      errMsg: ""
-    };
-  }
-
-<<<<<<< HEAD
-  getIGUsername(state) {
->>>>>>> Instagram redirect stuff
-=======
-  getIGInfo(state) {
->>>>>>> Trying to do post request to create account. Authenticate not working
     let config = {
       params: {
         code: state['code']
       },
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
     return axios.get('/api/users/ig_response', config)
   }
 
@@ -80,29 +58,6 @@ class CreateAccount extends Component {
           pathname: '/influencer/login',
           state: { errMsg: 'Error talking to Instagram' }
         })
-=======
-    var resp = axios.get('/api/users/ig_response', config)
-    console.log(resp)
-    return resp.json()['user']['username']
-=======
-    return axios.get('/api/users/ig_response', config)
->>>>>>> Trying to do post request to create account. Authenticate not working
-  }
-
-  componentDidMount() {
-    this.getIGInfo(this.state)
-      .then(res => {
-        this.state.ig_token = res.data['access_token']
-        this.state.username = res.data['user']['username']
-        this.state.profile_img = res.data['user']['profile_picture']
-        this.state.name = res.data['user']['full_name']
-        document.getElementById('username').value = this.state.username
-      })
-      .catch(err => {
-        this.setState(() => ({
-          errMsg: "Problem authenticating with Instagram."
-        }))
->>>>>>> Instagram redirect stuff
       });
   }
 
@@ -122,7 +77,6 @@ class CreateAccount extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-<<<<<<< HEAD
     const { username, password, confirm_password } = this.state;
     var errMsg = this.validate(username, password, confirm_password);
     if (errMsg !== "") {
@@ -167,38 +121,6 @@ class CreateAccount extends Component {
     }
     this.setState({errMsg: errMsg})
     return errMsg
-=======
-    createUser(this.state)
-      .then(() => {
-        let auth_config = {
-          username: this.state.username,
-          password: this.state.password,
-          errMsg: this.state.errMsg
-        }
-        console.log(this.state)
-        setTimeout(function(){
-          authenticate(auth_config)
-            .then(res => {
-              setToken(res)
-              this.props.setLoginCallback(true)
-            })
-            .catch(err => {
-              if (err.response.status === 400) {
-                this.setState(() => ({
-                  errMsg: "Problem creating new account."
-                }))
-              }
-            });
-        }, 1000)
-      })
-      .catch(err => {
-        if (err.response.status === 400) {
-          this.setState(() => ({
-            errMsg: "Problem authenticating with Instagram."
-          }))
-        }
-      });
->>>>>>> Instagram redirect stuff
   }
 
   render() {
@@ -210,10 +132,6 @@ class CreateAccount extends Component {
     }
 
     let errorSnackBar = null
-<<<<<<< HEAD
-=======
-    console.log(this.state.errMsg)
->>>>>>> Instagram redirect stuff
     if (this.state.errMsg !== '') {
       errorSnackBar = <SylSnackBar
         onClose={this.handleSnackClose}
@@ -223,7 +141,6 @@ class CreateAccount extends Component {
       />
     }
 
-<<<<<<< HEAD
     let icon = null
     let title = null
     if (this.state.fetchedIGInfoSuccess) {
@@ -246,13 +163,10 @@ class CreateAccount extends Component {
       )
     }
 
-=======
->>>>>>> Instagram redirect stuff
     return (
       <main className={classes.main}>
         <CssBaseline />
         <Paper className={classes.paper}>
-<<<<<<< HEAD
           {icon}
           {title}
           {errorSnackBar}
@@ -264,47 +178,22 @@ class CreateAccount extends Component {
                 label="Username (from Instagram)"
                 autoComplete="username"
                 variant="outlined"
-=======
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-          {errorSnackBar}
-          <form className={classes.form} onSubmit={this.handleSubmit}>
-            <FormControl margin="normal" fullWidth>
-              <InputLabel htmlFor="username"></InputLabel>
-              <Input
-                id="username"
-                name="username_syl"
-                autoComplete="username"
->>>>>>> Instagram redirect stuff
                 disabled
                 value={this.state.username}
                 autoFocus />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
-<<<<<<< HEAD
               <TextField
                 name="password_syl"
                 type="password"
                 label="New Password"
                 id="password"
                 variant="outlined"
-=======
-              <InputLabel htmlFor="password">Password</InputLabel>
-              <Input
-                name="password_syl"
-                type="password"
-                id="password"
->>>>>>> Instagram redirect stuff
                 autoComplete="current-password"
                 value={this.state.password}
                 onChange={this.handleChange}
               />
             </FormControl>
-<<<<<<< HEAD
             <FormControl margin="normal" required fullWidth>
               <TextField
                 name="confirm_password_syl"
@@ -317,8 +206,6 @@ class CreateAccount extends Component {
                 onChange={this.handleChange}
               />
             </FormControl>
-=======
->>>>>>> Instagram redirect stuff
             <Button
               type="submit"
               fullWidth
