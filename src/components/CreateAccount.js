@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import SylSnackBar from './SylSnackBar';
 import LoginStyles from '../styles/Login'
-import {setToken, createUser} from './auth/AuthService'
+import {setToken, createUser, authenticate} from './auth/AuthService'
 
 
 class CreateAccount extends Component {
@@ -23,27 +23,32 @@ class CreateAccount extends Component {
     const params = new URLSearchParams(props.location.search);
     this.state = {
       code: params.get('code'),
+      ig_token: "",
       username: "",
       password: "",
+      profile_img: "",
+      name: "",
       errMsg: ""
     };
   }
 
-  getIGUsername(state) {
+  getIGInfo(state) {
     let config = {
       params: {
         code: state['code']
       },
     }
-    var resp = axios.get('/api/users/ig_response', config)
-    console.log(resp)
-    return resp.json()['user']['username']
+    return axios.get('/api/users/ig_response', config)
   }
 
   componentDidMount() {
-    this.getIGUsername(this.state)
+    this.getIGInfo(this.state)
       .then(res => {
-        document.getElementById('username').value = res
+        this.state.ig_token = res.data['access_token']
+        this.state.username = res.data['user']['username']
+        this.state.profile_img = res.data['user']['profile_picture']
+        this.state.name = res.data['user']['full_name']
+        document.getElementById('username').value = this.state.username
       })
       .catch(err => {
         this.setState(() => ({
@@ -69,10 +74,27 @@ class CreateAccount extends Component {
   handleSubmit = event => {
     event.preventDefault();
     createUser(this.state)
-      .then(res => {
-        // store token on success
-        setToken(res)
-        this.props.setLoginCallback(true)
+      .then(() => {
+        let auth_config = {
+          username: this.state.username,
+          password: this.state.password,
+          errMsg: this.state.errMsg
+        }
+        console.log(this.state)
+        setTimeout(function(){
+          authenticate(auth_config)
+            .then(res => {
+              setToken(res)
+              this.props.setLoginCallback(true)
+            })
+            .catch(err => {
+              if (err.response.status === 400) {
+                this.setState(() => ({
+                  errMsg: "Problem creating new account."
+                }))
+              }
+            });
+        }, 1000)
       })
       .catch(err => {
         if (err.response.status === 400) {
@@ -114,8 +136,8 @@ class CreateAccount extends Component {
           </Typography>
           {errorSnackBar}
           <form className={classes.form} onSubmit={this.handleSubmit}>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="username">Username</InputLabel>
+            <FormControl margin="normal" fullWidth>
+              <InputLabel htmlFor="username"></InputLabel>
               <Input
                 id="username"
                 name="username_syl"
