@@ -20,14 +20,3 @@ export function setToken(res) {
 export function removeToken() {
     localStorage.setItem('token', '')
 }
-
-export function createUser(credentials) {
-  let config = {
-    token: credentials['ig_token'],
-    username: credentials['username'],
-    password: credentials['password'],
-    name: credentials['name'],
-    profile_img: credentials['profile_img']
-  }
-  return axios.post('/api/users/create_account/', config)
-}

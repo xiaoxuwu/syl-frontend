@@ -73,36 +73,35 @@ class CreateAccount extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    createUser(this.state)
-      .then(() => {
-        let auth_config = {
-          username: this.state.username,
-          password: this.state.password,
-          errMsg: this.state.errMsg
-        }
-        console.log(this.state)
-        setTimeout(function(){
-          authenticate(auth_config)
-            .then(res => {
-              setToken(res)
-              this.props.setLoginCallback(true)
-            })
-            .catch(err => {
-              if (err.response.status === 400) {
-                this.setState(() => ({
-                  errMsg: "Problem creating new account."
-                }))
-              }
-            });
-        }, 1000)
-      })
-      .catch(err => {
-        if (err.response.status === 400) {
-          this.setState(() => ({
-            errMsg: "Problem authenticating with Instagram."
-          }))
-        }
-      });
+    let config = {
+      token: this.state.ig_token,
+      username: this.state.username,
+      password: this.state.password,
+      name: this.state.name,
+      profile_img: this.state.profile_img
+    }
+    let auth_config = {
+      username: this.state.username,
+      password: this.state.password,
+      errMsg: this.state.errMsg
+    }
+
+    axios.post('/api/users/create_account/', config)
+    .then((res) => {
+      return authenticate(auth_config)
+    })
+    .then((res) => {
+      setToken(res)
+      this.props.setLoginCallback(true)
+    })
+    .catch((err) => {
+      console.log(err.response)
+      if (err.response.status === 400) {
+        this.setState(() => ({
+          errMsg: err.response.data.details
+        }))
+      }
+    })
   }
 
   render() {
@@ -114,7 +113,6 @@ class CreateAccount extends Component {
     }
 
     let errorSnackBar = null
-    console.log(this.state.errMsg)
     if (this.state.errMsg !== '') {
       errorSnackBar = <SylSnackBar
         onClose={this.handleSnackClose}
