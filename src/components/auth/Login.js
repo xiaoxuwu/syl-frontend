@@ -64,9 +64,8 @@ class Login extends Component {
   }
 
   redirectToIG = event => {
-    let client_id = 'f296ed176092447582392cbec8f2d914'
-    let redirect_uri = 'http://localhost:3000/influencer/create_account'
-    window.location.href = `https://api.instagram.com/oauth/authorize/?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code`
+    const redirect_uri = process.env.REACT_APP_FRONTEND_URL + '/influencer/create_account'
+    window.location.href = `https://api.instagram.com/oauth/authorize/?client_id=${process.env.REACT_APP_CLIENT_ID}&redirect_uri=${redirect_uri}&response_type=code`
   }
 
   render() {
