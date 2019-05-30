@@ -16,15 +16,9 @@ import {authenticate, setToken} from './AuthService'
 import Icon from '@material-ui/core/Icon';
 import clsx from 'clsx';
 
-
 class Login extends Component {
   constructor(props) {
     super(props);
-
-    loadCSS(
-      'https://use.fontawesome.com/releases/v5.8.2/css/all.css',
-      document.querySelector('#font-awesome-css'),
-    );
 
     this.state = {
       username: "",
