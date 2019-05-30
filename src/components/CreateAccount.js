@@ -7,14 +7,13 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import SylSnackBar from './SylSnackBar';
 import LoginStyles from '../styles/Login'
-import {setToken, createUser, authenticate} from './auth/AuthService'
+import {setToken, authenticate} from './auth/AuthService'
 
 
 class CreateAccount extends Component {
@@ -44,17 +43,17 @@ class CreateAccount extends Component {
   componentDidMount() {
     this.getIGInfo(this.state)
       .then(res => {
-        this.state.ig_token = res.data['access_token']
-        this.state.username = res.data['user']['username']
-        this.state.profile_img = res.data['user']['profile_picture']
-        this.state.name = res.data['user']['full_name']
-        document.getElementById('username').value = this.state.username
-      })
+        this.setState({
+        ig_token: res.data['access_token'],
+        username: res.data['user']['username'],
+        profile_img: res.data['user']['profile_picture'],
+        name: res.data['user']['full_name']
+      })})
       .catch(err => {
         console.log(err.response)
-        this.setState(() => ({
-          errMsg: "Problem authenticating with Instagram."
-        }))
+        this.setState({
+          errMsg: "Error talking to Instagram"
+        })
       });
   }
 
