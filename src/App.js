@@ -42,7 +42,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/influencer/" component={Home} />
           {this.getLoggedIn() ? <Route exact path="/influencer/dashboard/" component={Dashboard} /> : null}
-          <Route exact path="/influencer/login" render={() => <Login setLoginCallback={this.setLoggedIn}
+          <Route exact path="/influencer/login" render={(props) => <Login {...props} setLoginCallback={this.setLoggedIn}
                                                     getLoginCallback={this.getLoggedIn}></Login>} />
           <Route exact path="/influencer/logout" render={() => <Logout setLoginCallback={this.setLoggedIn}></Logout>} />
           <Route exact path="/links/:username" component={Links} />

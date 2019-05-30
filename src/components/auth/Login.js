@@ -27,6 +27,9 @@ class Login extends Component {
       password: "",
       errMsg: "",
     };
+    if (this.props.location.state !== undefined && this.props.location.state.errMsg !== '') {
+      this.state.errMsg = this.props.location.state.errMsg
+    }
   }
 
   handleSnackClose = (event, reason) => {

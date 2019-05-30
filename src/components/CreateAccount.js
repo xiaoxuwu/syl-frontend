@@ -25,9 +25,11 @@ class CreateAccount extends Component {
       ig_token: "",
       username: "fetching instagram username...",
       password: "",
+      confirm_password: "",
       profile_img: "",
       name: "",
-      errMsg: ""
+      errMsg: "",
+      errors: []
     };
   }
 
@@ -50,9 +52,9 @@ class CreateAccount extends Component {
         name: res.data['user']['full_name']
       })})
       .catch(err => {
-        console.log(err.response)
-        this.setState({
-          errMsg: "Error talking to Instagram"
+        this.props.history.push({
+          pathname: '/influencer/login',
+          state: { errMsg: 'Error talking to Instagram' }
         })
       });
   }
@@ -73,6 +75,12 @@ class CreateAccount extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    const { username, password, confirm_password } = this.state;
+    const errors = this.validate(username, password, confirm_password);
+    if (errors.length > 0) {
+      this.setState({ errors });
+      return;
+    }
     let config = {
       token: this.state.ig_token,
       username: this.state.username,
@@ -95,17 +103,27 @@ class CreateAccount extends Component {
       this.props.setLoginCallback(true)
     })
     .catch((err) => {
-      console.log(err.response)
-      if (err.response.status === 400) {
-        this.setState(() => ({
-          errMsg: err.response.data.details
-        }))
-      }
+      this.props.history.push({
+        pathname: '/influencer/login',
+        state: { errMsg: err.response.data.details }
+      })
     })
+  }
+
+  validate(username, password, confirm_password) {
+    const errors = [];
+    if (username === "fetching instagram username..." || password === '' || confirm_password === '') {
+      errors.push("All fields must be filled out")
+    }
+    if (password !== confirm_password) {
+      errors.push("Passwords do not match")
+    }
+    return errors
   }
 
   render() {
     const { classes, getLoginCallback } = this.props;
+    const { errors } = this.state;
 
     // if already logged in, redirect to home
     if (getLoginCallback()) {
@@ -134,6 +152,9 @@ class CreateAccount extends Component {
           </Typography>
           {errorSnackBar}
           <form className={classes.form} onSubmit={this.handleSubmit}>
+            {errors.map(error => (
+              <p key={error}>Error: {error}</p>
+            ))}
             <FormControl margin="normal" fullWidth>
               <TextField
                 id="username"
@@ -154,6 +175,18 @@ class CreateAccount extends Component {
                 variant="outlined"
                 autoComplete="current-password"
                 value={this.state.password}
+                onChange={this.handleChange}
+              />
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <TextField
+                name="confirm_password_syl"
+                type="password"
+                label="Confirm Password"
+                id="confirm_password"
+                variant="outlined"
+                autoComplete="current-password"
+                value={this.state.confirm_password}
                 onChange={this.handleChange}
               />
             </FormControl>
