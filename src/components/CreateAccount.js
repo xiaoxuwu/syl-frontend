@@ -35,8 +35,13 @@ class CreateAccount extends Component {
       confirm_password: "",
       profile_img: "",
       name: "",
+<<<<<<< HEAD
       fetchedIGInfoSuccess: false,
       errMsg: "",
+=======
+      errMsg: "",
+      errors: []
+>>>>>>> Add redirect on errors and validation on sign up form
     };
   }
 
@@ -85,9 +90,16 @@ class CreateAccount extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const { username, password, confirm_password } = this.state;
+<<<<<<< HEAD
     var errMsg = this.validate(username, password, confirm_password);
     if (errMsg !== "") {
       return
+=======
+    const errors = this.validate(username, password, confirm_password);
+    if (errors.length > 0) {
+      this.setState({ errors });
+      return;
+>>>>>>> Add redirect on errors and validation on sign up form
     }
     let config = {
       token: this.state.ig_token,
@@ -132,6 +144,7 @@ class CreateAccount extends Component {
 
   render() {
     const { classes, getLoginCallback } = this.props;
+    const { errors } = this.state;
 
     // if already logged in, redirect to home
     if (getLoginCallback()) {
@@ -178,6 +191,9 @@ class CreateAccount extends Component {
           {title}
           {errorSnackBar}
           <form className={classes.form} onSubmit={this.handleSubmit}>
+            {errors.map(error => (
+              <p key={error}>Error: {error}</p>
+            ))}
             <FormControl margin="normal" fullWidth>
               <TextField
                 id="username"
