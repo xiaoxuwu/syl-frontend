@@ -6,7 +6,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
+import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
@@ -24,7 +24,7 @@ class CreateAccount extends Component {
     this.state = {
       code: params.get('code'),
       ig_token: "",
-      username: "",
+      username: "fetching instagram username...",
       password: "",
       profile_img: "",
       name: "",
@@ -51,6 +51,7 @@ class CreateAccount extends Component {
         document.getElementById('username').value = this.state.username
       })
       .catch(err => {
+        console.log(err.response)
         this.setState(() => ({
           errMsg: "Problem authenticating with Instagram."
         }))
@@ -135,21 +136,23 @@ class CreateAccount extends Component {
           {errorSnackBar}
           <form className={classes.form} onSubmit={this.handleSubmit}>
             <FormControl margin="normal" fullWidth>
-              <InputLabel htmlFor="username"></InputLabel>
-              <Input
+              <TextField
                 id="username"
                 name="username_syl"
+                label="Username (from Instagram)"
                 autoComplete="username"
+                variant="outlined"
                 disabled
                 value={this.state.username}
                 autoFocus />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="password">Password</InputLabel>
-              <Input
+              <TextField
                 name="password_syl"
                 type="password"
+                label="New Password"
                 id="password"
+                variant="outlined"
                 autoComplete="current-password"
                 value={this.state.password}
                 onChange={this.handleChange}

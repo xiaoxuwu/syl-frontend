@@ -4,6 +4,9 @@ const LoginStyles = theme => ({
       backgroundColor: theme.palette.common.white,
     }
   },
+  mr: {
+    marginRight: 5
+  },
   main: {
     width: 'auto',
     display: 'block', // Fix IE 11 issue.
