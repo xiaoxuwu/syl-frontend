@@ -15,18 +15,12 @@ import LoginStyles from '../../styles/Login'
 import {authenticate, setToken} from './AuthService'
 import Icon from '@material-ui/core/Icon';
 import clsx from 'clsx';
-import { loadCSS } from 'fg-loadcss';
 import { spacing } from '@material-ui/system';
 
 
 class Login extends Component {
   constructor(props) {
     super(props);
-
-    loadCSS(
-      'https://use.fontawesome.com/releases/v5.8.2/css/all.css',
-      document.querySelector('#font-awesome-css'),
-    );
 
     this.state = {
       username: "",

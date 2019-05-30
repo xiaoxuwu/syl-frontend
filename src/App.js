@@ -9,10 +9,15 @@ import Logout from './components/auth/Logout';
 import { isAuthenticated } from './components/auth/AuthService';
 import Links from './components/Links.js';
 import CreateAccount from './components/CreateAccount';
+import { loadCSS } from 'fg-loadcss';
 
 class App extends Component {
   constructor(props) {
     super(props);
+    loadCSS(
+      'https://use.fontawesome.com/releases/v5.8.2/css/all.css',
+      document.querySelector('#font-awesome-css'),
+    );
     // bind callbacks for setting auth status
     this.setLoggedIn = this.setLoggedIn.bind(this);
     this.getLoggedIn = this.getLoggedIn.bind(this);
