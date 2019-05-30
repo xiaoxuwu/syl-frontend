@@ -21,6 +21,11 @@ class Login extends Component {
   constructor(props) {
     super(props);
 
+    loadCSS(
+      'https://use.fontawesome.com/releases/v5.8.2/css/all.css',
+      document.querySelector('#font-awesome-css'),
+    );
+
     this.state = {
       username: "",
       password: "",
@@ -134,15 +139,9 @@ class Login extends Component {
             onClick={this.redirectToIG}
             fullWidth
             variant="contained"
-<<<<<<< HEAD
             className={classes.submit}
           >
             <Icon className={clsx(classes.icon, classes.mr, 'fab fa-instagram')} />
-=======
-            color="primary"
-            className={classes.submit}
-          >
->>>>>>> Instagram redirect stuff
             Connect with Instagram
           </Button>
         </Paper>
