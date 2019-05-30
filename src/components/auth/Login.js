@@ -5,8 +5,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
+import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -14,11 +13,20 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import SylSnackBar from '../SylSnackBar';
 import LoginStyles from '../../styles/Login'
 import {authenticate, setToken} from './AuthService'
+import Icon from '@material-ui/core/Icon';
+import clsx from 'clsx';
+import { loadCSS } from 'fg-loadcss';
+import { spacing } from '@material-ui/system';
 
 
 class Login extends Component {
   constructor(props) {
     super(props);
+
+    loadCSS(
+      'https://use.fontawesome.com/releases/v5.8.2/css/all.css',
+      document.querySelector('#font-awesome-css'),
+    );
 
     this.state = {
       username: "",
@@ -95,21 +103,23 @@ class Login extends Component {
           {errorSnackBar}
           <form className={classes.form} onSubmit={this.handleSubmit}>
             <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="username">Username</InputLabel>
-              <Input
+              <TextField
                 id="username"
                 name="username_syl"
                 autoComplete="username"
+                variant="outlined"
+                label="Username"
                 value={this.state.username}
                 onChange={this.handleChange}
                 autoFocus />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="password">Password</InputLabel>
-              <Input
+              <TextField
                 name="password_syl"
                 type="password"
                 id="password"
+                variant="outlined"
+                label="Password"
                 autoComplete="current-password"
                 value={this.state.password}
                 onChange={this.handleChange}
@@ -129,9 +139,9 @@ class Login extends Component {
             onClick={this.redirectToIG}
             fullWidth
             variant="contained"
-            color="primary"
             className={classes.submit}
           >
+            <Icon className={clsx(classes.icon, classes.mr, 'fab fa-instagram')} />
             Connect with Instagram
           </Button>
         </Paper>
