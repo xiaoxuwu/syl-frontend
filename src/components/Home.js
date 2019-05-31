@@ -14,32 +14,27 @@ class Home extends Component {
     super(props);
     this.state = { 
         links: [],
-        username: 'test',
+        username: '',
         baseURL: process.env.REACT_APP_API_URL 
       };
   }
 
-  getUser() {
-    console.log("Getting user2")
+  // Makes GET requests to retrieve username and links
+  getUserLinks() {
     let token = localStorage.getItem('token');
     var apiEndpoint = '/api/users/';
-    console.log(this)
+
     axios.get(apiEndpoint, { 'headers': { 'Authorization': 'Token ' + token } }).then(result => {
       let user = result.data;
-      console.log("Username2");
-      console.log(user.username);
 
       this.setState({ 
         username: user.username,
       });
 
-      console.log("Returning username")
-
       var apiEndpoint = '/api/links/?username=' + user.username;
-        console.log("Getting links for2a:");
-        console.log(user.username);
-      return axios.get(apiEndpoint, {})
-    }).then(result => {
+
+      return axios.get(apiEndpoint, {})}).then(result => {
+
         let links = result.data.map(function(link) { 
           return { 
             id: link.id, 
@@ -52,8 +47,6 @@ class Home extends Component {
           }
         });
 
-        console.log("links2");
-        console.log(links);
         this.setState({ 
           links: links,
         });
@@ -62,38 +55,8 @@ class Home extends Component {
 
   // Called when component has been initialized
   componentDidMount() {
-    this.getUser();
-    //this.getLinks(this.state.username);
+    this.getUserLinks();
   }
-
-  // Call GET function for links
-  // getLinks = (username) => {
-  //   var apiEndpoint = '/api/links/?username=' + username;
-  //   console.log("Getting links for2a:");
-  //   console.log(username);
-  //   axios.get(apiEndpoint, {})
-  //     .then(result => {
-  //       let links = result.data.map(function(link) { 
-  //         return { 
-  //           id: link.id, 
-  //           url: link.url, 
-  //           creator_id: link.creator,
-  //           text: link.text,
-  //           image: link.image,
-  //           order: link.order,
-  //           media_prefix: link.media_prefix
-  //         }
-  //       });
-
-  //       console.log("links");
-  //       console.log(links);
-
-  //       this.setState({ 
-  //         links: links,
-  //       });
-  //     })
-  //     .catch(err => console.log(err));
-  // }
 
   render() {
     const { classes } = this.props;
@@ -109,8 +72,6 @@ class Home extends Component {
           title={link.text}  />
     });
     var user = this.state.username;
-    console.log("Rendering username:");
-    console.log(this.state.username);
 
     return (
         <div className={classes.content}>
