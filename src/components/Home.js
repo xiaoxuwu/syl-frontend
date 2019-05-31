@@ -19,48 +19,45 @@ class Home extends Component {
       };
   }
 
-  getUser = () => {
+  getUser() {
     console.log("Getting user2")
     let token = localStorage.getItem('token');
     var apiEndpoint = '/api/users/';
+    console.log(this)
     axios.get(apiEndpoint, { 'headers': { 'Authorization': 'Token ' + token } }).then(result => {
       let user = result.data;
       console.log("Username2");
       console.log(user.username);
 
-      this.setState = ({ 
+      this.setState({ 
         username: user.username,
       });
 
       console.log("Returning username")
 
-      return user.username;
-
-    }).then(username => {
-        var apiEndpoint = '/api/links/?username=' + username;
+      var apiEndpoint = '/api/links/?username=' + user.username;
         console.log("Getting links for2a:");
-        console.log(username);
-        return axios.get(apiEndpoint, {}).then(result => {
-            let links = result.data.map(function(link) { 
-              return { 
-                id: link.id, 
-                url: link.url, 
-                creator_id: link.creator,
-                text: link.text,
-                image: link.image,
-                order: link.order,
-                media_prefix: link.media_prefix
-              }
-            });
+        console.log(user.username);
+      return axios.get(apiEndpoint, {})
+    }).then(result => {
+        let links = result.data.map(function(link) { 
+          return { 
+            id: link.id, 
+            url: link.url, 
+            creator_id: link.creator,
+            text: link.text,
+            image: link.image,
+            order: link.order,
+            media_prefix: link.media_prefix
+          }
+        });
 
-            console.log("links2");
-            console.log(links);
-
-            this.setState({ 
-              links: links,
-            });
-          }).catch(err => console.log(err));
-    }).catch(err => console.log(err));
+        console.log("links2");
+        console.log(links);
+        this.setState({ 
+          links: links,
+        });
+      }).catch(err => console.log(err));
   }
 
   // Called when component has been initialized
