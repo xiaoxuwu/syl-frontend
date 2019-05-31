@@ -10,25 +10,31 @@ import HomeStyles from '../styles/Home.js';
 import LinkCard from '../components/LinkCard.js';
 
 class Home extends Component {
-	constructor(props) {
+  constructor(props) {
     super(props);
     this.state = { 
-      links: [],
-      username: "yunx",
-      baseURL: process.env.REACT_APP_API_URL 
-    };
+        links: [],
+        username: '',
+        baseURL: process.env.REACT_APP_API_URL 
+      };
   }
 
-  // Called when component has been initialized
-  componentDidMount() {
-    this.getLinks();
-  }
+  // Makes GET requests to retrieve username and links
+  getUserLinks() {
+    let token = localStorage.getItem('token');
+    var apiEndpoint = '/api/users/';
 
-  // Call GET function for links
-  getLinks = () => {
-    var apiEndpoint = '/api/links/?username=' + this.state.username;
-    axios.get(apiEndpoint, {})
-      .then(result => {
+    axios.get(apiEndpoint, { 'headers': { 'Authorization': 'Token ' + token } }).then(result => {
+      let user = result.data;
+
+      this.setState({ 
+        username: user.username,
+      });
+
+      var apiEndpoint = '/api/links/?username=' + user.username;
+
+      return axios.get(apiEndpoint, {})}).then(result => {
+
         let links = result.data.map(function(link) { 
           return { 
             id: link.id, 
@@ -44,8 +50,12 @@ class Home extends Component {
         this.setState({ 
           links: links,
         });
-      })
-      .catch(err => console.log(err));
+      }).catch(err => console.log(err));
+  }
+
+  // Called when component has been initialized
+  componentDidMount() {
+    this.getUserLinks();
   }
 
   render() {
