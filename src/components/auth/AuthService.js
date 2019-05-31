@@ -1,4 +1,4 @@
-import axios from './AxiosClient';
+import axios from '../AxiosClient';
 
 export function authenticate(credentials) {
     return axios.post('/auth/', credentials)

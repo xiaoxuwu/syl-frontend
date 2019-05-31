@@ -11,8 +11,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import SylSnackBar from './SylSnackBar';
-import LoginStyles from '../styles/Login'
+import SylSnackBar from '../SylSnackBar';
+import LoginStyles from '../../styles/Login'
 import {authenticate, setToken} from './AuthService'
 
 
@@ -63,7 +63,7 @@ class Login extends Component {
 
     // if already logged in, redirect to home
     if (getLoginCallback()) {
-      return <Redirect to='/' />
+      return <Redirect to='/influencer/' />
     }
 
     let errorSnackBar = null

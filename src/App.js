@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Switch, BrowserRouter as Router, Route } from 'react-router-dom'
 
-import NavBar from './components/NavBar.js';
-import Dashboard from './components/Dashboard.js';
-import Login from './components/Login';
-import Logout from './components/Logout';
-import { isAuthenticated } from './components/AuthService.js';
+import NavBar from './components/NavBar';
+import Home from './components/Home';
+import Dashboard from './components/Dashboard';
+import NotFound from './components/NotFound'
+import Login from './components/auth/Login';
+import Logout from './components/auth/Logout';
+import { isAuthenticated } from './components/auth/AuthService';
+import Links from './components/Links.js';
 
 class App extends Component {
   constructor(props) {
@@ -30,11 +33,16 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <NavBar getLoginCallback={this.getLoggedIn} />
-        {this.getLoggedIn() ? <Route path="/dashboard" component={Dashboard} /> : null}
-        <Route path="/login" render={() => <Login setLoginCallback={this.setLoggedIn} 
-                                                  getLoginCallback={this.getLoggedIn}></Login>} />
-        <Route path="/logout" render={() => <Logout setLoginCallback={this.setLoggedIn}></Logout>} />
+        <Route path="/influencer/*" render={() => <NavBar getLoginCallback={this.getLoggedIn} />} />
+        <Switch>
+          <Route exact path="/influencer/" component={Home} />
+          {this.getLoggedIn() ? <Route exact path="/influencer/dashboard/" component={Dashboard} /> : null}
+          <Route exact path="/influencer/login" render={() => <Login setLoginCallback={this.setLoggedIn} 
+                                                    getLoginCallback={this.getLoggedIn}></Login>} />
+          <Route exact path="/influencer/logout" render={() => <Logout setLoginCallback={this.setLoggedIn}></Logout>} />
+          <Route exact path="/links/:username" component={Links} />
+          <NotFound default />
+        </Switch>
       </Router>
     )
   }
