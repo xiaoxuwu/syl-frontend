@@ -28,6 +28,7 @@ class CreateAccount extends Component {
       confirm_password: "",
       profile_img: "",
       name: "",
+      fetchedIGInfoSuccess: false,
       errMsg: "",
       errors: []
     };
@@ -46,11 +47,13 @@ class CreateAccount extends Component {
     this.getIGInfo(this.state)
       .then(res => {
         this.setState({
-        ig_token: res.data['access_token'],
-        username: res.data['user']['username'],
-        profile_img: res.data['user']['profile_picture'],
-        name: res.data['user']['full_name']
-      })})
+          ig_token: res.data['access_token'],
+          username: res.data['user']['username'],
+          profile_img: res.data['user']['profile_picture'],
+          name: res.data['user']['full_name'],
+          fetchedIGInfoSuccess: true
+        })
+      })
       .catch(err => {
         this.props.history.push({
           pathname: '/influencer/login',
@@ -140,16 +143,34 @@ class CreateAccount extends Component {
       />
     }
 
+    let icon = null
+    let title = null
+    if (this.state.fetchedIGInfoSuccess) {
+      icon = <Avatar alt="Profile Image" src={this.state.profile_img} className={classes.bigAvatar} />
+      title = (
+        <Typography component="h1" variant="h5">
+          {this.state.name}
+        </Typography>
+      )
+    } else {
+      icon = (
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+      )
+      title = (
+        <Typography component="h1" variant="h5">
+          Sign up
+        </Typography>
+      )
+    }
+
     return (
       <main className={classes.main}>
         <CssBaseline />
         <Paper className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
+          {icon}
+          {title}
           {errorSnackBar}
           <form className={classes.form} onSubmit={this.handleSubmit}>
             {errors.map(error => (
