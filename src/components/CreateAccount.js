@@ -30,7 +30,6 @@ class CreateAccount extends Component {
       name: "",
       fetchedIGInfoSuccess: false,
       errMsg: "",
-      errors: []
     };
   }
 
@@ -79,10 +78,9 @@ class CreateAccount extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const { username, password, confirm_password } = this.state;
-    const errors = this.validate(username, password, confirm_password);
-    if (errors.length > 0) {
-      this.setState({ errors });
-      return;
+    var errMsg = this.validate(username, password, confirm_password);
+    if (errMsg !== "") {
+      return
     }
     let config = {
       token: this.state.ig_token,
@@ -114,19 +112,19 @@ class CreateAccount extends Component {
   }
 
   validate(username, password, confirm_password) {
-    const errors = [];
+    var errMsg = ""
     if (username === "fetching instagram username..." || password === '' || confirm_password === '') {
-      errors.push("All fields must be filled out")
+      errMsg = "All fields must be filled out"
     }
-    if (password !== confirm_password) {
-      errors.push("Passwords do not match")
+    else if (password !== confirm_password) {
+      errMsg = "Passwords do not match"
     }
-    return errors
+    this.setState({errMsg: errMsg})
+    return errMsg
   }
 
   render() {
     const { classes, getLoginCallback } = this.props;
-    const { errors } = this.state;
 
     // if already logged in, redirect to home
     if (getLoginCallback()) {
@@ -173,9 +171,6 @@ class CreateAccount extends Component {
           {title}
           {errorSnackBar}
           <form className={classes.form} onSubmit={this.handleSubmit}>
-            {errors.map(error => (
-              <p key={error}>Error: {error}</p>
-            ))}
             <FormControl margin="normal" fullWidth>
               <TextField
                 id="username"
