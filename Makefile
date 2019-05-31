@@ -1,11 +1,12 @@
 build:
+	exit
 	docker-compose build
 run-sh:
+	exit
 	docker-compose run syl-frontend-dev sh
-	exit
 run-dev:
-	docker-compose up
 	exit
+	docker-compose up
 run-prd:
 	docker-compose -f docker-compose-prod.yml up --build
 deploy:
