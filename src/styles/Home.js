@@ -3,11 +3,30 @@ const HomeStyles = theme => ({
   	margin: '25px 25px 80px 25px',
     textAlign: 'center',
   },
+  editList: {
+    display: 'inline-flex',
+    padding: '25px 25px 25px 25px',
+    justifyContent: 'left'
+  },
   list: {
     display: 'inline-flex',
     padding: '25px 25px 25px 25px',
     justifyContent: 'center'
   },
+  media: {
+  	height: 150,
+  	width: 150,
+  },
+  pref: {
+	width: '100%',
+	padding: '25px 25px 25px 25px',
+	display: 'inline-flex',
+  },
+  info: {
+  	display: 'inline',
+  	textAlign: 'left',
+  	padding: '25px 25px 25px 25px',
+  }
 });
 
 export default HomeStyles;
