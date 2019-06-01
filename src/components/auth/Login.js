@@ -15,7 +15,6 @@ import LoginStyles from '../../styles/Login'
 import {authenticate, setToken} from './AuthService'
 import Icon from '@material-ui/core/Icon';
 import clsx from 'clsx';
-import { spacing } from '@material-ui/system';
 
 
 class Login extends Component {

@@ -14,9 +14,16 @@ class Home extends Component {
     super(props);
     this.state = { 
         links: [],
+        userPref: {},
         username: '',
         baseURL: process.env.REACT_APP_API_URL 
       };
+  }
+
+  // Called when component has been initialized
+  componentDidMount() {
+    this.getUserLinks();
+    this.getUserPref();
   }
 
   // Makes GET requests to retrieve username and links
@@ -31,7 +38,10 @@ class Home extends Component {
         username: user.username,
       });
 
-      var apiEndpoint = '/api/links/?username=' + user.username;
+      console.log("getlinks in axios!");
+      console.log(this.state.username);
+
+      var apiEndpoint = '/api/links/?username=' + this.state.username;
 
       return axios.get(apiEndpoint, {})}).then(result => {
 
@@ -53,12 +63,33 @@ class Home extends Component {
       }).catch(err => console.log(err));
   }
 
-  // Called when component has been initialized
-  componentDidMount() {
-    this.getUserLinks();
+  // Makes GET requests to retrieve user profile and background picture
+  getUserPref() {
+    let token = localStorage.getItem('token');
+    var apiEndpoint = '/api/users/';
+
+    axios.get(apiEndpoint, { 'headers': { 'Authorization': 'Token ' + token } }).then(result => {
+      let user = result.data;
+
+      this.setState({ 
+        username: user.username,
+      });
+
+      var apiEndpoint = '/api/preferences/?username=' + this.state.username;
+
+      return axios.get(apiEndpoint, {})}).then(result => {
+        let users = result.data;
+
+        this.setState({ 
+          userPref: users,
+        });
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
+    console.log("IN RENDER!")
+    console.log(this.state.username);
     const { classes } = this.props;
     var links = this.state.links
       .sort((a,b) => (a.order > b.order) ? 1 : -1)
@@ -72,15 +103,47 @@ class Home extends Component {
           title={link.text}  />
     });
     var user = this.state.username;
+    var userPref = this.state.userPref;
+    var profile_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.profile_img;
+    var background_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.background_img;
+
+    const background = {
+      backgroundImage: `url(${background_pic})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+    };
 
     return (
-        <div className={classes.content}>
-          <Grid container spacing={16} md="4" className={classes.list}>
-          	<Typography variant="display3" component="h2">
-            	@{user}
-          	</Typography>
-          </Grid>
+        <div style={background} className={classes.content}>
           <Grid container spacing={16} md="8" className={classes.list}>
+            <Grid item spacing={16} md="12" className={classes.pref}>
+              <img
+                src={profile_pic}
+                alt={this.state.baseURL + '/' + userPref.media_prefix + "IMG0.png"}
+                className={classes.media}
+              />
+            	<Grid item spacing={16} md="12" className={classes.info}>
+                <Typography variant="display5" component="h3">
+                	Username: {user}
+              	</Typography>
+                <Typography variant="display5" component="h3">
+                  Profile Picture: {this.state.userPref.profile_img}
+                </Typography>
+                <Typography variant="display5" component="h3">
+                  Background Picture: {this.state.userPref.background_img}
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid container spacing={16} md="12" className={classes.editList}>
+              {links.map(linkCard =>
+                <Grid item xs={10} md={10}>
+                  {linkCard}
+                </Grid>
+                )  
+              }
+            </Grid>
+          </Grid>
+          <Grid container spacing={16} md="4" className={classes.list}>
             {links.map(linkCard =>
               <Grid item xs={10} md={10}>
                 {linkCard}

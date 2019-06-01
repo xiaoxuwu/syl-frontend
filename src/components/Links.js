@@ -26,12 +26,12 @@ class Links extends Component {
 
   // Called when component has been initialized
   componentDidMount() {
-    this.getLinks();
-    this.getPreferences();
+    this.getUserLinks();
+    this.getUserPref();
   }
 
   // Call GET function for links
-  getLinks = () => {
+  getUserLinks = () => {
     var apiEndpoint = '/api/links/?username=' + this.state.username;
     axios.get(apiEndpoint, {})
       .then(result => {
@@ -56,7 +56,7 @@ class Links extends Component {
       .catch(err => console.log(err));
   }
 
-  getPreferences = () => {
+  getUserPref = () => {
     var apiEndpoint = '/api/preferences/?username=' + this.state.username;
     axios.get(apiEndpoint, {})
       .then(result => {
@@ -99,6 +99,7 @@ class Links extends Component {
         <div style={background} className={classes.content} >
           <img
             src={profile_pic}
+            alt={this.state.baseURL + '/' + userPref.media_prefix + "IMG0.png"}
             className={classes.media}
           />
           <Typography variant="h4" component="h4">

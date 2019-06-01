@@ -10,9 +10,9 @@ const ListStyles = theme => ({
     textAlign: 'left'
   },
   media: {
-	height: 150,
-	width: 150,
-	borderRadius: '50%'
+  	height: 150,
+  	width: 150,
+  	borderRadius: '50%'
   },
 });
 
