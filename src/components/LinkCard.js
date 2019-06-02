@@ -44,11 +44,11 @@ class LinkCard extends Component {
     		<CardActionArea onClick={this.handleClick}> 
           <CardContent>
             {this.state.IMG ? 
-      				<Typography gutterBottom variant="h5" component="h2">
+      				<Typography gutterBottom variant="h5" component="h2" className={classes.cardText}>
       					{this.state.title}
       				</Typography> 
               : 
-              <Typography gutterBottom variant="h5" component="h2" align='center'>
+              <Typography gutterBottom variant="h5" component="h2" align='center' className={classes.cardText}>
                 {this.state.title}
               </Typography>
             }
