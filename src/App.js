@@ -14,10 +14,8 @@ import { loadCSS } from 'fg-loadcss';
 class App extends Component {
   constructor(props) {
     super(props);
-    loadCSS(
-      'https://use.fontawesome.com/releases/v5.8.2/css/all.css',
-      document.querySelector('#font-awesome-css'),
-    );
+    loadCSS('https://use.fontawesome.com/releases/v5.8.2/css/all.css');
+    loadCSS('https://fonts.googleapis.com/css?family=Oxygen');
     // bind callbacks for setting auth status
     this.setLoggedIn = this.setLoggedIn.bind(this);
     this.getLoggedIn = this.getLoggedIn.bind(this);

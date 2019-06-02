@@ -13,15 +13,13 @@ class Links extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      pCol: '', 
-      dCol: '', 
+      pCol: 12, 
+      dCol: 12, 
       links: [],
       userPref: {},
       username: this.props.match.params.username,
       baseURL: process.env.REACT_APP_API_URL 
     };
-    this.state.pCol = 12;
-    this.state.dCol = 12;
   }
 
   // Called when component has been initialized
@@ -89,22 +87,24 @@ class Links extends Component {
     var profile_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.profile_img;
     var background_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.background_img;
 
-    const background = {
+
+    const background = userPref.background_img ? {
       backgroundImage: `url(${background_pic})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
-    };
+    }: {background: 'linear-gradient(to left, #f7ff00, #db36a4)'};
 
     return (
         <div style={background} className={classes.content} >
           <img
             src={profile_pic}
             className={classes.media}
+            alt="link"
           />
-          <Typography variant="h4" component="h4">
+          <Typography variant="h4" component="h4" className={classes.handleText}>
             @{user}
           </Typography>
-          <Grid container spacing={16} md="6" className={classes.list}>
+          <Grid container spacing={16} md="6" lg="5" className={classes.list}>
             {links.map(linkCard =>
               <Grid item xs={this.state.pCol} md={this.state.dCol} lg={this.state.dCol}>
                 {linkCard}
