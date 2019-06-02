@@ -92,7 +92,7 @@ class Links extends Component {
       backgroundImage: `url(${background_pic})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
-    }: {background: 'linear-gradient(to right, #1fa2ff, #12d8fa, #a6ffcb)'};
+    }: {background: 'linear-gradient(to left, #f7ff00, #db36a4)'};
 
     return (
         <div style={background} className={classes.content} >
