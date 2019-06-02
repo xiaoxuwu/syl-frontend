@@ -4,8 +4,9 @@ const ListStyles = theme => ({
     padding: '25px 25px 25px 25px',
     minHeight: '100vh',
   },
-  white: {
-    color: 'white'
+  handleText: {
+    color: 'white',
+    fontFamily: "'Oxygen', sans-serif"
   },
   list: {
     display: 'inline-flex',

@@ -8,7 +8,8 @@ const LinkCardStyles = {
 		boxShadow: 'none'
 	},
 	cardText: {
-		color: 'white'
+		color: 'white',
+		fontFamily: "'Oxygen', sans-serif"
 	},
 	media: {
 		height: 90,

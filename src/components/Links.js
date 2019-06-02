@@ -101,7 +101,7 @@ class Links extends Component {
             className={classes.media}
             alt="link"
           />
-          <Typography variant="h4" component="h4" className={classes.white}>
+          <Typography variant="h4" component="h4" className={classes.handleText}>
             @{user}
           </Typography>
           <Grid container spacing={16} md="6" lg="5" className={classes.list}>
