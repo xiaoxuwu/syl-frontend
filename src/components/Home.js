@@ -131,8 +131,6 @@ class Home extends Component {
   }
 
   render() {
-    console.log("IN RENDER!")
-    console.log(this.state.username);
     const { classes } = this.props;
     var links = this.state.links
       .sort((a,b) => (a.order > b.order) ? 1 : -1)
