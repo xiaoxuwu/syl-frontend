@@ -9,16 +9,8 @@
     "@mdi/react": "^1.1.0",
     "axios": "^0.18.0",
     "check-files": "^0.0.2",
-<<<<<<< HEAD
-<<<<<<< HEAD
     "clsx": "^1.0.4",
     "fg-loadcss": "^2.1.0",
-=======
->>>>>>> Instagram redirect stuff
-=======
-    "clsx": "^1.0.4",
-    "fg-loadcss": "^2.1.0",
->>>>>>> polish
     "query-string": "^6.5.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

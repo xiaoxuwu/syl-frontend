@@ -110,7 +110,6 @@ class Links extends Component {
         <div style={background} className={classes.content} >
           <img
             src={profile_pic}
-            alt={this.state.baseURL + '/' + userPref.media_prefix + "IMG0.png"}
             className={classes.media}
             alt="link"
           />

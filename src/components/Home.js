@@ -46,14 +46,14 @@ class Home extends Component {
 
   handlePrefSubmit(e) {
     var apiEndpoint = '/api/preferences/';
-    if (this.state.newProfile != '') {
+    if (this.state.newProfile !== '') {
       var profileData = 'profile_img=' + this.state.newProfile;
       axios.post(apiEndpoint, profileData).catch(err => console.log(err));
       this.setState({
         newProfile: ''
       });
     }
-    if (this.state.newProfile != '') {
+    if (this.state.newProfile !== '') {
       var bgData = 'background_img=' + this.state.newBg;
       axios.post(apiEndpoint, bgData).catch(err => console.log(err));
       this.setState({

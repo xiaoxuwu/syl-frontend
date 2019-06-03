@@ -7,13 +7,6 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import InputLabel from '@material-ui/core/InputLabel';
->>>>>>> polish
-=======
->>>>>>> remove errors, more polish
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -35,13 +28,8 @@ class CreateAccount extends Component {
       confirm_password: "",
       profile_img: "",
       name: "",
-<<<<<<< HEAD
       fetchedIGInfoSuccess: false,
       errMsg: "",
-=======
-      errMsg: "",
-      errors: []
->>>>>>> Add redirect on errors and validation on sign up form
     };
   }
 
@@ -90,16 +78,9 @@ class CreateAccount extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const { username, password, confirm_password } = this.state;
-<<<<<<< HEAD
     var errMsg = this.validate(username, password, confirm_password);
     if (errMsg !== "") {
       return
-=======
-    const errors = this.validate(username, password, confirm_password);
-    if (errors.length > 0) {
-      this.setState({ errors });
-      return;
->>>>>>> Add redirect on errors and validation on sign up form
     }
     let config = {
       token: this.state.ig_token,
