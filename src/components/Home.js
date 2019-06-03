@@ -53,6 +53,7 @@ class Home extends Component {
         newProfile: ''
       });
     }
+
     if (this.state.newProfile !== '') {
       var bgData = 'background_img=' + this.state.newBg;
       axios.post(apiEndpoint, bgData).catch(err => console.log(err));
