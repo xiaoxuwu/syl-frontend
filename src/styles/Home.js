@@ -23,10 +23,19 @@ const HomeStyles = theme => ({
 	display: 'inline-flex',
   },
   info: {
-  	display: 'inline',
+  	display: 'inline-grid',
   	textAlign: 'left',
-  	padding: '25px 25px 25px 25px',
-  }
+  	padding: '0px 25px 0px 25px',
+  },
+  button: {
+    margin: theme.spacing.unit,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  iconSmall: {
+    fontSize: 20,
+  },
 });
 
 export default HomeStyles;

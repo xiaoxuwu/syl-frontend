@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import axios from './AxiosClient';
+import clsx from 'clsx';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import Button from '@material-ui/core/Button';
+import FormControl from '@material-ui/core/FormControl';
+
+import SaveIcon from '@material-ui/icons/Save';
 
 import HomeStyles from '../styles/Home.js';
 
@@ -13,11 +20,46 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-        links: [],
-        userPref: {},
-        username: '',
-        baseURL: process.env.REACT_APP_API_URL 
-      };
+      links: [],
+      userPref: {},
+      username: '',
+      newProfile: '',
+      newBg: '',
+      baseURL: process.env.REACT_APP_API_URL 
+    };
+    this.handleProfile = this.handleProfile.bind(this);
+    this.handleBackground= this.handleBackground.bind(this);
+    this.handlePrefSubmit = this.handlePrefSubmit.bind(this);
+  }
+
+  handleProfile(e) {
+    this.setState({
+      newProfile: e.target.value
+    });
+  }
+
+  handleBackground(e) {
+    this.setState({
+      newBg: e.target.value
+    });
+  }
+
+  handlePrefSubmit(e) {
+    var apiEndpoint = '/api/preferences/';
+    if (this.state.newProfile != '') {
+      var profileData = 'profile_img=' + this.state.newProfile;
+      axios.post(apiEndpoint, profileData).catch(err => console.log(err));
+      this.setState({
+        newProfile: ''
+      });
+    }
+    if (this.state.newProfile != '') {
+      var bgData = 'background_img=' + this.state.newBg;
+      axios.post(apiEndpoint, bgData).catch(err => console.log(err));
+      this.setState({
+        newBg: ''
+      });
+    }
   }
 
   // Called when component has been initialized
@@ -122,18 +164,36 @@ class Home extends Component {
                 alt={this.state.baseURL + '/' + userPref.media_prefix + "IMG0.png"}
                 className={classes.media}
               />
-            	<Grid item spacing={16} md="12" className={classes.info}>
+            	<div className={classes.info}>
                 <Typography variant="display5" component="h3">
                 	Username: {user}
               	</Typography>
-                <Typography variant="display5" component="h3">
-                  Profile Picture: {this.state.userPref.profile_img}
-                </Typography>
-                <Typography variant="display5" component="h3">
-                  Background Picture: {this.state.userPref.background_img}
-                </Typography>
-              </Grid>
+
+                <FormControl>
+                  <InputLabel for="profile"> Profile Picture </InputLabel> <br/> <br/>
+                  <Typography variant="body1" gutterBottom>
+                    Currently: <a href={profile_pic}>{this.state.userPref.profile_img}</a>
+                    <br/>
+                    Change: <Input type="file" name="profile" onChange={this.handleProfile}/>
+                  </Typography>
+                </FormControl>
+
+                <FormControl>
+                  <InputLabel for="background"> Background Picture </InputLabel> <br/> <br/>
+                  <Typography variant="body1" gutterBottom>
+                    Currently: <a href={background_pic}>{this.state.userPref.background_img}</a>
+                    <br/>
+                    Change: <Input type="file" name="background" onChange={this.handleBackground}/>
+                  </Typography>
+                </FormControl>
+
+                <Button variant="contained" size="small" className={classes.button} onClick={this.handlePrefSubmit}>
+                  <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
+                  Save
+                </Button>
+              </div>
             </Grid>
+
             <Grid container spacing={16} md="12" className={classes.editList}>
               {links.map(linkCard =>
                 <Grid item xs={10} md={10}>
