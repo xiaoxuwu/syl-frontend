@@ -14,7 +14,9 @@ import SaveIcon from '@material-ui/icons/Save';
 
 import HomeStyles from '../styles/Home.js';
 
+import EditableLinkCard from '../components/EditableLinkCard.js';
 import LinkCard from '../components/LinkCard.js';
+
 
 class Home extends Component {
   constructor(props) {
@@ -70,7 +72,7 @@ class Home extends Component {
   }
 
   // Makes GET requests to retrieve username and links
-  getUserLinks() {
+  getUserLinks = () => {
     let token = localStorage.getItem('token');
     var apiEndpoint = '/api/users/';
 
@@ -143,6 +145,22 @@ class Home extends Component {
           URL={link.url} 
           title={link.text}  />
     });
+
+    var editableLinks = this.state.links
+      .sort((a,b) => (a.order > b.order) ? 1 : -1)
+      .map(link => {
+        var IMG = this.state.baseURL + '/' + link.media_prefix + link.image;
+        return <EditableLinkCard 
+          key={link.id}
+          link_id={link.id} 
+          image={IMG} 
+          URL={link.url} 
+          title={link.text}
+          token={localStorage.getItem('token')}
+          username={this.state.username}
+          getParentLinks={this.getUserLinks}  />
+    });
+
     var user = this.state.username;
     var userPref = this.state.userPref;
     var profile_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.profile_img;
@@ -194,9 +212,9 @@ class Home extends Component {
             </Grid>
 
             <Grid container spacing={16} md="12" className={classes.editList}>
-              {links.map(linkCard =>
+              {editableLinks.map(editableLinkCard =>
                 <Grid item xs={10} md={10}>
-                  {linkCard}
+                  {editableLinkCard}
                 </Grid>
                 )  
               }

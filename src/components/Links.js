@@ -67,19 +67,6 @@ class Links extends Component {
       .catch(err => console.log(err));
   }
 
-  getUserPref = () => {
-    var apiEndpoint = '/api/preferences/?username=' + this.state.username;
-    axios.get(apiEndpoint, {})
-      .then(result => {
-        let users = result.data;
-
-        this.setState({ 
-          userPref: users,
-        });
-      })
-      .catch(err => console.log(err));
-  }
-
   render() {
     const { classes } = this.props;
     var links = this.state.links
