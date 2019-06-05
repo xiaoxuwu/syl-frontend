@@ -1,4 +1,4 @@
-const HomeStyles = theme => ({
+const EditStyles = theme => ({
   content: {
   	margin: '25px 25px 80px 25px',
     textAlign: 'center',
@@ -38,4 +38,4 @@ const HomeStyles = theme => ({
   },
 });
 
-export default HomeStyles;
+export default EditStyles;

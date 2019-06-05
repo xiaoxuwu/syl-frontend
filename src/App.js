@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom'
 import NavBar from './components/NavBar';
-import Home from './components/Home';
+import Edit from './components/Edit';
 import Dashboard from './components/Dashboard';
 import NotFound from './components/NotFound'
 import Login from './components/auth/Login';
@@ -38,7 +38,7 @@ class App extends Component {
       <Router>
         <Route path="/influencer/*" render={() => <NavBar getLoginCallback={this.getLoggedIn} />} />
         <Switch>
-          <Route exact path="/influencer/" component={Home} />
+          <Route exact path="/influencer/" component={Edit} />
           {this.getLoggedIn() ? <Route exact path="/influencer/dashboard/" component={Dashboard} /> : null}
           <Route exact path="/influencer/login" render={(props) => <Login {...props} setLoginCallback={this.setLoggedIn}
                                                     getLoginCallback={this.getLoggedIn}></Login>} />

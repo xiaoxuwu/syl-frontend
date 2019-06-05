@@ -12,14 +12,14 @@ import FormControl from '@material-ui/core/FormControl';
 
 import SaveIcon from '@material-ui/icons/Save';
 
-import HomeStyles from '../styles/Home.js';
+import EditStyles from '../styles/Edit.js';
 
 import EditableLinkCard from '../components/EditableLinkCard.js';
 import PreferenceCard from '../components/PreferenceCard.js'
 import LinkCard from '../components/LinkCard.js';
 
 
-class Home extends Component {
+class Edit extends Component {
   constructor(props) {
     super(props);
     this.state = { 
@@ -164,7 +164,7 @@ class Home extends Component {
     });
 
     var user = this.state.username;
-    console.log("IN HOME!!!")
+    console.log("IN Edit!!!")
     console.log(user);
     var userPref = this.state.userPref;
     var profile_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.profile_img;
@@ -209,4 +209,4 @@ class Home extends Component {
   }
 }
 
-export default withStyles(HomeStyles)(Home);
+export default withStyles(EditStyles)(Edit);
