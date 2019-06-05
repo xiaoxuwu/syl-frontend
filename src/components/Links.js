@@ -96,11 +96,13 @@ class Links extends Component {
 
     return (
         <div style={background} className={classes.content} >
-          <img
-            src={profile_pic}
-            className={classes.media}
-            alt="link"
-          />
+          <div className={classes.imgWrapper}>
+            <img
+              src={profile_pic}
+              className={classes.media}
+              alt="link"
+            />
+          </div>
           <Typography variant="h4" component="h4" className={classes.handleText}>
             @{user}
           </Typography>

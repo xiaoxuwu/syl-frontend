@@ -15,11 +15,19 @@ const ListStyles = theme => ({
     textAlign: 'left',
     minWidth: '300px',
   },
+  imgWrapper: {
+    width: '150px',
+    height: '150px',
+    position: 'relative',
+    overflow: 'hidden',
+    borderRadius: '50%',
+    margin: '0 auto',
+  },
   media: {
-    marginTop: '25px',
-    height: 150,
-    width: 150,
-    borderRadius: '50%'
+    display: 'inline',
+    margin: '0 auto',
+    height: 'auto',
+    width: '100%',
   },
 });
 
