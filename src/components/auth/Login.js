@@ -15,7 +15,7 @@ import LoginStyles from '../../styles/Login'
 import {authenticate, setToken, getUserInfo, setUserInfo} from './AuthService'
 import Icon from '@material-ui/core/Icon';
 import clsx from 'clsx';
-
+import LogoImage from '../../assets/images/logo-color.svg'
 
 class Login extends Component {
   constructor(props) {
@@ -96,61 +96,67 @@ class Login extends Component {
     }
 
     return (
-      <main className={classes.main}>
-        <CssBaseline />
-        <Paper className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          {errorSnackBar}
-          <form className={classes.form} onSubmit={this.handleSubmit}>
-            <FormControl margin="normal" required fullWidth>
-              <TextField
-                id="username"
-                name="username_syl"
-                autoComplete="username"
-                variant="outlined"
-                label="Username"
-                value={this.state.username}
-                onChange={this.handleChange}
-                autoFocus />
-            </FormControl>
-            <FormControl margin="normal" required fullWidth>
-              <TextField
-                name="password_syl"
-                type="password"
-                id="password"
-                variant="outlined"
-                label="Password"
-                autoComplete="current-password"
-                value={this.state.password}
-                onChange={this.handleChange}
+      <div className={classes.background}>
+        <main className={classes.main}>
+          <CssBaseline />
+          <Paper className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <img
+                src={LogoImage}
+                className={classes.logo}
+                alt="logo"
               />
-            </FormControl>
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign In
+            </Typography>
+            {errorSnackBar}
+            <form className={classes.form} onSubmit={this.handleSubmit}>
+              <FormControl margin="normal" required fullWidth>
+                <TextField
+                  id="username"
+                  name="username_syl"
+                  autoComplete="username"
+                  variant="outlined"
+                  label="Username"
+                  value={this.state.username}
+                  onChange={this.handleChange}
+                  autoFocus />
+              </FormControl>
+              <FormControl margin="normal" required fullWidth>
+                <TextField
+                  name="password_syl"
+                  type="password"
+                  id="password"
+                  variant="outlined"
+                  label="Password"
+                  autoComplete="current-password"
+                  value={this.state.password}
+                  onChange={this.handleChange}
+                />
+              </FormControl>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.signIn}
+              >
+                Sign in
+              </Button>
+            </form>
             <Button
-              type="submit"
+              onClick={this.redirectToIG}
               fullWidth
               variant="contained"
-              color="primary"
-              className={classes.submit}
+              className={classes.instagram}
             >
-              Sign in
+              <Icon className={clsx(classes.icon, classes.mr, 'fab fa-instagram')} />
+              Connect with Instagram
             </Button>
-          </form>
-          <Button
-            onClick={this.redirectToIG}
-            fullWidth
-            variant="contained"
-            className={classes.submit}
-          >
-            <Icon className={clsx(classes.icon, classes.mr, 'fab fa-instagram')} />
-            Connect with Instagram
-          </Button>
-        </Paper>
-      </main>
+          </Paper>
+        </main>
+      </div>
     );
   }
 }

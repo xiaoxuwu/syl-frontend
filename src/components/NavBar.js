@@ -28,9 +28,9 @@ class NavBar extends Component {
             {injectLogo()}
           </span>
           <div className={classes.grow} />
-          <Button className={classes.navlink} component={Link} to="/influencer/">Home</Button>
-          <Button className={classes.navlink} component={Link} to="/influencer/preview/">Preview</Button>
-          {loggedIn ? <Button component={Link} className={classes.navlink} to="/influencer/dashboard/">Dashboard</Button> : null }
+          <Button className={classes.navlink} component={Link} to="/influencer">Home</Button>
+          <Button className={classes.navlink} component={Link} to="/influencer/preview">Preview</Button>
+          {loggedIn ? <Button component={Link} className={classes.navlink} to="/influencer/dashboard">Dashboard</Button> : null }
           {authButton}
         </Toolbar>
       </AppBar>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Switch, BrowserRouter as Router, Route } from 'react-router-dom'
+import { Redirect, Switch, BrowserRouter as Router, Route } from 'react-router-dom'
 import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
@@ -37,11 +37,12 @@ class App extends Component {
   render() {
     return (
       <Router>
+        <Route exact strict path="/:url*" render={props => <Redirect to={`${props.location.pathname}/`}/>} />
         <Route path="/influencer/*" render={() => <NavBar getLoginCallback={this.getLoggedIn} />} />
         <Switch>
-          <Route exact path="/influencer/" component={Home} />
-          <Route exact path="/influencer/preview/" component={Preview} />
-          {this.getLoggedIn() ? <Route exact path="/influencer/dashboard/" component={Dashboard} /> : null}
+          <Route exact path="/influencer" component={Home} />
+          <Route exact path="/influencer/preview" component={Preview} />
+          {this.getLoggedIn() ? <Route exact path="/influencer/dashboard" component={Dashboard} /> : null}
           <Route exact path="/influencer/login" render={(props) => <Login {...props} setLoginCallback={this.setLoggedIn}
                                                     getLoginCallback={this.getLoggedIn}></Login>} />
           <Route exact path="/influencer/logout" render={() => <Logout setLoginCallback={this.setLoggedIn}></Logout>} />
