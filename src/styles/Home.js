@@ -18,9 +18,9 @@ const HomeStyles = theme => ({
   	width: 150,
   },
   pref: {
-	width: '100%',
-	padding: '25px 25px 25px 25px',
-	display: 'inline-flex',
+  	width: '100%',
+  	padding: '25px 25px 25px 25px',
+  	display: 'inline-flex',
   },
   info: {
   	display: 'inline-grid',

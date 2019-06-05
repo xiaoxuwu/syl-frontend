@@ -15,6 +15,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import HomeStyles from '../styles/Home.js';
 
 import EditableLinkCard from '../components/EditableLinkCard.js';
+import PreferenceCard from '../components/PreferenceCard.js'
 import LinkCard from '../components/LinkCard.js';
 
 
@@ -80,6 +81,7 @@ class Home extends Component {
     axios.get(apiEndpoint, { 'headers': { 'Authorization': 'Token ' + token } }).then(result => {
       let user = result.data;
 
+      console.log("DAMN YOU")
       this.setState({ 
         username: user.username,
       });
@@ -170,6 +172,8 @@ class Home extends Component {
     var profile_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.profile_img;
     var background_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.background_img;
 
+    var preferenceCard = <PreferenceCard username={this.state.usernam} />
+
     const background = userPref.background_img ? {
       backgroundImage: `url(${background_pic})`,
       backgroundRepeat: 'no-repeat',
@@ -180,39 +184,7 @@ class Home extends Component {
         <div style={background} className={classes.content}>
           <Grid container spacing={16} md="8" className={classes.list}>
             <Grid item spacing={16} md="12" className={classes.pref}>
-              <img
-                src={profile_pic}
-                alt={this.state.baseURL + '/' + userPref.media_prefix + "IMG0.png"}
-                className={classes.media}
-              />
-            	<div className={classes.info}>
-                <Typography variant="display5" component="h3">
-                	Username: {user}
-              	</Typography>
-
-                <FormControl>
-                  <InputLabel for="profile"> Profile Picture </InputLabel> <br/> <br/>
-                  <Typography variant="body1" gutterBottom>
-                    Currently: <a href={profile_pic}>{this.state.userPref.profile_img}</a>
-                    <br/>
-                    Change: <Input type="file" name="profile" onChange={this.handleProfile}/>
-                  </Typography>
-                </FormControl>
-
-                <FormControl>
-                  <InputLabel for="background"> Background Picture </InputLabel> <br/> <br/>
-                  <Typography variant="body1" gutterBottom>
-                    Currently: <a href={background_pic}>{this.state.userPref.background_img}</a>
-                    <br/>
-                    Change: <Input type="file" name="background" onChange={this.handleBackground}/>
-                  </Typography>
-                </FormControl>
-
-                <Button variant="contained" size="small" className={classes.button} onClick={this.handlePrefSubmit}>
-                  <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
-                  Save
-                </Button>
-              </div>
+              {preferenceCard}
             </Grid>
 
             <Grid container spacing={16} md="12" className={classes.editList}>
