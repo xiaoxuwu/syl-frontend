@@ -40,6 +40,10 @@ const LoginStyles = theme => ({
   },
   avatar: {
     margin: theme.spacing.unit,
+    backgroundColor: '#fff',
+  },
+  logo: {
+    width: '100%',
   },
   form: {
     width: '100%', // Fix IE 11 issue.

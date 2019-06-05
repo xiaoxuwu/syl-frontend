@@ -15,7 +15,7 @@ import LoginStyles from '../../styles/Login'
 import {authenticate, setToken} from './AuthService'
 import Icon from '@material-ui/core/Icon';
 import clsx from 'clsx';
-
+import LogoImage from '../../assets/images/logo-color.svg'
 
 class Login extends Component {
   constructor(props) {
@@ -91,7 +91,11 @@ class Login extends Component {
           <CssBaseline />
           <Paper className={classes.paper}>
             <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
+              <img
+                src={LogoImage}
+                className={classes.logo}
+                alt="logo"
+              />
             </Avatar>
             <Typography component="h1" variant="h5">
               Sign In
