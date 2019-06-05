@@ -15,10 +15,7 @@ import LoginStyles from '../../styles/Login'
 import {authenticate, setToken} from './AuthService'
 import Icon from '@material-ui/core/Icon';
 import clsx from 'clsx';
-<<<<<<< HEAD
-=======
 import LogoImage from '../../assets/images/logo-color.svg'
->>>>>>> master
 
 class Login extends Component {
   constructor(props) {
