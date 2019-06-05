@@ -1,6 +1,5 @@
 const HomeStyles = theme => ({
   content: {
-  	margin: '25px 25px 80px 25px',
     textAlign: 'center',
   },
   editList: {
