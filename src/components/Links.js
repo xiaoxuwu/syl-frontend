@@ -17,7 +17,7 @@ class Links extends Component {
       dCol: 12, 
       links: [],
       userPref: {},
-      username: this.props.match.params.username,
+      username: this.props.username ? this.props.username : this.props.match.params.username,
       baseURL: process.env.REACT_APP_API_URL 
     };
   }

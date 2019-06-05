@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import SylSnackBar from '../SylSnackBar';
 import LoginStyles from '../../styles/Login'
-import {authenticate, setToken} from './AuthService'
+import {authenticate, setToken, getUserInfo, setUserInfo} from './AuthService'
 import Icon from '@material-ui/core/Icon';
 import clsx from 'clsx';
 
@@ -49,8 +49,18 @@ class Login extends Component {
     event.preventDefault();
     authenticate(this.state)
       .then(res => {
-        // store token on success
-        setToken(res)
+        // Get username then store username + token on success
+        getUserInfo(res.data.token)
+          .then(result => {
+            let user = result.data;
+            setUserInfo(res.data.token, user.username)
+          })
+          .catch(err => {
+            setToken(res)
+            this.setState(() => ({
+              errMsg: "Unable to retrieve username."
+            }))
+          })
         this.props.setLoginCallback(true)
       })
       .catch(err => {

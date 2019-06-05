@@ -3,6 +3,7 @@ const ListStyles = theme => ({
     textAlign: 'center',
     padding: '25px 25px 25px 25px',
     minHeight: '100vh',
+    minWidth: '300px',
   },
   handleText: {
     color: 'white',
@@ -11,7 +12,8 @@ const ListStyles = theme => ({
   list: {
     display: 'inline-flex',
     padding: '50px 25px 25px 25px',
-    textAlign: 'left'
+    textAlign: 'left',
+    minWidth: '300px',
   },
   media: {
     marginTop: '25px',
