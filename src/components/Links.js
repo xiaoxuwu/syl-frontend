@@ -17,7 +17,7 @@ class Links extends Component {
       dCol: 12, 
       links: [],
       userPref: {},
-      username: this.props.match.params.username,
+      username: this.props.username ? this.props.username : this.props.match.params.username,
       baseURL: process.env.REACT_APP_API_URL 
     };
   }
@@ -96,11 +96,13 @@ class Links extends Component {
 
     return (
         <div style={background} className={classes.content} >
-          <img
-            src={profile_pic}
-            className={classes.media}
-            alt="link"
-          />
+          <div className={classes.imgWrapper}>
+            <img
+              src={profile_pic}
+              className={classes.media}
+              alt="link"
+            />
+          </div>
           <Typography variant="h4" component="h4" className={classes.handleText}>
             @{user}
           </Typography>
