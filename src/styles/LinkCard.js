@@ -1,3 +1,4 @@
+// TODO: make cards shorter in mobile view
 const LinkCardStyles = {
 	card: {
 		width: '100%',
@@ -5,15 +6,19 @@ const LinkCardStyles = {
 		color: 'white',
 		backgroundColor: 'transparent',
 		border: '2px solid white',
-		boxShadow: 'none'
+		boxShadow: 'none',
+		height: 70,
 	},
 	cardText: {
 		color: 'white',
-		fontFamily: "'Oxygen', sans-serif"
+		fontFamily: "'Oxygen', sans-serif",
+		textAlign: 'center',
+		paddingRight: 70,
 	},
 	media: {
-		height: 90,
-		width: 100,
+		width: 50,
+		minWidth: 50,
+		margin: 10,
 	},
 };
 

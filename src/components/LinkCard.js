@@ -21,6 +21,7 @@ class LinkCard extends Component {
     };
   }
 
+  // TODO: add option to remove favicon default from edit view
   // https://stackoverflow.com/questions/10282939/how-to-get-favicons-url-from-a-generic-webpage-in-javascript
   getFavicon = (url) => {
     var favicon_base_url = 'https://www.google.com/s2/favicons?sz=256&domain_url=';
