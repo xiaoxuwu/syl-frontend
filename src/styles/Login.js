@@ -47,30 +47,30 @@ const LoginStyles = theme => ({
   },
   signIn: {
     marginTop: theme.spacing.unit * 3,
-    padding: "20px 20px",
-    width: "90%",
-    fontSize: "16px",
-    display: "block",
-    margin: "0 auto",
-    backgroundColor: "#ff6666",
+    padding: '20px 20px',
+    width: '90%',
+    fontSize: '16px',
+    display: 'block',
+    margin: '0 auto',
+    backgroundColor: '#ff6666',
     '&:hover': {
-       backgroundColor: "#e65c5c",
+       backgroundColor: '#e65c5c',
     },
   },
   instagram: {
     marginTop: theme.spacing.unit * 3,
-    width: "90%",
-    margin: "0 auto",
+    width: '90%',
+    margin: '0 auto',
   },
   register: {
-    fontSize: "12px",
+    fontSize: '12px',
     paddingTop: theme.spacing.unit,
   },
   registerLink: {
     fontWeight: 600,
-    color: "#ff6666",
-    textDecoration: "none",
-    cursor: "pointer",
+    color: '#ff6666',
+    textDecoration: 'none',
+    cursor: 'pointer',
   },
 });
 
