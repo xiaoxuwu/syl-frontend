@@ -8,6 +8,7 @@ const LinkCardStyles = {
 		border: '2px solid white',
 		boxShadow: 'none',
 		height: 70,
+		borderRadius: 6,
 	},
 	cardText: {
 		color: 'white',
@@ -19,6 +20,7 @@ const LinkCardStyles = {
 		width: 50,
 		minWidth: 50,
 		margin: 10,
+		borderRadius: 6,
 	},
 };
 
