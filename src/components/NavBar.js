@@ -29,7 +29,6 @@ class NavBar extends Component {
           </span>
           <div className={classes.grow} />
           <Button className={classes.navlink} component={Link} to="/influencer/">Home</Button>
-          <Button className={classes.navlink} component={Link} to="/influencer/register/">Register</Button>
           {loggedIn ? <Button component={Link} className={classes.navlink} to="/influencer/dashboard/">Dashboard</Button> : null }
           {authButton}
         </Toolbar>

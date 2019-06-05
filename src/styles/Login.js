@@ -62,16 +62,6 @@ const LoginStyles = theme => ({
     width: '90%',
     margin: '0 auto',
   },
-  register: {
-    fontSize: '12px',
-    paddingTop: theme.spacing.unit,
-  },
-  registerLink: {
-    fontWeight: 600,
-    color: '#ff6666',
-    textDecoration: 'none',
-    cursor: 'pointer',
-  },
 });
 
 export default LoginStyles;

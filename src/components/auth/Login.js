@@ -140,9 +140,6 @@ class Login extends Component {
               <Icon className={clsx(classes.icon, classes.mr, 'fab fa-instagram')} />
               Connect with Instagram
             </Button>
-            <p className={classes.register}>
-              Not a member? <a href="/register/" className={classes.registerLink}>Join ShopYourLinks</a>
-            </p>
           </Paper>
         </main>
       </div>
