@@ -34,7 +34,7 @@ import {
   PortletLabel,
   PortletContent,
   PortletFooter
-} from 'components';
+} from 'dashboard';
 
 // Component styles
 import styles from './styles';

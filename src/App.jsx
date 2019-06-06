@@ -14,15 +14,15 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 // Routes
 // import Routes from './Routes';
 
-import NavBar from './syl/NavBar';
-import Home from './syl/Home';
-// import NotFound from './syl/NotFound'
-import Preview from './syl/Preview'
-import Login from './syl/auth/Login';
-import Logout from './syl/auth/Logout';
-import { isAuthenticated } from './syl/auth/AuthService';
-import Links from './syl/Links.js';
-import CreateAccount from './syl/CreateAccount';
+import NavBar from './components/NavBar';
+import Home from './components/Home';
+// import NotFound from './components/NotFound'
+import Preview from './components/Preview'
+import Login from './components/auth/Login';
+import Logout from './components/auth/Logout';
+import { isAuthenticated } from './components/auth/AuthService';
+import Links from './components/Links.js';
+import CreateAccount from './components/CreateAccount';
 import { loadCSS } from 'fg-loadcss';
 
 import Dashboard from './views/Dashboard';

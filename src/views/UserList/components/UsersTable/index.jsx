@@ -27,7 +27,7 @@ import {
 // import { getInitials } from 'helpers';
 
 // Shared components
-import { Portlet, PortletContent } from 'components';
+import { Portlet, PortletContent } from 'dashboard';
 
 // Component styles
 import styles from './styles';

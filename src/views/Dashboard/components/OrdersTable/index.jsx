@@ -22,9 +22,6 @@ import {
   TableSortLabel
 } from '@material-ui/core';
 
-// Shared services
-// import { getOrders } from 'services/order';
-
 // Mock data
 import orders from 'data/orders';
 import users from 'data/users';
@@ -37,7 +34,7 @@ import {
   PortletToolbar,
   PortletContent,
   Status
-} from 'components';
+} from 'dashboard';
 
 // Component styles
 import styles from './styles';

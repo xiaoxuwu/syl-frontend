@@ -26,7 +26,7 @@ import {
   PortletLabel,
   PortletToolbar,
   PortletContent
-} from 'components';
+} from 'dashboard';
 
 // Palette
 import palette from 'theme/palette';
