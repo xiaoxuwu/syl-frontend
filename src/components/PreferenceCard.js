@@ -19,51 +19,61 @@ import PreferenceCardStyles from '../styles/PreferenceCard.js'
 class PreferenceCard extends Component {
   constructor(props) {
     super(props);
-    console.log('FUCK YOU')
-    console.log(this.props)
     this.state = {
       username: this.props.username,
+      token: localStorage.getItem('token'),
       userPref: {},
-      newProfile: '',
-      newBg: '',
+      newProfile: null,
+      newBg: null,
       baseURL: process.env.REACT_APP_API_URL 
     };
     this.handleProfile = this.handleProfile.bind(this);
     this.handleBackground= this.handleBackground.bind(this);
     this.handlePrefSubmit = this.handlePrefSubmit.bind(this);
-    console.log('PREFERENCE CARD!!!')
-    console.log(this.state.username);
   }
 
   handleProfile(e) {
     this.setState({
-      newProfile: e.target.value
+      newProfile: e.target.files[0]
     });
+    console.log("HANDLE PROFILE")
+    console.log(this.state.newProfile);
   }
 
   handleBackground(e) {
     this.setState({
-      newBg: e.target.value
+      newBg: e.target.files[0]
     });
   }
 
   handlePrefSubmit(e) {
-    var apiEndpoint = '/api/preferences/';
-    if (this.state.newProfile !== '') {
-      var profileData = 'profile_img=' + this.state.newProfile;
-      axios.post(apiEndpoint, profileData).catch(err => console.log(err));
-      this.setState({
-        newProfile: ''
-      });
+    var apiEndpoint = '/api/preferences/'+this.state.userPref.id;
+    var updateData = new FormData();
+    var config = {
+      'headers' : { 
+        'Authorization': 'Token ' + this.state.token, 
+        'Content-Type': 'multipart/form-data' 
+      }
     }
 
-    if (this.state.newProfile !== '') {
-      var bgData = 'background_img=' + this.state.newBg;
-      axios.post(apiEndpoint, bgData).catch(err => console.log(err));
-      this.setState({
-        newBg: ''
-      });
+    if ((this.state.newProfile === null) && (this.state.newBg === null)) {
+      return;
     }
+
+    if (this.state.newProfile !== null) {
+      updateData.append('profile_img', this.state.newProfile);
+    } 
+    
+    if (this.state.newBg !== null) {
+      updateData.append('background_img', this.state.newBg);
+    } 
+
+    axios.patch(apiEndpoint, updateData, config).then(
+      this.setState({
+        newProfile: null,
+        newBg: null,
+      })
+    ).catch(err => console.log(err.response));
   }
 
   // Called when component has been initialized
