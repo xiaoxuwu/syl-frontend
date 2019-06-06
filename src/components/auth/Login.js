@@ -81,7 +81,7 @@ class Login extends Component {
 
     // if already logged in, redirect to home
     if (getLoginCallback()) {
-      return <Redirect to='/influencer/' />
+      return <Redirect to='/influencer/edit/' />
     }
 
     let errorSnackBar = null

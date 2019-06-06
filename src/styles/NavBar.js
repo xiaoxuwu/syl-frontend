@@ -5,7 +5,7 @@ const NavBarStyles = theme => ({
     },
   },
   appBar: {
-    position: 'relative',
+    position: 'fixed',
     boxShadow: 'none',
     backgroundColor: theme.palette.common.white,
   },
