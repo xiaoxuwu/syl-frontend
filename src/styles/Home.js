@@ -1,40 +1,24 @@
+import BackgroundImage from '../assets/images/background.jpg'
+
 const HomeStyles = theme => ({
-  content: {
-    textAlign: 'center',
+  background: {
+    backgroundImage: `url(${BackgroundImage})`,
+    backgroundSize: 'cover !important',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+    overflowY: 'scroll',
+    alignItems: 'center',
+    display: 'flex',
+    minWidth: '250px',
   },
-  editList: {
-    display: 'inline-flex',
-    padding: '25px 25px 25px 25px',
-    justifyContent: 'left'
-  },
-  list: {
-    display: 'inline-flex',
-    padding: '25px 25px 25px 25px',
-    justifyContent: 'center'
-  },
-  media: {
-  	height: 150,
-  	width: 150,
-  },
-  pref: {
-  	width: '100%',
-  	padding: '25px 25px 25px 25px',
-  	display: 'inline-flex',
-  },
-  info: {
-  	display: 'inline-grid',
-  	textAlign: 'left',
-  	padding: '0px 25px 0px 25px',
-  },
-  button: {
-    margin: theme.spacing.unit,
-  },
-  leftIcon: {
-    marginRight: theme.spacing.unit,
-  },
-  iconSmall: {
-    fontSize: 20,
-  },
+  logo: {
+    width: '40%',
+    margin: '0 auto',
+    minWidth: '250px',
+  }
 });
 
 export default HomeStyles;

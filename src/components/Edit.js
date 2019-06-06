@@ -19,7 +19,7 @@ import PreferenceCard from '../components/PreferenceCard.js'
 import LinkCard from '../components/LinkCard.js';
 
 
-class Home extends Component {
+class Edit extends Component {
   constructor(props) {
     super(props);
     this.state = { 
@@ -74,7 +74,6 @@ class Home extends Component {
 
   // Makes GET requests to retrieve username and links
   getUserLinks = () => {
-    console.log("Parent")
     let token = localStorage.getItem('token');
     var apiEndpoint = '/api/users/';
 
@@ -108,8 +107,6 @@ class Home extends Component {
         this.setState({ 
           links: links,
         });
-        console.log("Setstate")
-        console.log(links)
       }).catch(err => console.log(err));
   }
 
@@ -138,7 +135,6 @@ class Home extends Component {
   }
 
   render() {
-    console.log("Rendering")
     const { classes } = this.props;
     var links = this.state.links
       .sort((a,b) => (a.order > b.order) ? 1 : -1)
@@ -174,11 +170,11 @@ class Home extends Component {
 
     var preferenceCard = <PreferenceCard username={this.state.usernam} />
 
-    const background = userPref.background_img ? {
+    const background = {
       backgroundImage: `url(${background_pic})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
-    }: {background: 'linear-gradient(to right, #f7ff00, #db36a4)'};
+    };
 
     return (
         <div style={background} className={classes.content}>
