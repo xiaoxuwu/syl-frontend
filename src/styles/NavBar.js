@@ -17,7 +17,8 @@ const NavBarStyles = theme => ({
   },
   logo: {
     width: '175px',
-    paddingTop: '10px'
+    paddingTop: '10px',
+    userSelect: 'none',
   },
   navlink: {
     marginRight: '10px',
@@ -32,7 +33,7 @@ const NavBarStyles = theme => ({
   topbarShift: {
     marginLeft: '285px',
   },
-  hideIconButton: {
+  hideImage: {
     display: 'none',
     pointerEvents: 'none',
   }

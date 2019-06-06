@@ -18,6 +18,7 @@ const HomeStyles = theme => ({
     width: '40%',
     margin: '0 auto',
     minWidth: '250px',
+    userSelect: 'none',
   }
 });
 

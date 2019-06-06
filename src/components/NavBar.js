@@ -6,6 +6,8 @@ import Toolbar from '@material-ui/core/Toolbar'
 import { withStyles, withWidth } from '@material-ui/core'
 import NavBarStyles from '../styles/NavBar.js'
 
+import LogoImage from '../assets/images/syl-logo-color.svg'
+
 // Externals
 import classNames from 'classnames';
 import compose from 'recompose/compose';
@@ -60,10 +62,16 @@ class NavBar extends Component {
       <div>
       <AppBar position="static" color="default" className={classes.appBar}>
         <Toolbar>
+          <Link to="/influencer">
+            <img src={LogoImage} alt="SYL" 
+              className={classNames(classes.logo, {
+                [classes.hideImage]: isDashboard,
+              })} />
+          </Link>
           <IconButton
             className={classNames({
               [classes.topbarShift]: shiftTopbar,
-              [classes.hideIconButton]: !isDashboard,
+              [classes.hideImage]: !isDashboard,
             })}
             onClick={() => this.handleClick(isOpen)}
             variant="text"
