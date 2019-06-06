@@ -5,6 +5,7 @@ import Home from './components/Home'
 import Edit from './components/Edit';
 import Dashboard from './components/Dashboard';
 import NotFound from './components/NotFound'
+import Preview from './components/Preview'
 import Login from './components/auth/Login';
 import Logout from './components/auth/Logout';
 import { isAuthenticated } from './components/auth/AuthService';
@@ -41,6 +42,7 @@ class App extends Component {
         <Route path="/influencer/*" render={() => <NavBar getLoginCallback={this.getLoggedIn} />} />
         <Switch>
           <Route exact path="/influencer" component={Home} />
+          <Route exact path="/influencer/preview" component={Preview} />
           {this.getLoggedIn() ? <Route exact path="/influencer/dashboard" component={Dashboard} /> : null}
           {this.getLoggedIn() ? <Route exact path="/influencer/edit" component={Edit} /> : null}
           <Route exact path="/influencer/login" render={(props) => <Login {...props} setLoginCallback={this.setLoggedIn}
