@@ -8,12 +8,7 @@ const PreviewStyles = theme => ({
   preview: {
     display: 'block',
     height: 'auto',
-    position: 'absolute',
-    top: '75px',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    overflow: 'hidden !important',
+    position: 'relative',
     minHeight: '600px',
   },
   previewTitle: {

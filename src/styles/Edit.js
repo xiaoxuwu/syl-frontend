@@ -1,6 +1,5 @@
 const EditStyles = theme => ({
   content: {
-  	margin: '25px 25px 80px 25px',
     textAlign: 'center',
   },
   editList: {
@@ -11,7 +10,9 @@ const EditStyles = theme => ({
   list: {
     display: 'inline-flex',
     padding: '25px 25px 25px 25px',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    maxHeight: '100vh',
+    overflow: 'auto',
   },
   media: {
   	height: 150,

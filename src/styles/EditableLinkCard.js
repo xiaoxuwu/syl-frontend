@@ -10,21 +10,21 @@ const EditableLinkCardStyles = {
   },
   content: {
     width: '100%',
+    paddingBottom: '3%',
+    paddingLeft: '4%',
   },
   actions: {
     position: 'absolute',
-    right: 0,
-    bottom: 0,
+    right: '1%',
+    bottom: '5%',
+  },
+  action: {
+    padding: 6,
   },
   inputs: {
     width: '90%',
     float: 'left',
   },
-  adjacentInputs: {
-    width: '90%',
-    float: 'left',
-    paddingTop: '1%',
-  }
 };
 
 export default EditableLinkCardStyles;

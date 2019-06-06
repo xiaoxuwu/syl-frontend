@@ -8,7 +8,7 @@ import EditStyles from '../styles/Edit.js';
 
 import EditableLinkCard from '../components/EditableLinkCard.js';
 import PreferenceCard from '../components/PreferenceCard.js'
-import LinkCard from '../components/LinkCard.js';
+import Preview from '../components/Preview.js';
 
 
 class Edit extends Component {
@@ -90,17 +90,6 @@ class Edit extends Component {
 
   render() {
     const { classes } = this.props;
-    var links = this.state.links
-      .sort((a,b) => (a.order > b.order) ? 1 : -1)
-      .map(link => {
-        var IMG = this.state.baseURL + '/' + link.media_prefix + link.image;
-        return <LinkCard 
-          key={link.id}
-          link_id={link.id} 
-          image={IMG} 
-          URL={link.url} 
-          title={link.text}  />
-    });
 
     var editableLinks = this.state.links
       .sort((a,b) => (a.order > b.order) ? 1 : -1)
@@ -144,12 +133,7 @@ class Edit extends Component {
             </Grid>
           </Grid>
           <Grid container spacing={16} md="4" className={classes.list}>
-            {links.map(linkCard =>
-              <Grid item xs={10} md={10}>
-                {linkCard}
-              </Grid>
-              )  
-            }
+            <Preview />
           </Grid>
         </div>
     );
