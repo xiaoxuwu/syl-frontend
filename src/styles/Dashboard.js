@@ -124,13 +124,16 @@ const DashboardStyles = theme => ({
       paddingRight: 0
     },
     highlightText: {
-      paddingLeft: 40,
-      paddingRight: 40,
+      textAlign: 'center',
       color: 'dodgerblue'
     },
     rawWrapper: {
       marginTop: 40,
       border: '1px solid rgba(0, 0, 0, 0.12)',
+    },
+    centerTitle: {
+      paddingTop: 25,
+      margin: '0 auto'
     }
 });
 

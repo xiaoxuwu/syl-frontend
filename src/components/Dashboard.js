@@ -154,8 +154,8 @@ class Dashboard extends React.Component {
           <Grid container className={classes.root}>
               <Grid item sm={2} xs={6} className={clsx(classes.topContentWrapper, classes.noLeftPadding)}>
                 <Card elevation={0} className={clsx(classes.contentCard, classes.fullHeight)}>
-                  <Grid container className={classes.contentHeader} spacing={8}>
-                    <Typography variant="h6" gutterBottom component="h2" className={classes.contentHeaderText}>
+                  <Grid container>
+                    <Typography variant="h6" gutterBottom component="h2" className={clsx(classes.contentHeaderText, classes.centerTitle)}>
                       Total Clicks
                     </Typography>
                   </Grid>
