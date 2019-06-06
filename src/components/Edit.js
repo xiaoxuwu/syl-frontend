@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import axios from './AxiosClient';
-import clsx from 'clsx';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 
@@ -32,41 +28,6 @@ class Edit extends Component {
       newBg: '',
       baseURL: process.env.REACT_APP_API_URL 
     };
-    this.handleProfile = this.handleProfile.bind(this);
-    this.handleBackground= this.handleBackground.bind(this);
-    this.handlePrefSubmit = this.handlePrefSubmit.bind(this);
-    this.handleAddLink = this.handleAddLink.bind(this);
-  }
-
-  handleProfile(e) {
-    this.setState({
-      newProfile: e.target.value
-    });
-  }
-
-  handleBackground(e) {
-    this.setState({
-      newBg: e.target.value
-    });
-  }
-
-  handlePrefSubmit(e) {
-    var apiEndpoint = '/api/preferences/';
-    if (this.state.newProfile !== '') {
-      var profileData = 'profile_img=' + this.state.newProfile;
-      axios.post(apiEndpoint, profileData).catch(err => console.log(err));
-      this.setState({
-        newProfile: ''
-      });
-    }
-
-    if (this.state.newProfile !== '') {
-      var bgData = 'background_img=' + this.state.newBg;
-      axios.post(apiEndpoint, bgData).catch(err => console.log(err));
-      this.setState({
-        newBg: ''
-      });
-    }
   }
 
   // Called when component has been initialized
@@ -145,11 +106,8 @@ class Edit extends Component {
           getParentLinks={this.getUserLinks}  />
     });
 
-    var user = this.state.user.username;
     var userPref = this.state.userPref;
-    var profile_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.profile_img;
     var background_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.background_img;
-
     var preferenceCard = <PreferenceCard username={this.state.user.username} />
 
     return (
