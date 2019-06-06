@@ -108,7 +108,7 @@ class Links extends Component {
           </Typography>
           <Grid container spacing={16} md="6" lg="5" className={classes.list}>
             {links.map(linkCard =>
-              <Grid item xs={this.state.pCol} md={this.state.dCol} lg={this.state.dCol}>
+              <Grid item xs={this.state.pCol} md={this.state.dCol} lg={this.state.dCol} className={classes.gridItem}>
                 {linkCard}
               </Grid>
               )  

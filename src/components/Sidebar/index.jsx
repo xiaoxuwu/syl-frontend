@@ -28,6 +28,9 @@ import {
 // Component styles
 import styles from './styles';
 
+import LogoImage from '../../assets/images/syl-logo-color.svg'
+
+
 class Sidebar extends Component {
   render() {
     const { classes, className } = this.props;
@@ -36,6 +39,18 @@ class Sidebar extends Component {
 
     return (
       <nav className={rootClassName}>
+        <div className={classes.logoWrapper}>
+          <Link
+            className={classes.logoLink}
+            to="/influencer"
+          >
+            <img
+              alt="SYL logo"
+              className={classes.logoImage}
+              src={LogoImage}
+            />
+          </Link>
+        </div>
         <Divider className={classes.logoDivider} />
         <div className={classes.profile}>
           <Link to="/account">

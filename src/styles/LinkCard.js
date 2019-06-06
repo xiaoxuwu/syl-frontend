@@ -15,6 +15,8 @@ const LinkCardStyles = {
 		fontFamily: "'Oxygen', sans-serif",
 		textAlign: 'center',
 		paddingRight: 70,
+		margin: 0,
+		fontSize: 20,
 	},
 	media: {
 		width: 50,

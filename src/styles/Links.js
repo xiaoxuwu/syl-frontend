@@ -15,6 +15,9 @@ const ListStyles = theme => ({
     textAlign: 'left',
     minWidth: '300px',
   },
+  gridItem: {
+    paddingTop: 20,
+  },
   imgWrapper: {
     width: '150px',
     height: '150px',

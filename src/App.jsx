@@ -59,7 +59,7 @@ export default class App extends Component {
       <ThemeProvider theme={theme}>
         <Router history={browserHistory}>
           <Route exact strict path="/:url*" render={props => <Redirect to={`${props.location.pathname}/`}/>} />
-          <Route path="/influencer/*" render={() => <NavBar getLoginCallback={this.getLoggedIn} />} />
+          <Route path="/influencer/*" render={props => <NavBar getLoginCallback={this.getLoggedIn} urlPath={props.location.pathname} />} />
           <Switch>
             <Redirect exact from="/" to="/influencer" />
             <Route exact path="/influencer" component={Home} />

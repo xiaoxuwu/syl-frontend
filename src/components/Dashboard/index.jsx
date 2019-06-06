@@ -4,6 +4,7 @@ import React, { Component, Fragment } from 'react';
 import classNames from 'classnames';
 import compose from 'recompose/compose';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom'
 
 // Material helpers
 import { withStyles, withWidth } from '@material-ui/core';
@@ -16,6 +17,19 @@ import { Sidebar } from 'components';
 
 // Component styles
 import styles from './styles';
+
+// Material components
+import {
+  IconButton,
+} from '@material-ui/core';
+
+// Material icons
+import {
+  Menu as MenuIcon,
+  Close as CloseIcon,
+} from '@material-ui/icons';
+
+import LogoImage from '../../assets/images/syl-logo-color.svg'
 
 class Dashboard extends Component {
   constructor(props) {
@@ -43,10 +57,21 @@ class Dashboard extends Component {
     const { isOpen } = this.state;
 
     const isMobile = ['xs', 'sm', 'md'].includes(width);
+    const shiftTopbar = isOpen && !isMobile;
     const shiftContent = isOpen && !isMobile;
 
     return (
       <Fragment>
+        <IconButton
+          className={classes.menuButton}
+          className={classNames(classes.menuButton, {
+            [classes.topbarShift]: shiftTopbar
+          })}
+          onClick={this.handleToggleOpen}
+          variant="text"
+        >
+          {isOpen ? <CloseIcon /> : <MenuIcon />}
+        </IconButton>
         <Drawer
           anchor="left"
           classes={{ paper: classes.drawerPaper }}

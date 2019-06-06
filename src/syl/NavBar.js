@@ -7,11 +7,13 @@ import { withStyles } from '@material-ui/core/styles'
 import NavBarStyles from '../styles/NavBar.js'
 import { injectLogo } from './SVGInjectors'
 
+import { Dashboard } from 'components';
+
 class NavBar extends Component {
 
   render() {
-    const { classes, getLoginCallback } = this.props;
-
+    const { classes, urlPath, getLoginCallback } = this.props;
+    console.log(urlPath)
     let loggedIn = getLoginCallback()
     let url = loggedIn ? "/influencer/logout" : "/influencer/login"
     let text = loggedIn ? "Logout" : "Login"
@@ -24,9 +26,7 @@ class NavBar extends Component {
       <div>
       <AppBar position="static" color="default" className={classes.appBar}>
         <Toolbar>
-          <span className={classes.logo}>
-            {injectLogo()}
-          </span>
+          {urlPath == "/influencer/dashboard" ? <Dashboard /> : null}
           <div className={classes.grow} />
           <Button className={classes.navlink} component={Link} to="/influencer">Home</Button>
           <Button className={classes.navlink} component={Link} to="/influencer/preview">Preview</Button>
@@ -39,6 +39,3 @@ class NavBar extends Component {
   }
 }
 export default withStyles(NavBarStyles)(NavBar);
-
-
-

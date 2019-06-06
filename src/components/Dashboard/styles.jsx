@@ -15,5 +15,12 @@ export default theme => ({
   },
   contentShift: {
     marginLeft: '270px'
-  }
+  },
+  menuButton: {
+    marginLeft: '-4px'
+  },
+  topbarShift: {
+    marginLeft: '271px',
+    // width: 'calc(-271px + 100vw)'
+  },
 });
