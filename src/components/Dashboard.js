@@ -60,24 +60,10 @@ class Dashboard extends React.Component {
       });
       this.setState({
         viewsVsTime: viewsVsTime,
-        raw: res.data.raw
+        raw: res.data.raw,
+        totalViewCount: res.data.raw.length
       });
       console.log(res.data)
-    }).catch(err => {
-      console.log(err)
-    })
-
-    axios.get('/api/events/stats', {
-      params: {
-        'method': 'count',
-        'limit': limit
-      },
-      headers: {
-        'Authorization': 'Token ' + localStorage.getItem('token')
-      }
-    }).then(res => {
-      this.setState({totalViewCount: res.data.count});
-      console.log(res.data.count)
     }).catch(err => {
       console.log(err)
     })

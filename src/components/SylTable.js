@@ -17,31 +17,35 @@ const styles = {
     minWidth: 700,
   },
 };
-function SylTable (props) {
-  const { classes, data } = props;
 
-  return (
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <TableCell align="right">Time Clicked</TableCell>
-            <TableCell align="right">Link</TableCell>
-            <TableCell align="right">Order</TableCell>
-            <TableCell align="right">Link Text</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map(n => (
-            <TableRow key={n.id}>
-              <TableCell align="right">{n[1]}</TableCell>
-              <TableCell align="right">{n[2]}</TableCell>
-              <TableCell align="right">{n[3]}</TableCell>
-              <TableCell align="right">{n[4]}</TableCell>
+class SylTable extends React.Component {
+  
+  render() {
+    const { classes, data } = this.props;
+
+    return (
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell align="right">Time Clicked</TableCell>
+              <TableCell align="right">Link</TableCell>
+              <TableCell align="right">Order</TableCell>
+              <TableCell align="right">Link Text</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-  );
+          </TableHead>
+          <TableBody>
+            {data.map(n => (
+              <TableRow key={n.id}>
+                <TableCell align="right">{n[1]}</TableCell>
+                <TableCell align="right">{n[2]}</TableCell>
+                <TableCell align="right">{n[3]}</TableCell>
+                <TableCell align="right">{n[4]}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+    );
+  }
 }
 
 SylTable.propTypes = {
