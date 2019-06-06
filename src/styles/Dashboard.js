@@ -1,8 +1,9 @@
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 const DashboardStyles = theme => ({
     root: {
       display: 'flex',
+      marginBottom: 20,
     },
     toolbar: {
       paddingRight: 24, // keep right padding when drawer closed
@@ -38,6 +39,13 @@ const DashboardStyles = theme => ({
     },
     title: {
       flexGrow: 1,
+    },  
+    profilePic: {
+      marginTop: '25px',
+      height: 150,
+      width: 150,
+      borderRadius: '50%',
+      margin: '0 auto'
     },
     drawerPaper: {
       position: 'relative',
@@ -59,10 +67,30 @@ const DashboardStyles = theme => ({
         width: theme.spacing.unit * 9,
       },
     },
+    contentCard: {
+      border: '1px solid rgba(0, 0, 0, 0.12)',
+    },
+    fullHeight: {
+      height: "100%"
+    },
+    contentHeader: {
+      paddingTop: 15,
+      paddingLeft: 45
+    },
+    contentHeaderText: {
+      fontWeight: 400,
+      paddingTop: 10,
+      color: 'rgba(0, 0, 0, 0.75)'
+    },
+    usernameText: {
+      textAlign: 'center',
+      marginTop: 15,
+      marginBottom: 15
+    },
     appBarSpacer: theme.mixins.toolbar,
     content: {
       flexGrow: 1,
-      padding: theme.spacing.unit * 3,
+      padding: theme.spacing.unit * 5,
       height: '100vh',
       overflow: 'auto',
     },
@@ -70,11 +98,40 @@ const DashboardStyles = theme => ({
       marginLeft: -22,
     },
     tableContainer: {
-      height: 320,
+      height: '100%',
+      paddingLeft: 5
     },
     h5: {
       marginBottom: theme.spacing.unit * 2,
     },
+    'recharts-surface': {
+      height: 500
+    },
+    select: {
+      marginRight: 40,
+      marginBottom: 20
+    },
+    topFilterWrapper: {
+      textAlign: 'center'
+    },
+    topContentWrapper: {
+      padding: 20
+    },
+    noLeftPadding: {
+      paddingLeft: 0
+    },
+    noRightPadding: {
+      paddingRight: 0
+    },
+    highlightText: {
+      paddingLeft: 40,
+      paddingRight: 40,
+      color: 'dodgerblue'
+    },
+    rawWrapper: {
+      marginTop: 40,
+      border: '1px solid rgba(0, 0, 0, 0.12)',
+    }
 });
 
 export default DashboardStyles

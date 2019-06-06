@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 import ListStyles from '../styles/Links.js';
-
+import clsx from 'clsx';
 import LinkCard from '../components/LinkCard.js';
 
 class Links extends Component {
@@ -68,7 +68,7 @@ class Links extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, parentClasses } = this.props;
     var links = this.state.links
       .sort((a,b) => (a.order > b.order) ? 1 : -1)
       .map(link => {
@@ -80,12 +80,17 @@ class Links extends Component {
           link_id={link.id} 
           image={IMG} 
           URL={link.url} 
+          parentClasses={parentClasses}
           title={text}  />
     });
     var user = this.state.username;
     var userPref = this.state.userPref;
     var profile_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.profile_img;
     var background_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.background_img;
+    var previewContainer = null
+    if (parentClasses !== undefined) {
+      previewContainer = parentClasses.previewContainer
+    }
 
 
     const background = userPref.background_img ? {
@@ -106,7 +111,7 @@ class Links extends Component {
           <Typography variant="h4" component="h4" className={classes.handleText}>
             @{user}
           </Typography>
-          <Grid container spacing={16} md="6" lg="5" className={classes.list}>
+          <Grid container spacing={16} md="6" lg="5" className={clsx(classes.list, previewContainer)}>
             {links.map(linkCard =>
               <Grid item xs={this.state.pCol} md={this.state.dCol} lg={this.state.dCol}>
                 {linkCard}

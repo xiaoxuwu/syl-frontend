@@ -38,9 +38,11 @@ class App extends Component {
     return (
       <Router>
         <Route exact strict path="/:url*" render={props => <Redirect to={`${props.location.pathname}/`}/>} />
-        <Route path="/influencer/*" render={() => <NavBar getLoginCallback={this.getLoggedIn} />} />
         <Switch>
-          <Route exact path="/influencer" component={Home} />
+          <Route exact path="/influencer/dashboard/" />
+          <Route path="/influencer/*" render={() => <NavBar getLoginCallback={this.getLoggedIn} />} />
+        </Switch>
+        <Switch>
           <Route exact path="/influencer/preview" component={Preview} />
           {this.getLoggedIn() ? <Route exact path="/influencer/dashboard" component={Dashboard} /> : null}
           <Route exact path="/influencer/login" render={(props) => <Login {...props} setLoginCallback={this.setLoggedIn}
