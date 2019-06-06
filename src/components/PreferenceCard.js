@@ -22,7 +22,10 @@ class PreferenceCard extends Component {
     this.state = {
       username: this.props.username,
       token: localStorage.getItem('token'),
-      userPref: {},
+      pref_id: '',
+      curProfile: '',
+      curBg: '',
+      media_prefix: '',
       newProfile: null,
       newBg: null,
       baseURL: process.env.REACT_APP_API_URL 
@@ -36,8 +39,6 @@ class PreferenceCard extends Component {
     this.setState({
       newProfile: e.target.files[0]
     });
-    console.log("HANDLE PROFILE")
-    console.log(this.state.newProfile);
   }
 
   handleBackground(e) {
@@ -47,7 +48,7 @@ class PreferenceCard extends Component {
   }
 
   handlePrefSubmit(e) {
-    var apiEndpoint = '/api/preferences/'+this.state.userPref.id;
+    var apiEndpoint = '/api/preferences/'+this.state.pref_id;
     var updateData = new FormData();
     var config = {
       'headers' : { 
@@ -63,13 +64,16 @@ class PreferenceCard extends Component {
     if (this.state.newProfile !== null) {
       updateData.append('profile_img', this.state.newProfile);
     } 
-    
+
     if (this.state.newBg !== null) {
       updateData.append('background_img', this.state.newBg);
     } 
-
+    console.log(this.state.newProfile);
+    console.log(updateData);
     axios.patch(apiEndpoint, updateData, config).then(
       this.setState({
+        curProfile: this.state.newProfile ? this.state.newProfile.name : this.state.curProfile,
+        curBg: this.state.newBg ? this.state.newBg.name : this.state.curBg,
         newProfile: null,
         newBg: null,
       })
@@ -89,7 +93,10 @@ class PreferenceCard extends Component {
         let users = result.data;
 
         this.setState({ 
-          userPref: users,
+          pref_id: users.id,
+          curProfile: users.profile_img,
+          curBg: users.background_img,
+          media_prefix: users.media_prefix
         });
       })
       .catch(err => console.log(err));
@@ -98,9 +105,8 @@ class PreferenceCard extends Component {
   render() {
     const { classes } = this.props;
     var user = this.state.username;
-    var userPref = this.state.userPref;
-    var profile_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.profile_img;
-    var background_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.background_img;
+    var profile_pic = this.state.baseURL + '/' + this.state.media_prefix + this.state.curProfile;
+    var background_pic = this.state.baseURL + '/' + this.state.media_prefix + this.state.curBg;
 
     return(
     	<Card className={classes.card}>
@@ -116,18 +122,26 @@ class PreferenceCard extends Component {
           <FormControl>
             <InputLabel for="profile"> Profile Picture </InputLabel> <br/> <br/>
             <Typography variant="body1" gutterBottom>
-              Currently: <a href={profile_pic}>{this.state.userPref.profile_img}</a>
+              Currently: <a href={profile_pic}>{this.state.curProfile}</a>
               <br/>
-              Change: <Input type="file" name="profile" onChange={this.handleProfile}/>
+              Change: <Input 
+                type="file" 
+                name="profile" 
+                onChange={this.handleProfile}
+                value={this.state.newProfile ? this.state.newProfile.value : ''}/>
             </Typography>
           </FormControl>
    
           <FormControl>
             <InputLabel for="background"> Background Picture </InputLabel> <br/> <br/>
             <Typography variant="body1" gutterBottom>
-              Currently: <a href={background_pic}>{this.state.userPref.background_img}</a>
+              Currently: <a href={background_pic}>{this.state.curBg}</a>
               <br/>
-              Change: <Input type="file" name="background" onChange={this.handleBackground}/>
+              Change: <Input 
+                type="file" 
+                name="background" 
+                onChange={this.handleBackground}
+                value={this.state.newBg ? this.state.newBg.value : ''}/>
             </Typography>
           </FormControl>
 
