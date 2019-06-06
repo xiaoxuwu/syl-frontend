@@ -42,7 +42,8 @@ export default class App extends Component {
     this.getLoggedIn = this.getLoggedIn.bind(this);
     // global state, which may be propgated to children
     this.state = {
-      loggedIn: isAuthenticated()
+      loggedIn: isAuthenticated(),
+      isOpen: true,
     }
   }
 
@@ -54,18 +55,41 @@ export default class App extends Component {
     return this.state.loggedIn
   }
 
+  // toggleSidebar = () => {
+  //   this.setState(prevState => ({
+  //     isOpen: !prevState.isOpen
+  //   }));
+  // };
+
+  toggleSidebar = (isOpen) => {
+    console.log('toggleSidebar: ', isOpen)
+    this.setState({
+      isOpen: isOpen,
+    });
+  };
+
+  // test = () => {
+  //   console.log('test')
+  // }
+
   render() {
     return (
       <ThemeProvider theme={theme}>
         <Router history={browserHistory}>
           <Route exact strict path="/:url*" render={props => <Redirect to={`${props.location.pathname}/`}/>} />
-          <Route path="/influencer/*" render={props => <NavBar getLoginCallback={this.getLoggedIn} urlPath={props.location.pathname} />} />
+          <Route path="/influencer/*" render={ props => 
+            <NavBar 
+              getLoginCallback={this.getLoggedIn} 
+              isDashboard={props.location.pathname === '/influencer/dashboard/'} 
+              isOpen={this.state.isOpen}
+              onChange={this.toggleSidebar} 
+            />} />
           <Switch>
             <Redirect exact from="/" to="/influencer" />
             <Route exact path="/influencer" component={Home} />
             <Route exact path="/influencer/preview" component={Preview} />
             <Route
-              component={Dashboard}
+              render={props => <Dashboard isOpen={this.state.isOpen} onChange={this.toggleSidebar} />}
               exact
               path="/influencer/dashboard"
             />

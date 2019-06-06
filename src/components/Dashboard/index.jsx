@@ -38,44 +38,32 @@ class Dashboard extends Component {
     const isMobile = ['xs', 'sm', 'md'].includes(props.width);
 
     this.state = {
-      isOpen: !isMobile
+      isOpen: this.props.isOpen,
     };
+    // console.log('dashboard: ', this.state.isOpen)
   }
 
-  handleClose = () => {
-    this.setState({ isOpen: false });
-  };
-
-  handleToggleOpen = () => {
-    this.setState(prevState => ({
-      isOpen: !prevState.isOpen
-    }));
+  handleClose = (isOpen) => {
+    // console.log('handleClose og, state: ', this.state.isOpen, ', prop: ', isOpen)
+    if (isOpen) {
+      this.setState({ isOpen: false }, function () {
+        // console.log('handleClose new state: ', this.state.isOpen)
+        this.props.onChange(this.state.isOpen)
+      });
+    }
   };
 
   render() {
-    const { classes, width, children } = this.props;
-    const { isOpen } = this.state;
-
+    const { classes, isOpen, width, children } = this.props;
     const isMobile = ['xs', 'sm', 'md'].includes(width);
-    const shiftTopbar = isOpen && !isMobile;
     const shiftContent = isOpen && !isMobile;
 
     return (
       <Fragment>
-        <IconButton
-          className={classes.menuButton}
-          className={classNames(classes.menuButton, {
-            [classes.topbarShift]: shiftTopbar
-          })}
-          onClick={this.handleToggleOpen}
-          variant="text"
-        >
-          {isOpen ? <CloseIcon /> : <MenuIcon />}
-        </IconButton>
         <Drawer
           anchor="left"
           classes={{ paper: classes.drawerPaper }}
-          onClose={this.handleClose}
+          onClose={() => this.handleClose(isOpen)}
           open={isOpen}
           variant={isMobile ? 'temporary' : 'persistent'}
         >

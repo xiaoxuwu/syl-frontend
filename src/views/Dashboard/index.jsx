@@ -36,10 +36,10 @@ const styles = theme => ({
 
 class Dashboard extends Component {
   render() {
-    const { classes } = this.props;
+    const { classes, onChange, isOpen } = this.props;
 
     return (
-      <DashboardLayout title="Dashboard">
+      <DashboardLayout title="Dashboard" isOpen={isOpen} onChange={onChange}>
         <div className={classes.root}>
           <Grid
             container

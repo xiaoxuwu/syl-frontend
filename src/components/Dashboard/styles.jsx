@@ -20,7 +20,7 @@ export default theme => ({
     marginLeft: '-4px'
   },
   topbarShift: {
-    marginLeft: '271px',
+    marginLeft: '285px',
     // width: 'calc(-271px + 100vw)'
   },
 });
