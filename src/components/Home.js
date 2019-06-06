@@ -1,10 +1,17 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
+import withStyles from '@material-ui/core/styles/withStyles';
+import HomeStyles from '../styles/Home.js'
+import LogoImage from '../assets/images/logo-name.svg'
 
 class Home extends Component {
-
-    render() {
-        return null
-    }
+  render() {
+    const { classes } = this.props;
+    return(
+      <div className={classes.background}>
+        <img src={LogoImage} alt="SYL" className={classes.logo} />
+      </div>
+    )
+  }
 }
 
-export default Home;
+export default withStyles(HomeStyles)(Home);

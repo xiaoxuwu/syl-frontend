@@ -1,3 +1,5 @@
+import BackgroundImage from '../assets/images/login-bg.jpg'
+
 const LoginStyles = theme => ({
   '@global': {
     body: {
@@ -18,8 +20,19 @@ const LoginStyles = theme => ({
       marginRight: 'auto',
     },
   },
+  background: {
+    backgroundImage: `url(${BackgroundImage})`,
+    backgroundSize: 'cover !important',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'top right',
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+    overflowY: 'scroll',
+  },
   paper: {
-    marginTop: theme.spacing.unit * 8,
+    marginTop: theme.spacing.unit * 18,
+    marginBottom: theme.spacing.unit * 10,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -27,13 +40,31 @@ const LoginStyles = theme => ({
   },
   avatar: {
     margin: theme.spacing.unit,
+    backgroundColor: '#fff',
+  },
+  logo: {
+    width: '100%',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing.unit,
   },
-  submit: {
+  signIn: {
     marginTop: theme.spacing.unit * 3,
+    padding: '20px 20px',
+    width: '90%',
+    fontSize: '16px',
+    display: 'block',
+    margin: '0 auto',
+    backgroundColor: '#ff6666',
+    '&:hover': {
+       backgroundColor: '#e65c5c',
+    },
+  },
+  instagram: {
+    marginTop: theme.spacing.unit * 3,
+    width: '90%',
+    margin: '0 auto',
   },
 });
 

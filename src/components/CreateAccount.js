@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import SylSnackBar from './SylSnackBar';
 import LoginStyles from '../styles/Login'
-import {setToken, authenticate} from './auth/AuthService'
+import {setToken, authenticate, getUserInfo, setUserInfo} from './auth/AuthService'
 
 
 class CreateAccount extends Component {
@@ -100,7 +100,18 @@ class CreateAccount extends Component {
       return authenticate(auth_config)
     })
     .then((res) => {
-      setToken(res)
+      // Get username then store username + token on success
+      getUserInfo(res.data.token)
+        .then(result => {
+          let user = result.data;
+          setUserInfo(res.data.token, user.username)
+        })
+        .catch(err => {
+          setToken(res)
+          this.setState(() => ({
+            errMsg: "Unable to retrieve username."
+          }))
+        })
       this.props.setLoginCallback(true)
     })
     .catch((err) => {
