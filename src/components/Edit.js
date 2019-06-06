@@ -12,7 +12,7 @@ import FormControl from '@material-ui/core/FormControl';
 
 import SaveIcon from '@material-ui/icons/Save';
 
-import HomeStyles from '../styles/Home.js';
+import EditStyles from '../styles/Edit.js';
 
 import EditableLinkCard from '../components/EditableLinkCard.js';
 import PreferenceCard from '../components/PreferenceCard.js'
@@ -209,4 +209,4 @@ class Home extends Component {
   }
 }
 
-export default withStyles(HomeStyles)(Home);
+export default withStyles(EditStyles)(Edit);

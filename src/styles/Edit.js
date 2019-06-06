@@ -1,4 +1,4 @@
-const HomeStyles = theme => ({
+const EditStyles = theme => ({
   content: {
     textAlign: 'center',
   },
@@ -37,4 +37,4 @@ const HomeStyles = theme => ({
   },
 });
 
-export default HomeStyles;
+export default EditStyles;
