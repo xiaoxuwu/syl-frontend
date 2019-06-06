@@ -5,9 +5,6 @@ import Button from '@material-ui/core/Button'
 import Toolbar from '@material-ui/core/Toolbar'
 import { withStyles, withWidth } from '@material-ui/core'
 import NavBarStyles from '../styles/NavBar.js'
-import { injectLogo } from './SVGInjectors'
-
-import { Dashboard } from 'components';
 
 // Externals
 import classNames from 'classnames';

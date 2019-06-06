@@ -55,22 +55,12 @@ export default class App extends Component {
     return this.state.loggedIn
   }
 
-  // toggleSidebar = () => {
-  //   this.setState(prevState => ({
-  //     isOpen: !prevState.isOpen
-  //   }));
-  // };
-
   toggleSidebar = (isOpen) => {
-    console.log('toggleSidebar: ', isOpen)
+    // console.log('toggleSidebar: ', isOpen)
     this.setState({
       isOpen: isOpen,
     });
   };
-
-  // test = () => {
-  //   console.log('test')
-  // }
 
   render() {
     return (
@@ -80,7 +70,7 @@ export default class App extends Component {
           <Route path="/influencer/*" render={ props => 
             <NavBar 
               getLoginCallback={this.getLoggedIn} 
-              isDashboard={props.location.pathname === '/influencer/dashboard/'} 
+              isDashboard={props.location.pathname === '/influencer/dashboard/' || props.location.pathname === '/influencer/dashboard/users/'} 
               isOpen={this.state.isOpen}
               onChange={this.toggleSidebar} 
             />} />
@@ -90,13 +80,11 @@ export default class App extends Component {
             <Route exact path="/influencer/preview" component={Preview} />
             <Route
               render={props => <Dashboard isOpen={this.state.isOpen} onChange={this.toggleSidebar} />}
-              exact
-              path="/influencer/dashboard"
+              exact path="/influencer/dashboard"
             />
             <Route
-              component={UserList}
-              exact
-              path="/influencer/dashboard/users"
+              render={props => <UserList isOpen={this.state.isOpen} onChange={this.toggleSidebar} />}
+              exact path="/influencer/dashboard/users/"
             />
             <Route exact path="/influencer/login" render={(props) => <Login {...props} setLoginCallback={this.setLoggedIn}
                                                       getLoginCallback={this.getLoggedIn}></Login>} />

@@ -4,7 +4,6 @@ import React, { Component, Fragment } from 'react';
 import classNames from 'classnames';
 import compose from 'recompose/compose';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom'
 
 // Material helpers
 import { withStyles, withWidth } from '@material-ui/core';
@@ -18,24 +17,9 @@ import { Sidebar } from 'components';
 // Component styles
 import styles from './styles';
 
-// Material components
-import {
-  IconButton,
-} from '@material-ui/core';
-
-// Material icons
-import {
-  Menu as MenuIcon,
-  Close as CloseIcon,
-} from '@material-ui/icons';
-
-import LogoImage from '../../assets/images/syl-logo-color.svg'
-
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-
-    const isMobile = ['xs', 'sm', 'md'].includes(props.width);
 
     this.state = {
       isOpen: this.props.isOpen,
