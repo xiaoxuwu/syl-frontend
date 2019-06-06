@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import axios from './AxiosClient';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -15,17 +16,33 @@ import PreferenceCard from '../components/PreferenceCard.js'
 import Preview from '../components/Preview.js';
 import ErrorIcon from '@material-ui/icons/Error';
 
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
+
+const getItemStyle = (isDragging, draggableStyle) => ({
+  // styles we need to apply on draggables
+  ...draggableStyle,
+
+  ...(isDragging && {
+    background: "rgb(235,235,235)"
+  })
+});
 
 class Edit extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       links: [],
       editableLinks: [],
       user: {},
       addedURL: '',
       invalidURL: false,
-      baseURL: process.env.REACT_APP_API_URL 
+      baseURL: process.env.REACT_APP_API_URL
     };
     this.handleAddLink = this.handleAddLink.bind(this);
   }
@@ -43,7 +60,7 @@ class Edit extends Component {
     axios.get(apiEndpoint, { 'headers': { 'Authorization': 'Token ' + token } }).then(result => {
       let user = result.data;
 
-      this.setState({ 
+      this.setState({
         user: user,
       });
     }).then(this.getLinks()).catch(err => console.log(err));
@@ -56,10 +73,10 @@ class Edit extends Component {
 
     return axios.get(apiEndpoint, {}).then(result => {
 
-      let links = result.data.map(function(link) { 
-        return { 
-          id: link.id, 
-          url: link.url, 
+      let links = result.data.map(function(link) {
+        return {
+          id: link.id,
+          url: link.url,
           creator_id: link.creator,
           text: link.text,
           image: link.image,
@@ -71,20 +88,20 @@ class Edit extends Component {
       var editableLinks = links
       .map(link => {
         var IMG = this.state.baseURL + '/' + link.media_prefix + link.image;
-        return <EditableLinkCard 
+        return <EditableLinkCard
           key={link.id}
-          link_id={link.id} 
+          link_id={link.id}
           order={link.order}
           links={links}
-          image={IMG} 
-          URL={link.url} 
+          image={IMG}
+          URL={link.url}
           title={link.text}
           token={localStorage.getItem('token')}
           username={this.state.user.username}
           getParentLinks={this.getLinks}  />
       });
 
-      this.setState({ 
+      this.setState({
         links: links,
         editableLinks: editableLinks,
       });
@@ -98,7 +115,7 @@ class Edit extends Component {
 
   handleAddLink() {
     if (!this.isURL(this.state.addedURL)) {
-      this.setState({ 
+      this.setState({
           invalidURL: true,
       });
     } else {
@@ -174,13 +191,37 @@ class Edit extends Component {
                   <Grid item key={this.state.links[i].id} xs={10} md={10}>
                     {editableLinkCard}
                   </Grid>
-                  )  
+                  )
                 }
               </Grid>
             </Grid>
-            <Grid item xs={4} className={classes.preview}>
-              <Preview />
-            </Grid>
+
+            <DragDropContext onDragEnd={this.onDragEnd}>
+                <Droppable droppableId="droppable">
+                  {(provided, snapshot) => (
+                    <RootRef rootRef={provided.innerRef}>
+                      <List>
+                        {editableLinks.map((link, index) => (
+                          <Draggable key={link.link_id} draggableId={link.link_id} index={index}>
+                            {(provided, snapshot) => (
+                              <ListItem
+                                ContainerComponent="li"
+                                ContainerProps={{ ref: provided.innerRef }}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                style={getItemStyle(
+                                  snapshot.isDragging,
+                                  provided.draggableProps.style
+                                )} />
+                            )}
+                          </Draggable>
+                        ))}
+                        {provided.placeholder}
+                      </List>
+                    </RootRef>
+                  )}
+                </Droppable>
+            </DragDropContext>
           </Grid>
 
         </div>
