@@ -11,6 +11,8 @@ import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 
 import SaveIcon from '@material-ui/icons/Save';
+import Paper from "@material-ui/core/Paper";
+import InputBase from "@material-ui/core/InputBase";
 
 import EditStyles from '../styles/Edit.js';
 
@@ -25,7 +27,7 @@ class Edit extends Component {
     this.state = { 
       links: [],
       userPref: {},
-      username: '',
+      user: {},
       newProfile: '',
       newBg: '',
       baseURL: process.env.REACT_APP_API_URL 
@@ -33,6 +35,7 @@ class Edit extends Component {
     this.handleProfile = this.handleProfile.bind(this);
     this.handleBackground= this.handleBackground.bind(this);
     this.handlePrefSubmit = this.handlePrefSubmit.bind(this);
+    this.handleAddLink = this.handleAddLink.bind(this);
   }
 
   handleProfile(e) {
@@ -72,7 +75,7 @@ class Edit extends Component {
     this.getUserPref();
   }
 
-  // Makes GET requests to retrieve username and links
+  // Makes GET requests to retrieve user and links
   getUserLinks = () => {
     let token = localStorage.getItem('token');
     var apiEndpoint = '/api/users/';
@@ -80,15 +83,11 @@ class Edit extends Component {
     axios.get(apiEndpoint, { 'headers': { 'Authorization': 'Token ' + token } }).then(result => {
       let user = result.data;
 
-      console.log("DAMN YOU")
       this.setState({ 
-        username: user.username,
+        user: user,
       });
 
-      console.log("getlinks in axios!");
-      console.log(this.state.username);
-
-      var apiEndpoint = '/api/links/?username=' + this.state.username;
+      var apiEndpoint = '/api/links/?username=' + user.username;
 
       return axios.get(apiEndpoint, {})}).then(result => {
 
@@ -113,32 +112,26 @@ class Edit extends Component {
   // Makes GET requests to retrieve user profile and background picture
   getUserPref() {
     let token = localStorage.getItem('token');
-    var apiEndpoint = '/api/users/';
+    var apiEndpoint = '/api/preferences/?username=' + this.state.user.username;
 
-    axios.get(apiEndpoint, { 'headers': { 'Authorization': 'Token ' + token } }).then(result => {
-      let user = result.data;
-
-      this.setState({ 
-        username: user.username,
-      });
-
-      var apiEndpoint = '/api/preferences/?username=' + this.state.username;
-
-      return axios.get(apiEndpoint, {})}).then(result => {
-        let users = result.data;
+    axios.get(apiEndpoint, {}).then(result => {
+      let prefs = result.data;
 
         this.setState({ 
-          userPref: users,
+          userPref: prefs,
         });
-      })
-      .catch(err => console.log(err));
+    }).catch(err => console.log(err));
+  }
+
+  handleAddLink() {
+    // TBD
   }
 
   render() {
     const { classes } = this.props;
 
     var editableLinks = this.state.links
-      .sort((a,b) => (a.order > b.order) ? 1 : -1)
+      .sort((a,b) => (a.order < b.order) ? 1 : -1)
       .map(link => {
         var IMG = this.state.baseURL + '/' + link.media_prefix + link.image;
         return <EditableLinkCard 
@@ -148,31 +141,34 @@ class Edit extends Component {
           URL={link.url} 
           title={link.text}
           token={localStorage.getItem('token')}
-          username={this.state.username}
+          username={this.state.user.username}
           getParentLinks={this.getUserLinks}  />
     });
 
-    var user = this.state.username;
+    var user = this.state.user.username;
     var userPref = this.state.userPref;
     var profile_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.profile_img;
     var background_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.background_img;
 
-    var preferenceCard = <PreferenceCard username={this.state.usernam} />
-
-    const background = {
-      backgroundImage: `url(${background_pic})`,
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-    };
+    var preferenceCard = <PreferenceCard username={this.state.user.username} />
 
     return (
-        <div style={background} className={classes.content}>
+        <div className={classes.content}>
           <Grid container spacing={16} md="8" className={classes.list}>
-            <Grid item spacing={16} md="12" className={classes.pref}>
+            <Grid item md="12" className={classes.pref}>
               {preferenceCard}
             </Grid>
 
             <Grid container spacing={16} md="12" className={classes.editList}>
+              <Grid item xs={10} md={10}>
+                <Paper className={classes.addLink}>
+                  <InputBase
+                    placeholder="www.example.com"
+                    className={classes.addLinkInput}
+                  />
+                  <Button variant="contained" className={classes.addLinkButton}>+ ADD NEW LINK</Button>
+                </Paper>
+              </Grid>
               {editableLinks.map(editableLinkCard =>
                 <Grid item xs={10} md={10}>
                   {editableLinkCard}
@@ -181,7 +177,7 @@ class Edit extends Component {
               }
             </Grid>
           </Grid>
-          <Grid container spacing={16} md="4" className={classes.list}>
+          <Grid container spacing={16} md="4" className={classes.preview}>
             <Preview />
           </Grid>
         </div>

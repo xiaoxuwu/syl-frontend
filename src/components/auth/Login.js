@@ -53,14 +53,15 @@ class Login extends Component {
           .then(result => {
             let user = result.data;
             setUserInfo(res.data.token, user.username)
+            this.props.setLoginCallback(true)
           })
           .catch(err => {
             setToken(res)
             this.setState(() => ({
               errMsg: "Unable to retrieve username."
             }))
+            this.props.setLoginCallback(true)
           })
-        this.props.setLoginCallback(true)
       })
       .catch(err => {
         if (err.response.status === 400) {

@@ -3,6 +3,7 @@ const EditableLinkCardStyles = {
     width: '100%',
     display: 'inline-flex',
     position: 'relative',
+    backgroundColor: '#DECE8D',
   },
   media: {
     height: 120,
