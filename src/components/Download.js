@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
+import withStyles from '@material-ui/core/styles/withStyles';
+import DownloadStyles from '../styles/Download.js';
+import SaveAltRoundedIcon from '@material-ui/icons/SaveAltRounded';
 import axios from './AxiosClient';
 
 class Download extends Component {
@@ -29,17 +32,21 @@ class Download extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return(
-      <Button
-        fullWidth
-        variant="contained"
-        color="primary"
-        onClick={this.downloadCSV}
-      >
-        Download
-      </Button>
-      )
+      <div>
+        <Button
+          fullWidth
+          variant="contained"
+          color="primary"
+          onClick={this.downloadCSV}
+        >
+          Download
+        </Button>
+        <SaveAltRoundedIcon onClick={this.downloadCSV} className={classes.icon} />
+      </div>
+    )
   }
 }
 
-export default Download;
+export default withStyles(DownloadStyles)(Download);
