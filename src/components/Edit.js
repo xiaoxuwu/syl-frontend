@@ -16,6 +16,14 @@ import PreferenceCard from '../components/PreferenceCard.js';
 import DraggableCard from './DraggableCard.js';
 import Preview from '../components/Preview.js';
 import ErrorIcon from '@material-ui/icons/Error';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import SaveIcon from '@material-ui/icons/Save';
+
+import TextField from '@material-ui/core/TextField';
+
 
 class Edit extends Component {
   constructor(props) {
@@ -168,32 +176,31 @@ class Edit extends Component {
             <div className={classes.pref}>
               {preferenceCard}
             </div>
-            <div className={classes.addLink}>
-              <Grid container className={classes.addLinkInner}>
-                <Grid item sm={5}>
-                  <InputBase
+            <div className={classes.editCardWrapper} >
+            <Card className={classes.card} elevation={0}>
+            {errorMsg}
+            <CardContent
+                className={classes.content}>
+                  <TextField
                     id="InputTitle"
-                    placeholder="Link Title"
-                    className={classes.addLinkInput}
-                    onChange={e => this.setState({addedTitle: e.target.value})}
-                  />
-                </Grid>
-                <Grid item sm={5}>
-                  <InputBase
+                    name="title"
+                    label="New Link's Text"
+                    variant="outlined"
+                    className={classes.inputs}
+                    value={this.state.title}
+                    onChange={e => this.setState({addedTitle: e.target.value})} />
+                  <TextField
                     id="InputUrl"
-                    placeholder="Link URL (www.example.com)"
-                    className={classes.addLinkInput}
-                    onChange={e => this.setState({addedURL: e.target.value, invalidURL: false})}
-                  />
-                </Grid>
-                <Grid item sm={2}>
+                    name="url"
+                    label="New Link's URL"
+                    variant="outlined"
+                    className={classes.inputs}
+                    value={this.state.URL}
+                    onChange={e => this.setState({addedURL: e.target.value, invalidURL: false})} />
                   <Button variant="contained" className={classes.addLinkButton} onClick={this.handleAddLink}>+ ADD NEW LINK</Button>
-                </Grid>
-              </Grid>
+              </CardContent>
+            </Card>
             </div>
-            <div className={classes.linkWrapper}>
-            </div>
-          {errorMsg}
           <Grid container spacing={12} className={classes.editList}>
             <div className={classes.fullWidth}>
               {this.state.links.map((link, i) => (

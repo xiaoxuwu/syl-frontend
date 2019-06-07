@@ -82,11 +82,13 @@ class EditableLinkCard extends Component {
               name="title"
               className={classes.inputs}
               value={this.state.title}
+              placeholder="Enter Text"
               onChange={e => this.setState({title: e.target.value})} />
             <TextField
               name="url"
               className={classes.inputs}
               value={this.state.URL}
+              placeholder="Enter URL"
               onChange={e => this.setState({URL: e.target.value})} />
         </CardContent>
         <div className={classes.actions}>
