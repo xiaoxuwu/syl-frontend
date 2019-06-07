@@ -15,9 +15,8 @@ const PreferenceCardStyles = theme => ({
 		fontFamily: "'Oxygen', sans-serif"
 	},
 	media: {
-		height: 'auto',
 		width: '100%',
-    	height: '100%'
+  	height: '100%'
 	},
 	info: {
 		textAlign: 'left'

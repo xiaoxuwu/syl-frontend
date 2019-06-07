@@ -13,7 +13,6 @@ import { withStyles } from '@material-ui/core';
 // Material components
 import {
   Avatar,
-  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -29,7 +28,7 @@ import {
 } from '@material-ui/icons';
 
 // Shared components
-import { Portlet, PortletContent, Status } from 'dashboard';
+import { Portlet, PortletContent } from 'dashboard';
 
 // Component styles
 import styles from './styles';

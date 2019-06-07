@@ -4,9 +4,6 @@ import PreviewStyles from '../styles/Preview.js'
 import Links from './Links'
 
 class Preview extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const { classes } = this.props;
     let username = localStorage.getItem('username');
