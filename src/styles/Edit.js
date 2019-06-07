@@ -11,7 +11,6 @@ const EditStyles = theme => ({
     paddingTop: '30px',
   },
   list: {
-    display: 'inline-flex',
     justifyContent: 'center',
     maxHeight: '100vh',
     height: '100vh',
@@ -62,7 +61,7 @@ const EditStyles = theme => ({
     width: '60%',
     height: '100%',
     alignItems: 'center',
-    marginLeft: 10,
+    marginLeft: '5%',
   },
   leftIcon: {
     marginRight: theme.spacing.unit,
@@ -73,6 +72,13 @@ const EditStyles = theme => ({
   overflowWrapper: {
     overflowY: 'auto',
     maxHeight: '100%',
+  },
+  error: {
+    marginLeft: '25%',
+    marginTop: '0.5%',
+  },
+  errorMsg: {
+    color: 'red',
   }
 });
 

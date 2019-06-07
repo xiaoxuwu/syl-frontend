@@ -70,7 +70,7 @@ class Links extends Component {
   render() {
     const { classes } = this.props;
     var links = this.state.links
-      .sort((a,b) => (a.order > b.order) ? 1 : -1)
+      .sort((a,b) => (a.order < b.order) ? 1 : -1)
       .map(link => {
         var IMG = link.image ? this.state.baseURL + '/' + link.media_prefix + link.image : null;
         var text = link.text ? link.text : link.url;
