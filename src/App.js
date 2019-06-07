@@ -18,6 +18,7 @@ import NavBar from './components/NavBar';
 import Home from './components/Home';
 // import NotFound from './components/NotFound'
 import Preview from './components/Preview'
+import Download from './components/Download'
 import Login from './components/auth/Login';
 import Logout from './components/auth/Logout';
 import { isAuthenticated } from './components/auth/AuthService';
@@ -78,6 +79,7 @@ export default class App extends Component {
             <Redirect exact from="/" to="/influencer" />
             <Route exact path="/influencer" component={Home} />
             <Route exact path="/influencer/preview" component={Preview} />
+            <Route exact path="/influencer/download" component={Download} />
             <Route
               render={props => <Dashboard isOpen={this.state.isOpen} onChange={this.toggleSidebar} />}
               exact path="/influencer/dashboard"

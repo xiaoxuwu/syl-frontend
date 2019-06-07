@@ -80,6 +80,7 @@ class NavBar extends Component {
           </IconButton>
           <div className={classes.grow} />
           <Button className={classes.navlink} component={Link} to="/influencer/preview">Preview</Button>
+          <Button className={classes.navlink} component={Link} to="/influencer/download">Download</Button>
           {loggedIn ? <Button component={Link} className={classes.navlink} to="/influencer/dashboard">Dashboard</Button> : null }
           {authButton}
         </Toolbar>
