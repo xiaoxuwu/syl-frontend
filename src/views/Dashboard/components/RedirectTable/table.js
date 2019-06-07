@@ -123,6 +123,9 @@ const useStyles = makeStyles(theme => ({
   },
   pagination: {
     width: '100%'
+  },
+  download: {
+    marginLeft: '15px',
   }
 }));
 

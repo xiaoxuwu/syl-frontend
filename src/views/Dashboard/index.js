@@ -27,11 +27,14 @@ import {
 // Component styles
 const styles = theme => ({
   root: {
-    padding: theme.spacing.unit * 4
+    padding: theme.spacing.unit * 4,
   },
   item: {
     height: '100%',
     minWidth: '225px',
+  },
+  gridContainer: {
+    marginTop: 64,
   }
 });
 
@@ -70,6 +73,7 @@ class Dashboard extends Component {
           <Grid
             container
             spacing={4}
+            className={classes.gridContainer}
           >
             <Grid
               item

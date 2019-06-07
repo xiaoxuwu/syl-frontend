@@ -29,6 +29,7 @@ import {
 
 // Shared components
 import { Portlet, PortletContent } from 'dashboard';
+import Download from 'components/Download';
 
 // Component styles
 import styles from './styles';
@@ -122,21 +123,25 @@ class LinksTable extends Component {
               </TableBody>
             </Table>
           </PerfectScrollbar>
-          <TablePagination
-            backIconButtonProps={{
-              'aria-label': 'Previous Page'
-            }}
-            component="div"
-            count={links.length}
-            nextIconButtonProps={{
-              'aria-label': 'Next Page'
-            }}
-            onChangePage={this.handleChangePage}
-            onChangeRowsPerPage={this.handleChangeRowsPerPage}
-            page={page}
-            rowsPerPage={rowsPerPage}
-            rowsPerPageOptions={[5, 10, 25]}
-          />
+          <div className={classes.tableEnd}>
+            <Download isLink={true} className={classes.download} />
+            <TablePagination
+              backIconButtonProps={{
+                'aria-label': 'Previous Page'
+              }}
+              component="div"
+              count={links.length}
+              nextIconButtonProps={{
+                'aria-label': 'Next Page'
+              }}
+              onChangePage={this.handleChangePage}
+              onChangeRowsPerPage={this.handleChangeRowsPerPage}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              rowsPerPageOptions={[5, 10, 25]}
+              className={classes.pagination}
+            />
+          </div>
         </PortletContent>
       </Portlet>
     );
