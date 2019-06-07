@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
+import Input from '@material-ui/core/Input';
 
 import TextField from '@material-ui/core/TextField';
 
@@ -24,9 +25,11 @@ class EditableLinkCard extends Component {
       title: this.props.title,
       token: this.props.token,
       username: this.props.username,
+      newImg: null
     };
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.handleSaveClick = this.handleSaveClick.bind(this);
+    this.handleImg = this.handleImg.bind(this);
   }
 
   handleDeleteClick(e) {
@@ -72,6 +75,10 @@ class EditableLinkCard extends Component {
       .catch(err => console.log(err.response));
   }
 
+  handleImg(e) {
+
+  }
+
   render() {
     const { classes } = this.props;
     return(
@@ -88,6 +95,11 @@ class EditableLinkCard extends Component {
               className={classes.inputs}
               value={this.state.URL}
               onChange={e => this.setState({URL: e.target.value})} />
+            <Input 
+                type="file" 
+                name="img" 
+                onChange={this.handleImg}
+                value={this.state.newImg ? this.state.newImg.value : ''}/>
         </CardContent>
         <div className={classes.actions}>
           <IconButton className={classes.action} aria-label="Save" onClick={this.handleSaveClick}>
