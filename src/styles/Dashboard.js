@@ -108,11 +108,11 @@ const DashboardStyles = theme => ({
       height: 500
     },
     select: {
-      marginRight: 40,
+      marginLeft: 40,
       marginBottom: 20
     },
     topFilterWrapper: {
-      textAlign: 'center'
+      textAlign: 'right'
     },
     topContentWrapper: {
       padding: 20
@@ -125,7 +125,7 @@ const DashboardStyles = theme => ({
     },
     highlightText: {
       textAlign: 'center',
-      color: 'dodgerblue'
+      color: '#ff6666'
     },
     rawWrapper: {
       marginTop: 40,
@@ -134,6 +134,20 @@ const DashboardStyles = theme => ({
     centerTitle: {
       paddingTop: 25,
       margin: '0 auto'
+    },
+    subtitle: {
+      textAlign: 'left',
+      marginLeft: 15,
+      position: 'relative',
+      color: '#ff6666',
+      paddingLeft: 15,
+      border: '4px solid #ff6666',
+      fontSize: 40,
+      width: 120,
+      borderRadius: 10
+    },
+    logo: {
+      paddingTop: 5
     }
 });
 

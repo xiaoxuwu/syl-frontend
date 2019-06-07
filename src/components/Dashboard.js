@@ -20,6 +20,7 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import clsx from 'clsx';
+import { injectLogo } from './SVGInjectors'
 
 class Dashboard extends React.Component {
   state = {
@@ -28,8 +29,9 @@ class Dashboard extends React.Component {
     raw: [],
     userPref: {},
     username: localStorage.getItem('username'),
-    date_limit: '',
-    totalViewCount: 0
+    dateLimit: '',
+    totalViewCount: 0,
+    profilePic: ""
   };
 
   getPreferences = () => {
@@ -41,6 +43,7 @@ class Dashboard extends React.Component {
         this.setState({ 
           userPref: userPref,
         });
+        this.setState({profilePic: process.env.REACT_APP_API_URL + '/' + userPref.media_prefix + userPref.profile_img})
       })
       .catch(err => console.log(err));
   }
@@ -74,7 +77,7 @@ class Dashboard extends React.Component {
       [event.target.id]: event.target.value
     });
     console.log(event.target.id)
-    if (event.target.id == 'date_limit') {
+    if (event.target.id === 'dateLimit') {
       this.updateData(event.target.value)
     }
   }
@@ -96,8 +99,6 @@ class Dashboard extends React.Component {
     const { classes } = this.props;
 
     var user = this.state.username;
-    var userPref = this.state.userPref;
-    var profile_pic = process.env.REACT_APP_API_URL + '/' + userPref.media_prefix + userPref.profile_img;
 
     return (
       <div className={classes.root}>
@@ -110,7 +111,7 @@ class Dashboard extends React.Component {
           open={this.state.open}
         >
           <img
-            src={profile_pic}
+            src={this.state.profilePic}
             className={classes.profilePic}
             alt="link"
           />
@@ -123,34 +124,46 @@ class Dashboard extends React.Component {
           <List>{secondaryListItems}</List>
         </Drawer>
         <main className={classes.content}>
-          <div className={classes.topFilterWrapper}>
-            <FormControl variant="outlined" className={classes.select}>
-                <Select
-                  native
-                  onChange={this.handleChange}
-                  input={
-                    <OutlinedInput id="date_limit" labelWidth={0}/>
-                  }
-                  >
-                  <option value="7days">last week</option>
-                  <option value="30days">last month</option>
-                  <option value="90days">last 3 months</option>
-              </Select>
-            </FormControl>
-            <FormControl variant="outlined" className={classes.select}>
-                <Select
-                  native
-                  onChange={this.handleChange}
-                  input={
-                    <OutlinedInput id="link_limit" labelWidth={0}/>
-                  }
-                  >
-                  <option value="all">all links</option>
-                  <option value="link1">link 1</option>
-                  <option value="link2">link 2</option>
-              </Select>
-            </FormControl>
-          </div>
+          <Grid container className={classes.topFilterWrapper}>
+            <Grid item lg={3} sm={4} xs={6} className={classes.logo}>
+              <span>
+                {injectLogo()}
+              </span>
+            </Grid>
+            <Grid item lg={3} sm={2} xs={6}>
+              <Typography variant="h4" gutterBottom component="h4" className={classes.subtitle}>
+                links
+              </Typography>
+            </Grid>
+            <Grid item lg={6} xs={6}>
+              <FormControl variant="outlined" className={classes.select}>
+                  <Select
+                    native
+                    onChange={this.handleChange}
+                    input={
+                      <OutlinedInput id="dateLimit" labelWidth={0}/>
+                    }
+                    >
+                    <option value="7days">last week</option>
+                    <option value="30days">last month</option>
+                    <option value="90days">last 3 months</option>
+                </Select>
+              </FormControl>
+              <FormControl variant="outlined" className={classes.select}>
+                  <Select
+                    native
+                    onChange={this.handleChange}
+                    input={
+                      <OutlinedInput id="link_limit" labelWidth={0}/>
+                    }
+                    >
+                    <option value="all">all links</option>
+                    <option value="link1">link 1</option>
+                    <option value="link2">link 2</option>
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
           <Grid container className={classes.root}>
               <Grid item sm={2} xs={6} className={clsx(classes.topContentWrapper, classes.noLeftPadding)}>
                 <Card elevation={0} className={clsx(classes.contentCard, classes.fullHeight)}>

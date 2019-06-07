@@ -23,7 +23,7 @@ class SylLineChart extends React.Component {
           <CartesianGrid vertical={false} strokeDasharray="3 3" />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="Visits" stroke="dodgerblue" legendType="none" />
+          <Line type="monotone" dataKey="Visits" stroke="#ff6666" legendType="none" strokeWidth={4} />
         </LineChart>
       </ResponsiveContainer>
     );
