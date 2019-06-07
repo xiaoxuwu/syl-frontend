@@ -1,10 +1,12 @@
 const PreferenceCardStyles = theme => ({
+	action: {
+		color: 'white'
+	},
 	content: {
 		width: '100%',
 		display: 'inline-flex',
 		color: 'white',
-		backgroundColor: 'pink',
-		border: '2px solid white',
+		backgroundColor: '#ff6666',
 		boxShadow: 'none',
 		borderRadius: 6
 	},
@@ -14,15 +16,11 @@ const PreferenceCardStyles = theme => ({
 	},
 	media: {
 		height: 'auto',
-		width: '30%',
-		paddingLeft: '10%', 
-		paddingRight: '5%', 
+		width: '100%',
+    	height: '100%'
 	},
 	info: {
-		display: 'inline-grid',
-		textAlign: 'left',
-		padding: '3% 5% 3% 5%',
-		width: '100%',
+		textAlign: 'left'
 	},
 	pref: {
 		overflowWrap: 'break-word',
@@ -41,7 +39,24 @@ const PreferenceCardStyles = theme => ({
 		fontSize: 20,
 	},
 	prefButtons: {
-		textAlign: 'right'
+		textAlign: 'right',
+		marginTop: 20
+	},
+	username: {
+		color: 'white'
+	},
+	fileUpload: {
+		color: 'white'
+	},
+	noMargin: {
+		marginBottom: 0,
+	},
+	uploadWrapper: {
+		paddingLeft: 20,
+		paddingRight: 20,
+		paddingBottom: 20,
+		// borderRadius: 10,
+    	// border: 'white solid 2px'
 	}
 });
 

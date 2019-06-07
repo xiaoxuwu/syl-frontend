@@ -9,6 +9,11 @@ const EditStyles = theme => ({
     display: 'inline-flex',
     justifyContent: 'center',
     paddingTop: '30px',
+    width: '100%',
+    padding: 20
+  },
+  fullWidth: {
+    width: '100%'
   },
   list: {
     justifyContent: 'center',
@@ -23,16 +28,16 @@ const EditStyles = theme => ({
     overflow: 'hidden',
     width: '100%',
     height: '100vh',
-    paddingTop: '6%',
-    padding: 'auto',
-    backgroundColor: 'lightgray',
+    paddingTop: 100,
+    padding: 'auto'
   },
   media: {
     height: 150,
     width: 150,
   },
   pref: {
-    margin: '10% 10% 5% 10%',
+    marginTop: 64,
+    padding: 20
   },
   info: {
     display: 'inline-grid',
@@ -77,6 +82,17 @@ const EditStyles = theme => ({
   },
   errorMsg: {
     color: 'red',
+  },
+  addLink: {
+    padding: 20
+  },
+  addLinkInner: {
+    padding: 25,
+    border: '2px solid grey',
+    borderRadius: 6
+  },
+  editCardWrapper: {
+    borderRadius: 6
   }
 });
 

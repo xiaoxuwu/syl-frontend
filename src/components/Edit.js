@@ -168,32 +168,34 @@ class Edit extends Component {
             <div className={classes.pref}>
               {preferenceCard}
             </div>
-            <Grid container>
-              <Grid item sm={4}>
-                <InputBase
-                  id="InputTitle"
-                  placeholder="Link Title"
-                  className={classes.addLinkInput}
-                  onChange={e => this.setState({addedTitle: e.target.value})}
-                />
+            <div className={classes.addLink}>
+              <Grid container className={classes.addLinkInner}>
+                <Grid item sm={5}>
+                  <InputBase
+                    id="InputTitle"
+                    placeholder="Link Title"
+                    className={classes.addLinkInput}
+                    onChange={e => this.setState({addedTitle: e.target.value})}
+                  />
+                </Grid>
+                <Grid item sm={5}>
+                  <InputBase
+                    id="InputUrl"
+                    placeholder="Link URL (www.example.com)"
+                    className={classes.addLinkInput}
+                    onChange={e => this.setState({addedURL: e.target.value, invalidURL: false})}
+                  />
+                </Grid>
+                <Grid item sm={2}>
+                  <Button variant="contained" className={classes.addLinkButton} onClick={this.handleAddLink}>+ ADD NEW LINK</Button>
+                </Grid>
               </Grid>
-              <Grid item sm={4}>
-                <InputBase
-                  id="InputUrl"
-                  placeholder="www.example.com"
-                  className={classes.addLinkInput}
-                  onChange={e => this.setState({addedURL: e.target.value, invalidURL: false})}
-                />
-              </Grid>
-              <Grid item sm={4}>
-                <Button variant="contained" className={classes.addLinkButton} onClick={this.handleAddLink}>+ ADD NEW LINK</Button>
-              </Grid>
-            </Grid>
+            </div>
             <div className={classes.linkWrapper}>
             </div>
           {errorMsg}
           <Grid container spacing={12} className={classes.editList}>
-            <div>
+            <div className={classes.fullWidth}>
               {this.state.links.map((link, i) => (
                 <DraggableCard
                   key={link.id}
@@ -208,6 +210,7 @@ class Edit extends Component {
                   token={localStorage.getItem('token')}
                   username={this.state.user.username}
                   getParentLinks={this.getLinks}
+                  classes={classes}
                 />
               ))}
             </div>

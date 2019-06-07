@@ -44,11 +44,11 @@ const PreviewStyles = theme => ({
   },
   previewInner: {
     height: '80%',
-    marginTop: '20%',
+    marginTop: '15%',
     position: 'relative',
     backgroundColor: '#fff',
     overflowY: 'auto',
-  },
+  }
 });
 
 export default PreviewStyles;

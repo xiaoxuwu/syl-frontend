@@ -3,8 +3,7 @@ const EditableLinkCardStyles = {
     width: '100%',
     display: 'inline-flex',
     position: 'relative',
-    backgroundColor: '#DECE8D',
-    marginBottom: 20,
+    backgroundColor: 'white'
   },
   media: {
     height: 120,
@@ -13,7 +12,7 @@ const EditableLinkCardStyles = {
   content: {
     width: '100%',
     paddingBottom: '3%',
-    paddingLeft: '4%',
+    paddingLeft: '4%'
   },
   actions: {
     position: 'absolute',
