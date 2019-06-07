@@ -26,7 +26,6 @@ class Links extends Component {
 
   // Called when component has been initialized
   componentDidMount() {
-    this.getUserLinks();
     this.getUserPref();
   }
 
@@ -121,18 +120,17 @@ class Links extends Component {
           <div className={classes.paper}>
             <Grid container wrap="nowrap" spacing={16} className={classes.list}>
               {this.state.links.map(link => {
-                console.log(link);
                 var IMG = link.image ? this.state.baseURL + '/' + link.media_prefix + link.image : null;
                 var text = link.text ? link.text : link.url;
-                console.log(text);
-                return <Grid item xs={this.state.pCol} md={this.state.dCol} lg={this.state.dCol}>
-                          <LinkCard 
+                var linkcard = <LinkCard 
                           key={link.id}
                           title={text}
                           link_id={link.id} 
                           image={IMG} 
                           URL={link.url}
-                          />
+                          />;
+                return <Grid item xs={this.state.pCol} md={this.state.dCol} lg={this.state.dCol}>
+                          {linkcard}
                     </Grid>
                 })  
               }
