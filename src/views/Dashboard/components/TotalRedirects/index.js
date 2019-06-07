@@ -19,7 +19,7 @@ import { Paper } from 'dashboard';
 // Component styles
 import styles from './styles';
 
-class Profit extends Component {
+class TotalRedirects extends Component {
   render() {
     const { classes, className, ...rest } = this.props;
 
@@ -54,9 +54,9 @@ class Profit extends Component {
   }
 }
 
-Profit.propTypes = {
+TotalRedirects.propTypes = {
   className: PropTypes.string,
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Profit);
+export default withStyles(styles)(TotalRedirects);

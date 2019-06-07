@@ -17,8 +17,9 @@ import {
   NeedsAttention,
   KeepItUp,
   Recently,
-  Profit,
+  TotalRedirects,
   SalesChart,
+  LinksTable,
   DevicesChart,
   ProductList,
   OrdersTable
@@ -80,7 +81,25 @@ class Dashboard extends Component {
               xl={3}
               xs={12}
             >
-              <Profit className={classes.item} />
+              <TotalRedirects className={classes.item} />
+            </Grid>
+            <Grid
+              item
+              lg={8}
+              md={12}
+              xl={9}
+              xs={12}
+            >
+              <SalesChart className={classes.item} />
+            </Grid>
+            <Grid
+              item
+              lg={4}
+              md={6}
+              xl={3}
+              xs={12}
+            >
+              <LinksTable className={classes.item} />
             </Grid>
             <Grid
               item
