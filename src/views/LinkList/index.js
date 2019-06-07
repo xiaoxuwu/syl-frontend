@@ -12,15 +12,8 @@ import { CircularProgress, Typography } from '@material-ui/core';
 // Shared layouts
 import { Layout as DashboardLayout } from 'dashboard';
 
-// Shared services
-// import { getUsers } from 'services/user';
-// Mock data
-import users from 'data/users';
-import orders from 'data/orders';
-
-
 // Custom components
-import { UsersToolbar, UsersTable } from './components';
+import { LinksTable } from './components';
 
 // Component styles
 import styles from './style';
@@ -33,7 +26,7 @@ import {
 
 import axios from 'components/AxiosClient';
 
-class UserList extends Component {
+class LinkList extends Component {
 
   state = {
     links: [],
@@ -61,12 +54,12 @@ class UserList extends Component {
     })
   }
 
-  renderUsers() {
+  renderLinks() {
     const { classes } = this.props;
 
     return (
       <div>
-        <UsersTable
+        <LinksTable
           links={this.state.links}
         />
       </div>
@@ -77,21 +70,21 @@ class UserList extends Component {
     const { classes, onChange, isOpen } = this.props;
     
     return (
-      <DashboardLayout title="Users" isOpen={isOpen} onChange={onChange}>
+      <DashboardLayout title="Links" isOpen={isOpen} onChange={onChange}>
         <PortletHeader noDivider className={classes.header}>
           <Typography variant="h3" className={classes.titleLabel}>Active Links</Typography>
         </PortletHeader>
         <div className={classes.root}>
-          <div className={classes.content}>{this.renderUsers()}</div>
+          <div className={classes.content}>{this.renderLinks()}</div>
         </div>
       </DashboardLayout>
     );
   }
 }
 
-UserList.propTypes = {
+LinkList.propTypes = {
   className: PropTypes.string,
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(UserList);
+export default withStyles(styles)(LinkList);
