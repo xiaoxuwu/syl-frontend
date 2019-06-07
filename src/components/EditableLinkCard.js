@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
 import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
 
 import TextField from '@material-ui/core/TextField';
 
@@ -19,7 +20,7 @@ class EditableLinkCard extends Component {
     this.state = {
       link_id: this.props.link_id,
       URL: this.props.URL,
-      IMG: this.props.image,
+      IMG: this.props.IMG,
       order: this.props.order,
       links: this.props.links,
       title: this.props.title,
@@ -64,7 +65,8 @@ class EditableLinkCard extends Component {
 
     var data = {
       'text': this.state.title,
-      'url': this.state.URL
+      'url': this.state.URL,
+      'image': this.state.IMG
     }
 
     axios.patch(apiEndpoint, data, {'headers' : { 'Authorization': 'Token ' + this.state.token,
@@ -73,10 +75,29 @@ class EditableLinkCard extends Component {
         this.props.getParentLinks();
         })
       .catch(err => console.log(err.response));
+
+    if (this.state.newImg !== null) {
+      var imgData = new FormData();
+      imgData.append('image', this.state.newImg);
+      var imgConfig = {
+        'headers' : {
+          'Authorization': 'Token ' + this.state.token,
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+
+      axios.patch(apiEndpoint, imgData, imgConfig).then(
+        this.setState({
+          newImg: null,
+        })
+      ).catch(err => console.log(err.response));
+    }
   }
 
   handleImg(e) {
-
+    this.setState({
+      newImg: e.target.files[0]
+    });
   }
 
   render() {
@@ -95,10 +116,14 @@ class EditableLinkCard extends Component {
               className={classes.inputs}
               value={this.state.URL}
               onChange={e => this.setState({URL: e.target.value})} />
+            <Button size='small' onClick={e => this.setState({IMG: null})}>
+              Reset Image
+            </Button>
             <Input 
                 type="file" 
                 name="img" 
                 onChange={this.handleImg}
+                disableUnderline={true}
                 value={this.state.newImg ? this.state.newImg.value : ''}/>
         </CardContent>
         <div className={classes.actions}>
