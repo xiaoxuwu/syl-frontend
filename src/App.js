@@ -79,7 +79,6 @@ export default class App extends Component {
             <Redirect exact from="/" to="/influencer" />
             <Route exact path="/influencer" component={Home} />
             <Route exact path="/influencer/preview" component={Preview} />
-            <Route exact path="/influencer/download" component={Download} />
             <Route
               render={props => <Dashboard isOpen={this.state.isOpen} onChange={this.toggleSidebar} />}
               exact path="/influencer/dashboard"

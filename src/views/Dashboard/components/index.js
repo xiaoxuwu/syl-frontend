@@ -5,6 +5,4 @@ export { default as TotalRedirects } from './TotalRedirects';
 export { default as RedirectTable } from './RedirectTable';
 export { default as DailyRedirectsChart } from './DailyRedirectsChart';
 export { default as DevicesChart } from './DevicesChart';
-export { default as OrdersTable } from './OrdersTable';
-export { default as ProductList } from './ProductList';
 export { default as SalesChart } from './SalesChart';
