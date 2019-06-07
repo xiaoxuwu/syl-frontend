@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import React, { Component, useState } from 'react';
+import update from 'immutability-helper';
 import axios from './AxiosClient';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -12,26 +12,12 @@ import InputBase from "@material-ui/core/InputBase";
 import EditStyles from '../styles/Edit.js';
 
 import EditableLinkCard from '../components/EditableLinkCard.js';
-import PreferenceCard from '../components/PreferenceCard.js'
+import PreferenceCard from '../components/PreferenceCard.js';
+import DraggableCard from './DraggableCard.js';
 import Preview from '../components/Preview.js';
 import ErrorIcon from '@material-ui/icons/Error';
-
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-  // styles we need to apply on draggables
-  ...draggableStyle,
-
-  ...(isDragging && {
-    background: "rgb(235,235,235)"
-  })
-});
+import { DragDropContextProvider } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 
 class Edit extends Component {
   constructor(props) {
@@ -44,13 +30,15 @@ class Edit extends Component {
       invalidURL: false,
       baseURL: process.env.REACT_APP_API_URL
     };
-    this.handleAddLink = this.handleAddLink.bind(this);
-  }
 
-  // Called when component has been initialized
-  componentDidMount() {
+    this.handleAddLink = this.handleAddLink.bind(this);
     this.getUser();
   }
+
+  // // Called when component has been initialized
+  // componentDidMount() {
+  //   this.getUser();
+  // }
 
   // Makes GET request to retrieve user
   getUser = () => {
@@ -167,64 +155,79 @@ class Edit extends Component {
                     </Grid>
                   </Grid> : null;
 
+    const moveCard = (dragIndex, hoverIndex) => {
+      const dragCard = this.state.links[dragIndex]
+      var updateLink = update(this.state.links, {
+        $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]]
+      });
+      console.log(updateLink)
+      this.setState({
+        links: updateLink
+      });
+      console.log(dragIndex);
+      console.log(hoverIndex);
+      for (var i = 0; i < this.state.links.length; i++) {
+        if (dragIndex !== hoverIndex) {
+          console.log(this.state.links[i])
+          var apiEndpoint = '/api/links/' + this.state.links[i].id;
+
+          var data = {
+            'order': this.state.links.length-i
+          }
+
+          let token = localStorage.getItem('token');
+          axios.patch(apiEndpoint, data, {'headers' : { 'Authorization': 'Token ' + token,
+                                                  'Content-Type': 'application/json' }})
+            .then(result => {
+              this.props.getParentLinks();
+              })
+            .catch(err => console.log(err.response));
+        }
+      }
+    }
     return (
-        <div className={classes.content}>
-          <Grid container spacing={16} className={classes.list}>
-            <Grid item xs className={classes.overflowWrapper}>
-              <div className={classes.pref}>
-                {preferenceCard}
-              </div>
-              <div className={classes.linkWrapper}>
-                <Paper className={classes.addLink}>
-                  <InputBase
-                    id="InputUrl"
-                    placeholder="www.example.com"
-                    className={classes.addLinkInput}
-                    onChange={e => this.setState({addedURL: e.target.value, invalidURL: false})}
+      <div className={classes.content}>
+        <Grid container spacing={10} className={classes.list}>
+          <Grid item xs className={classes.overflowWrapper}>
+            <div className={classes.pref}>
+              {preferenceCard}
+            </div>
+            <div className={classes.linkWrapper}>
+              <Paper className={classes.addLink}>
+                <InputBase
+                  placeholder="www.example.com"
+                  className={classes.addLinkInput}
+                />
+                <Button variant="contained" className={classes.addLinkButton}>+ ADD NEW LINK</Button>
+              </Paper>
+            </div>
+          <Grid container spacing={12} className={classes.editList}>
+            <DragDropContextProvider backend={HTML5Backend}>
+              <div>
+                {this.state.links.map((link, i) => (
+                  <DraggableCard
+                    key={link.id}
+                    index={i}
+                    id={link.id}
+                    text={link.text}
+                    order={link.order}
+                    links={this.state.links}
+                    moveCard={moveCard}
+                    url={link.url}
+                    img={link.image}
+                    token={localStorage.getItem('token')}
+                    username={this.state.user.username}
                   />
-                  <Button variant="contained" className={classes.addLinkButton} onClick={this.handleAddLink}>+ ADD NEW LINK</Button>
-                </Paper>
+                ))}
               </div>
-              {errorMsg}
-              <Grid container spacing={16} className={classes.editList}>
-                {this.state.editableLinks.map((editableLinkCard, i) =>
-                  <Grid item key={this.state.links[i].id} xs={10} md={10}>
-                    {editableLinkCard}
-                  </Grid>
-                  )
-                }
-              </Grid>
-            </Grid>
-
-            <DragDropContext onDragEnd={this.onDragEnd}>
-                <Droppable droppableId="droppable">
-                  {(provided, snapshot) => (
-                    <RootRef rootRef={provided.innerRef}>
-                      <List>
-                        {editableLinks.map((link, index) => (
-                          <Draggable key={link.link_id} draggableId={link.link_id} index={index}>
-                            {(provided, snapshot) => (
-                              <ListItem
-                                ContainerComponent="li"
-                                ContainerProps={{ ref: provided.innerRef }}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                style={getItemStyle(
-                                  snapshot.isDragging,
-                                  provided.draggableProps.style
-                                )} />
-                            )}
-                          </Draggable>
-                        ))}
-                        {provided.placeholder}
-                      </List>
-                    </RootRef>
-                  )}
-                </Droppable>
-            </DragDropContext>
+            </DragDropContextProvider>
           </Grid>
-
-        </div>
+        </Grid>
+        <Grid item xs={4} className={classes.preview}>
+          <Preview />
+        </Grid>
+      </Grid>
+    </div>
     );
   }
 }

@@ -13,13 +13,13 @@ import LinkCard from '../components/LinkCard.js';
 class Links extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
-      pCol: 12, 
-      dCol: 12, 
+    this.state = {
+      pCol: 12,
+      dCol: 12,
       links: [],
       userPref: null,
       username: this.props.username ? this.props.username : this.props.match.params.username,
-      baseURL: process.env.REACT_APP_API_URL 
+      baseURL: process.env.REACT_APP_API_URL
     };
   }
 
@@ -34,10 +34,10 @@ class Links extends Component {
     var apiEndpoint = '/api/links/?username=' + this.state.username;
     axios.get(apiEndpoint, {})
       .then(result => {
-        let links = result.data.map(function(link) { 
-          return { 
-            id: link.id, 
-            url: link.url, 
+        let links = result.data.map(function(link) {
+          return {
+            id: link.id,
+            url: link.url,
             creator_id: link.creator,
             text: link.text,
             image: link.image,
@@ -46,7 +46,7 @@ class Links extends Component {
           }
         }).sort((a,b) => (a.order > b.order) ? 1 : -1);
 
-        this.setState({ 
+        this.setState({
           links: links,
         });
       })
@@ -59,7 +59,7 @@ class Links extends Component {
       .then(result => {
         let users = result.data;
 
-        this.setState({ 
+        this.setState({
           userPref: users,
         });
       })
@@ -75,12 +75,11 @@ class Links extends Component {
       .map(link => {
         var IMG = link.image ? this.state.baseURL + '/' + link.media_prefix + link.image : null;
         var text = link.text ? link.text : link.url;
-        console.log(IMG);
-        return <LinkCard 
+        return <LinkCard
           key={link.id}
-          link_id={link.id} 
-          image={IMG} 
-          URL={link.url} 
+          link_id={link.id}
+          image={IMG}
+          URL={link.url}
           parentClasses={parentClasses}
           title={text}  />
     });
@@ -117,7 +116,7 @@ class Links extends Component {
                 <Grid item xs key={this.state.links[i].id}>
                   {linkCard}
                 </Grid>
-                )  
+                )
               }
             </Grid>
           </div>
