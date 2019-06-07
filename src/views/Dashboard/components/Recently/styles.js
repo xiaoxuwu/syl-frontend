@@ -32,6 +32,11 @@ export default theme => ({
     width: '2rem'
   },
   footer: {
-    marginTop: theme.spacing.unit * 3
+    marginTop: theme.spacing.unit * 2,
+    display: 'flex',
+    alignItems: 'center'
+  },
+    caption: {
+    marginLeft: theme.spacing.unit
   }
 });

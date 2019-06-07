@@ -8,12 +8,12 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 
 // Material components
-import { Typography } from '@material-ui/core';
+import { Typography, LinearProgress } from '@material-ui/core';
 
 // Material icons
 import {
-  ArrowUpward as ArrowUpwardIcon,
-  PeopleOutlined as PeopleIcon
+  InsertChartOutlined as InsertChartIcon,
+  Today as TodayIcon,
 } from '@material-ui/icons';
 
 // Shared components
@@ -22,7 +22,7 @@ import { Paper } from 'dashboard';
 // Component styles
 import styles from './styles';
 
-class Users extends Component {
+class Progress extends Component {
   render() {
     const { classes, className, ...rest } = this.props;
 
@@ -39,17 +39,17 @@ class Users extends Component {
               className={classes.title}
               variant="body2"
             >
-              TOTAL USERS
+              RECENTLY
             </Typography>
             <Typography
               className={classes.value}
               variant="h3"
             >
-              1600
+              299,749 clicks
             </Typography>
           </div>
           <div className={classes.iconWrapper}>
-            <PeopleIcon className={classes.icon} />
+            <InsertChartIcon className={classes.icon} />
           </div>
         </div>
         <div className={classes.footer}>
@@ -57,14 +57,13 @@ class Users extends Component {
             className={classes.difference}
             variant="body2"
           >
-            <ArrowUpwardIcon />
-            16%
+            <TodayIcon />
           </Typography>
           <Typography
             className={classes.caption}
             variant="caption"
           >
-            Since last month
+            in the past 31 days
           </Typography>
         </div>
       </Paper>
@@ -72,9 +71,9 @@ class Users extends Component {
   }
 }
 
-Users.propTypes = {
+Progress.propTypes = {
   className: PropTypes.string,
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Users);
+export default withStyles(styles)(Progress);

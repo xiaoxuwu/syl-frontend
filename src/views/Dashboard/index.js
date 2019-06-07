@@ -14,9 +14,9 @@ import { Layout as DashboardLayout } from 'dashboard';
 
 // Custom components
 import {
-  Budget,
-  Users,
-  Progress,
+  NeedsAttention,
+  KeepItUp,
+  Recently,
   Profit,
   SalesChart,
   DevicesChart,
@@ -30,7 +30,8 @@ const styles = theme => ({
     padding: theme.spacing.unit * 4
   },
   item: {
-    height: '100%'
+    height: '100%',
+    minWidth: '225px',
   }
 });
 
@@ -52,7 +53,7 @@ class Dashboard extends Component {
               xl={3}
               xs={12}
             >
-              <Budget className={classes.item} />
+              <NeedsAttention className={classes.item} />
             </Grid>
             <Grid
               item
@@ -61,7 +62,7 @@ class Dashboard extends Component {
               xl={3}
               xs={12}
             >
-              <Users className={classes.item} />
+              <KeepItUp className={classes.item} />
             </Grid>
             <Grid
               item
@@ -70,7 +71,7 @@ class Dashboard extends Component {
               xl={3}
               xs={12}
             >
-              <Progress className={classes.item} />
+              <Recently className={classes.item} />
             </Grid>
             <Grid
               item
