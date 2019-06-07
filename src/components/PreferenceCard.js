@@ -10,9 +10,12 @@ import Typography from '@material-ui/core/Typography';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import FormControl from '@material-ui/core/FormControl';
 
 import SaveIcon from '@material-ui/icons/Save';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ClearIcon from '@material-ui/icons/Clear';
 
 import PreferenceCardStyles from '../styles/PreferenceCard.js'
 
@@ -33,6 +36,9 @@ class PreferenceCard extends Component {
     this.handleProfile = this.handleProfile.bind(this);
     this.handleBackground= this.handleBackground.bind(this);
     this.handlePrefSubmit = this.handlePrefSubmit.bind(this);
+    this.cancleUpdate = this.cancleUpdate.bind(this);
+    this.handleDeleteProfile = this.handleDeleteProfile.bind(this);
+    this.handleDeleteBg = this.handleDeleteBg.bind(this);
   }
 
   handleProfile(e) {
@@ -45,6 +51,47 @@ class PreferenceCard extends Component {
     this.setState({
       newBg: e.target.files[0]
     });
+  }
+
+  cancleUpdate(e) {
+    this.setState({
+      newProfile: null,
+      newBg: null
+    });
+  }
+
+  handleDeleteProfile(e) {
+    var apiEndpoint = '/api/preferences/'+this.state.pref_id;
+    var updateData = new FormData();
+    var config = {
+      'headers' : { 
+        'Authorization': 'Token ' + this.state.token, 
+        'Content-Type': 'multipart/form-data' 
+      }
+    }
+    updateData.append('profile_img', null);
+    axios.patch(apiEndpoint, updateData, config).then(
+      this.setState({
+        curProfile: '',
+      })
+    ).catch(err => console.log(err.response));
+  }
+
+  handleDeleteBg(e) {
+    var apiEndpoint = '/api/preferences/'+this.state.pref_id;
+    var updateData = new FormData();
+    var config = {
+      'headers' : { 
+        'Authorization': 'Token ' + this.state.token, 
+        'Content-Type': 'multipart/form-data' 
+      }
+    }
+    updateData.append('background_img', null);
+    axios.patch(apiEndpoint, updateData, config).then(
+      this.setState({
+        curBg: '',
+      })
+    ).catch(err => console.log(err.response));
   }
 
   handlePrefSubmit(e) {
@@ -123,6 +170,9 @@ class PreferenceCard extends Component {
             <InputLabel for="profile"> Profile Picture </InputLabel> <br/> <br/>
             <Typography variant="body1" gutterBottom>
               Currently: <a href={profile_pic}>{this.state.curProfile}</a>
+              <IconButton className={classes.action} aria-label="Delete">
+                <DeleteIcon onClick={this.handleDeleteProfile}/>
+              </IconButton>
               <br/>
               Change: <Input 
                 type="file" 
@@ -136,6 +186,9 @@ class PreferenceCard extends Component {
             <InputLabel for="background"> Background Picture </InputLabel> <br/> <br/>
             <Typography variant="body1" gutterBottom>
               Currently: <a href={background_pic}>{this.state.curBg}</a>
+              <IconButton className={classes.action} aria-label="Delete">
+                <DeleteIcon onClick={this.handleDeleteBg}/>
+              </IconButton>
               <br/>
               Change: <Input 
                 type="file" 
@@ -145,10 +198,24 @@ class PreferenceCard extends Component {
             </Typography>
           </FormControl>
 
-          <Button variant="contained" size="small" className={classes.button} onClick={this.handlePrefSubmit}>
-            <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
-            Save
-          </Button>
+          <div className={classes.prefButtons}>
+            <Button 
+              variant="contained" 
+              color="primary" 
+              className={classes.button} 
+              onClick={this.handlePrefSubmit}>
+              <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
+              Save
+            </Button>
+            <Button 
+              variant="contained" 
+              color="secondary" 
+              className={classes.button} 
+              onClick={this.cancleUpdate}>
+              <ClearIcon className={classes.leftIcon} />
+              Cancle
+            </Button>
+          </div>
         </CardContent>
     	</Card>
     );

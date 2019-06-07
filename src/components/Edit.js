@@ -66,26 +66,16 @@ class Edit extends Component {
 
   // Makes GET requests to retrieve user profile and background picture
   getUserPref() {
-    let token = localStorage.getItem('token');
-    var apiEndpoint = '/api/users/';
+    var apiEndpoint = '/api/preferences/?username=' + this.state.username;
 
-    axios.get(apiEndpoint, { 'headers': { 'Authorization': 'Token ' + token } }).then(result => {
-      let user = result.data;
+    axios.get(apiEndpoint, {}).then(result => {
+      let users = result.data;
 
       this.setState({ 
-        username: user.username,
+        userPref: users,
       });
-
-      var apiEndpoint = '/api/preferences/?username=' + this.state.username;
-
-      return axios.get(apiEndpoint, {})}).then(result => {
-        let users = result.data;
-
-        this.setState({ 
-          userPref: users,
-        });
-      })
-      .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
   }
 
   render() {
