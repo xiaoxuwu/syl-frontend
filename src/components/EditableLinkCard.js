@@ -19,6 +19,8 @@ class EditableLinkCard extends Component {
       link_id: this.props.link_id,
       URL: this.props.URL,
       IMG: this.props.image,
+      order: this.props.order,
+      links: this.props.links,
       title: this.props.title,
       token: this.props.token,
       username: this.props.username,
@@ -28,6 +30,23 @@ class EditableLinkCard extends Component {
   }
 
   handleDeleteClick(e) {
+    // Change the order of all other links
+    this.state.links.map(link => { 
+      if (link.order > this.state.order) {
+        var apiEndpoint = '/api/links/' + link.id;
+
+        var data = {
+          'order': link.order - 1,
+        }
+
+        axios.patch(apiEndpoint, data, {'headers' : { 'Authorization': 'Token ' + this.state.token,
+                                                'Content-Type': 'application/json' }})
+          .then(result => {
+            this.props.getParentLinks();
+            })
+        }
+    });
+
     var deleteEndpoint = '/api/links/' + this.state.link_id;
     axios.delete(deleteEndpoint, { 'headers': { 'Authorization': 'Token ' + this.state.token } })
       .then(result => {
@@ -48,7 +67,6 @@ class EditableLinkCard extends Component {
     axios.patch(apiEndpoint, data, {'headers' : { 'Authorization': 'Token ' + this.state.token,
                                             'Content-Type': 'application/json' }})
       .then(result => {
-        console.log(result.data);
         this.props.getParentLinks();
         })
       .catch(err => console.log(err.response));
