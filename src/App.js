@@ -11,9 +11,6 @@ import theme from './theme';
 // Styles
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
-// Routes
-// import Routes from './Routes';
-
 import NavBar from './components/NavBar';
 import Home from './components/Home';
 // import NotFound from './components/NotFound'
@@ -27,7 +24,7 @@ import CreateAccount from './components/CreateAccount';
 import { loadCSS } from 'fg-loadcss';
 
 import Dashboard from './views/Dashboard';
-import UserList from './views/UserList';
+import LinkList from './views/LinkList';
 import NotFound from './views/NotFound';
 
 // Browser history
@@ -84,8 +81,8 @@ export default class App extends Component {
               exact path="/influencer/dashboard"
             />
             <Route
-              render={props => <UserList isOpen={this.state.isOpen} onChange={this.toggleSidebar} />}
-              exact path="/influencer/dashboard/users/"
+              render={props => <LinkList isOpen={this.state.isOpen} onChange={this.toggleSidebar} />}
+              exact path="/influencer/dashboard/links/"
             />
             <Route exact path="/influencer/login" render={(props) => <Login {...props} setLoginCallback={this.setLoggedIn}
                                                       getLoginCallback={this.getLoggedIn}></Login>} />
