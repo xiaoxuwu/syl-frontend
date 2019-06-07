@@ -53,14 +53,15 @@ class Login extends Component {
           .then(result => {
             let user = result.data;
             setUserInfo(res.data.token, user.username)
+            this.props.setLoginCallback(true)
           })
           .catch(err => {
             setToken(res)
             this.setState(() => ({
               errMsg: "Unable to retrieve username."
             }))
+            this.props.setLoginCallback(true)
           })
-        this.props.setLoginCallback(true)
       })
       .catch(err => {
         if (err.response.status === 400) {
@@ -81,7 +82,7 @@ class Login extends Component {
 
     // if already logged in, redirect to home
     if (getLoginCallback()) {
-      return <Redirect to='/influencer/' />
+      return <Redirect to='/influencer/edit/' />
     }
 
     let errorSnackBar = null

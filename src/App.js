@@ -12,8 +12,8 @@ import theme from './theme';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
 import NavBar from './components/NavBar';
-import Home from './components/Home';
-// import NotFound from './components/NotFound'
+import Home from './components/Home'
+import Edit from './components/Edit';
 import Preview from './components/Preview'
 import Login from './components/auth/Login';
 import Logout from './components/auth/Logout';
@@ -21,6 +21,8 @@ import { isAuthenticated } from './components/auth/AuthService';
 import Links from './components/Links.js';
 import CreateAccount from './components/CreateAccount';
 import { loadCSS } from 'fg-loadcss';
+import { DragDropContextProvider } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 
 import Dashboard from './views/Dashboard';
 import LinkList from './views/LinkList';
@@ -62,6 +64,7 @@ export default class App extends Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
+        <DragDropContextProvider backend={HTML5Backend}>
         <Router history={browserHistory}>
           <Route exact strict path="/:url*" render={props => <Redirect to={`${props.location.pathname}/`}/>} />
           <Route path="/influencer/*" render={ props => 
@@ -79,6 +82,7 @@ export default class App extends Component {
               render={props => <Dashboard isOpen={this.state.isOpen} onChange={this.toggleSidebar} />}
               exact path="/influencer/dashboard"
             />
+            {this.getLoggedIn() ? <Route exact path="/influencer/edit" component={Edit} /> : null}
             <Route
               render={props => <LinkList isOpen={this.state.isOpen} onChange={this.toggleSidebar} />}
               exact path="/influencer/dashboard/links/"
@@ -97,6 +101,7 @@ export default class App extends Component {
             <Redirect to="/not-found" />
           </Switch>
         </Router>
+        </DragDropContextProvider>
       </ThemeProvider>
     );
   }

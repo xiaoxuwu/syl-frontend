@@ -136,6 +136,7 @@ class CreateAccount extends Component {
 
   render() {
     const { classes, getLoginCallback } = this.props;
+    const { errors } = this.state;
 
     // if already logged in, redirect to home
     if (getLoginCallback()) {
@@ -175,60 +176,62 @@ class CreateAccount extends Component {
     }
 
     return (
-      <main className={classes.main}>
-        <CssBaseline />
-        <Paper className={classes.paper}>
-          {icon}
-          {title}
-          {errorSnackBar}
-          <form className={classes.form} onSubmit={this.handleSubmit}>
-            <FormControl margin="normal" fullWidth>
-              <TextField
-                id="username"
-                name="username_syl"
-                label="Username (from Instagram)"
-                autoComplete="username"
-                variant="outlined"
-                disabled
-                value={this.state.username}
-                autoFocus />
-            </FormControl>
-            <FormControl margin="normal" required fullWidth>
-              <TextField
-                name="password_syl"
-                type="password"
-                label="New Password"
-                id="password"
-                variant="outlined"
-                autoComplete="current-password"
-                value={this.state.password}
-                onChange={this.handleChange}
-              />
-            </FormControl>
-            <FormControl margin="normal" required fullWidth>
-              <TextField
-                name="confirm_password_syl"
-                type="password"
-                label="Confirm Password"
-                id="confirm_password"
-                variant="outlined"
-                autoComplete="current-password"
-                value={this.state.confirm_password}
-                onChange={this.handleChange}
-              />
-            </FormControl>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign up
-            </Button>
-          </form>
-        </Paper>
-      </main>
+      <div className={classes.background}>
+        <main className={classes.main}>
+          <CssBaseline />
+          <Paper className={classes.paper}>
+            {icon}
+            {title}
+            {errorSnackBar}
+            <form className={classes.form} onSubmit={this.handleSubmit}>
+              <FormControl margin="normal" fullWidth>
+                <TextField
+                  id="username"
+                  name="username_syl"
+                  label="Username (from Instagram)"
+                  autoComplete="username"
+                  variant="outlined"
+                  disabled
+                  value={this.state.username}
+                  autoFocus />
+              </FormControl>
+              <FormControl margin="normal" required fullWidth>
+                <TextField
+                  name="password_syl"
+                  type="password"
+                  label="New Password"
+                  id="password"
+                  variant="outlined"
+                  autoComplete="current-password"
+                  value={this.state.password}
+                  onChange={this.handleChange}
+                />
+              </FormControl>
+              <FormControl margin="normal" required fullWidth>
+                <TextField
+                  name="confirm_password_syl"
+                  type="password"
+                  label="Confirm Password"
+                  id="confirm_password"
+                  variant="outlined"
+                  autoComplete="current-password"
+                  value={this.state.confirm_password}
+                  onChange={this.handleChange}
+                />
+              </FormControl>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Sign up
+              </Button>
+            </form>
+          </Paper>
+        </main>
+      </div>
     );
   }
 }
