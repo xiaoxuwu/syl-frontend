@@ -1,7 +1,7 @@
 import React, { useImperativeHandle, useRef } from 'react'
 import { DragSource, DropTarget } from 'react-dnd'
 import ItemTypes from '../ItemTypes'
-
+import clsx from 'clsx';
 import EditableLinkCard from './EditableLinkCard';
 
 const style = {
@@ -21,7 +21,7 @@ const DraggableCard = React.forwardRef(
       getNode: () => elementRef.current,
     }))
     return (
-      <div ref={elementRef} style={Object.assign({}, style, { opacity })} className={classes.editCardWrapper} >
+      <div ref={elementRef} style={Object.assign({}, style, { opacity })} className={clsx(classes.editCardWrapper, classes.leftLine)} >
         <EditableLinkCard
           link_id={id}
           URL={url}

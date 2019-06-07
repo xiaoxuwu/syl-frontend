@@ -59,6 +59,7 @@ const EditStyles = theme => ({
       backgroundColor: '#e65c5c',
     },
     float: 'right',
+    margin: 10
   },
   addLinkInput: {
     width: '60%',
@@ -77,8 +78,8 @@ const EditStyles = theme => ({
     maxHeight: '100%',
   },
   error: {
-    marginLeft: '25%',
-    marginTop: '0.5%',
+    marginTop: 20,
+    marginLeft: 20
   },
   errorMsg: {
     color: 'red',
@@ -92,7 +93,18 @@ const EditStyles = theme => ({
     borderRadius: 6
   },
   editCardWrapper: {
-    borderRadius: 6
+    borderRadius: 6,
+    padding: 20,
+  },
+  leftLine: {
+    borderLeft: '20px solid gray !important',
+    marginBottom: '1.5em !important'
+  },
+  card: {
+    border: '5px solid #ff6666'
+  },
+  inputs: {
+    margin: 10
   }
 });
 
