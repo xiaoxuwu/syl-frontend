@@ -27,8 +27,10 @@ class Edit extends Component {
       editableLinks: [],
       user: {},
       addedURL: '',
+      addedTitle: '',
       invalidURL: false,
-      baseURL: process.env.REACT_APP_API_URL
+      updatePreview: 0,
+      baseURL: process.env.REACT_APP_API_URL 
     };
 
     this.handleAddLink = this.handleAddLink.bind(this);
@@ -92,6 +94,7 @@ class Edit extends Component {
       this.setState({
         links: links,
         editableLinks: editableLinks,
+        updatePreview: this.state.updatePreview+1,
       });
     }).catch(err => console.log(err));
   }
@@ -121,7 +124,7 @@ class Edit extends Component {
       var data = {
         'url': this.state.addedURL,
         'creator': this.state.user.id,
-        'text': '',
+        'text': this.state.addedTitle,
         'image': null,
         'order': maxOrder+1,
         "media_prefix": "media/"
@@ -135,6 +138,10 @@ class Edit extends Component {
         .catch(err => console.log(err.response));
 
       var reset = document.getElementById("InputUrl");
+      if (reset) {
+        reset.value="";
+      }
+      reset = document.getElementById("InputTitle");
       if (reset) {
         reset.value="";
       }
@@ -192,15 +199,30 @@ class Edit extends Component {
             <div className={classes.pref}>
               {preferenceCard}
             </div>
-            <div className={classes.linkWrapper}>
-              <Paper className={classes.addLink}>
+            <Grid container>
+              <Grid item sm={4}>
                 <InputBase
+                  id="InputTitle"
+                  placeholder="Link Title"
+                  className={classes.addLinkInput}
+                  onChange={e => this.setState({addedTitle: e.target.value})}
+                />
+              </Grid>
+              <Grid item sm={4}>
+                <InputBase
+                  id="InputUrl"
                   placeholder="www.example.com"
                   className={classes.addLinkInput}
+                  onChange={e => this.setState({addedURL: e.target.value, invalidURL: false})}
                 />
-                <Button variant="contained" className={classes.addLinkButton}>+ ADD NEW LINK</Button>
-              </Paper>
+              </Grid>
+              <Grid item sm={4}>
+                <Button variant="contained" className={classes.addLinkButton} onClick={this.handleAddLink}>+ ADD NEW LINK</Button>
+              </Grid>
+            </Grid>
+            <div className={classes.linkWrapper}>
             </div>
+          {errorMsg}
           <Grid container spacing={12} className={classes.editList}>
             <DragDropContextProvider backend={HTML5Backend}>
               <div>

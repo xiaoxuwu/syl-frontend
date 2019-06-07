@@ -18,6 +18,7 @@ class Links extends Component {
       dCol: 12,
       links: [],
       userPref: null,
+      updateLinks: this.props.updateLinks,
       username: this.props.username ? this.props.username : this.props.match.params.username,
       baseURL: process.env.REACT_APP_API_URL
     };
@@ -46,9 +47,26 @@ class Links extends Component {
           }
         }).sort((a,b) => (a.order < b.order) ? 1 : -1);
 
-        this.setState({
-          links: links,
-        });
+        // Checks if links changed before changing state
+        if (this.state.links.length !== links.length) {
+            this.setState({ 
+            links: links,
+          });
+        }
+
+        this.state.links.map(stateLink => {
+          links.map(link => {
+            if (stateLink.id === link.id) {
+              if (stateLink.url !== link.url || stateLink.creator_id !== link.creator_id ||
+                  stateLink.text !== link.text || stateLink.image !== link.image ||
+                  stateLink.order !== link.order || stateLink.media_prefix !== link.media_prefix) {
+                this.setState({ 
+                  links: links,
+                });
+              }
+            }
+          })
+        })
       })
       .catch(err => console.log(err));
   }
@@ -67,22 +85,12 @@ class Links extends Component {
   }
 
   render() {
+    this.getUserLinks();
+
     if (this.state.userPref === null) {
       return <div> </div>
     }
     const { classes, parentClasses } = this.props;
-    var links = this.state.links
-      .map(link => {
-        var IMG = link.image ? this.state.baseURL + '/' + link.media_prefix + link.image : null;
-        var text = link.text ? link.text : link.url;
-        return <LinkCard
-          key={link.id}
-          link_id={link.id}
-          image={IMG}
-          URL={link.url}
-          parentClasses={parentClasses}
-          title={text}  />
-    });
     var user = this.state.username;
     var userPref = this.state.userPref;
     var profile_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.profile_img;
@@ -111,12 +119,22 @@ class Links extends Component {
             @{user}
           </Typography>
           <div className={classes.paper}>
-            <Grid container spacing={16} className={clsx(classes.list, previewContainer)}>
-              {links.map((linkCard, i) =>
-                <Grid item xs key={this.state.links[i].id}>
-                  {linkCard}
-                </Grid>
-                )
+            <Grid container wrap="nowrap" spacing={16} className={classes.list}>
+              {this.state.links.map(link => {
+                console.log(link);
+                var IMG = link.image ? this.state.baseURL + '/' + link.media_prefix + link.image : null;
+                var text = link.text ? link.text : link.url;
+                console.log(text);
+                return <Grid item xs={this.state.pCol} md={this.state.dCol} lg={this.state.dCol}>
+                          <LinkCard 
+                          key={link.id}
+                          title={text}
+                          link_id={link.id} 
+                          image={IMG} 
+                          URL={link.url}
+                          />
+                    </Grid>
+                })  
               }
             </Grid>
           </div>
