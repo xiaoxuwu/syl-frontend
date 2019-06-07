@@ -4,6 +4,9 @@ import PreviewStyles from '../styles/Preview.js'
 import Links from './Links'
 
 class Preview extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     const { classes } = this.props;
     let username = localStorage.getItem('username');
@@ -14,7 +17,7 @@ class Preview extends Component {
           <div className={classes.inner}>
             <div className={classes.previewWrap}>
               <div className={classes.previewInner}>
-                <Links username={username}/>
+                <Links username={username} updateLinks={this.props.updatePreview+1}/>
               </div>
             </div>
           </div>

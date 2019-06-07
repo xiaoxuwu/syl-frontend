@@ -22,12 +22,11 @@ class Edit extends Component {
     this.state = { 
       links: [],
       editableLinks: [],
-      userPref: {},
       user: {},
-      newProfile: '',
-      newBg: '',
       addedURL: '',
+      addedTitle: '',
       invalidURL: false,
+      updatePreview: 0,
       baseURL: process.env.REACT_APP_API_URL 
     };
     this.handleAddLink = this.handleAddLink.bind(this);
@@ -36,7 +35,6 @@ class Edit extends Component {
   // Called when component has been initialized
   componentDidMount() {
     this.getUser();
-    this.getUserPref();
   }
 
   // Makes GET request to retrieve user
@@ -92,20 +90,8 @@ class Edit extends Component {
       this.setState({ 
         links: links,
         editableLinks: editableLinks,
+        updatePreview: this.state.updatePreview+1,
       });
-    }).catch(err => console.log(err));
-  }
-
-  // Makes GET requests to retrieve user profile and background picture
-  getUserPref() {
-    var apiEndpoint = '/api/preferences/?username=' + this.state.user.username;
-
-    axios.get(apiEndpoint, {}).then(result => {
-      let prefs = result.data;
-
-        this.setState({ 
-          userPref: prefs,
-        });
     }).catch(err => console.log(err));
   }
 
@@ -134,7 +120,7 @@ class Edit extends Component {
       var data = {
         'url': this.state.addedURL,
         'creator': this.state.user.id,
-        'text': '',
+        'text': this.state.addedTitle,
         'image': null,
         'order': maxOrder+1,
         "media_prefix": "media/"
@@ -151,14 +137,17 @@ class Edit extends Component {
       if (reset) {
         reset.value="";
       }
+      reset = document.getElementById("InputTitle");
+      if (reset) {
+        reset.value="";
+      }
     }
   }
 
   render() {
     const { classes } = this.props;
 
-    var userPref = this.state.userPref;
-    var preferenceCard = <PreferenceCard username={this.state.user.username} />;
+    var preferenceCard = <PreferenceCard />;
     var errorMsg = this.state.invalidURL ?
                   <Grid container direction="row" className={classes.error} alignItems="center">
                     <Grid item>
@@ -176,16 +165,28 @@ class Edit extends Component {
               <div className={classes.pref}>
                 {preferenceCard}
               </div>
-              <div className={classes.linkWrapper}>
-                <Paper className={classes.addLink}>
+              <Grid container>
+                <Grid item sm={4}>
+                  <InputBase
+                    id="InputTitle"
+                    placeholder="Link Title"
+                    className={classes.addLinkInput}
+                    onChange={e => this.setState({addedTitle: e.target.value})}
+                  />
+                </Grid>
+                <Grid item sm={4}>
                   <InputBase
                     id="InputUrl"
                     placeholder="www.example.com"
                     className={classes.addLinkInput}
                     onChange={e => this.setState({addedURL: e.target.value, invalidURL: false})}
                   />
+                </Grid>
+                <Grid item sm={4}>
                   <Button variant="contained" className={classes.addLinkButton} onClick={this.handleAddLink}>+ ADD NEW LINK</Button>
-                </Paper>
+                </Grid>
+              </Grid>
+              <div className={classes.linkWrapper}>
               </div>
               {errorMsg}
               <Grid container spacing={12} className={classes.editList}>
@@ -198,7 +199,7 @@ class Edit extends Component {
               </Grid>
             </Grid>
             <Grid item xs={4} className={classes.preview}>
-              <Preview />
+              <Preview updatePreview={this.state.updatePreview+1}/>
             </Grid>
           </Grid>
 
