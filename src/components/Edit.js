@@ -136,58 +136,32 @@ class Edit extends Component {
     var userPref = this.state.userPref;
     var background_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.background_img;
     var preferenceCard = <PreferenceCard username={this.state.user.username} />
-    // <Grid container spacing={16} md="8" className={classes.list}>
-    //         <Grid item md="12" className={classes.pref}>
-    //           {preferenceCard}
-    //         </Grid>
-
-    //         <Grid container spacing={16} md="12" className={classes.editList}>
-    //           <Grid item xs={10} md={10}>
-    //             <Paper className={classes.addLink}>
-    //               <InputBase
-    //                 placeholder="www.example.com"
-    //                 className={classes.addLinkInput}
-    //               />
-    //               <Button variant="contained" className={classes.addLinkButton}>+ ADD NEW LINK</Button>
-    //             </Paper>
-    //           </Grid>
-    //           {editableLinks.map(editableLinkCard =>
-    //             <Grid item xs={10} md={10}>
-    //               {editableLinkCard}
-    //             </Grid>
-    //             )  
-    //           }
-    //         </Grid>
-    //       </Grid>
-    //       <Grid container spacing={16} md="4" className={classes.preview}>
-    //         <Preview />
-    //       </Grid>
 
     return (
         <div className={classes.content}>
           <Grid container spacing={10} className={classes.list}>
-            <Grid item xs>
-                <div className={classes.pref}>
-                  {preferenceCard}
-                </div>
-                <div className={classes.linkWrapper}>
-                  <Paper className={classes.addLink}>
-                    <InputBase
-                      placeholder="www.example.com"
-                      className={classes.addLinkInput}
-                    />
-                    <Button variant="contained" className={classes.addLinkButton}>+ ADD NEW LINK</Button>
-                  </Paper>
-                </div>
-                <Grid container spacing={12} className={classes.editList}>
-                  {editableLinks.map(editableLinkCard =>
-                    <Grid item xs={10} md={10}>
-                      {editableLinkCard}
-                    </Grid>
-                    )  
-                  }
-                </Grid>
-             </Grid>
+            <Grid item xs className={classes.overflowWrapper}>
+              <div className={classes.pref}>
+                {preferenceCard}
+              </div>
+              <div className={classes.linkWrapper}>
+                <Paper className={classes.addLink}>
+                  <InputBase
+                    placeholder="www.example.com"
+                    className={classes.addLinkInput}
+                  />
+                  <Button variant="contained" className={classes.addLinkButton}>+ ADD NEW LINK</Button>
+                </Paper>
+              </div>
+              <Grid container spacing={12} className={classes.editList}>
+                {editableLinks.map(editableLinkCard =>
+                  <Grid item xs={10} md={10}>
+                    {editableLinkCard}
+                  </Grid>
+                  )  
+                }
+              </Grid>
+            </Grid>
             <Grid item xs={4} className={classes.preview}>
               <Preview />
             </Grid>

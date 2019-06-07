@@ -1,25 +1,26 @@
 const EditStyles = theme => ({
   content: {
-    // textAlign: 'center',
     height: '100%',
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column',
   },
   editList: {
     display: 'inline-flex',
-    // padding: '25px 25px 25px 25px',
     justifyContent: 'center',
     paddingTop: '30px',
   },
   list: {
     display: 'inline-flex',
-    // padding: '25px 25px 25px 25px',
     justifyContent: 'center',
     maxHeight: '100vh',
-    overflow: 'auto',
+    height: '100vh',
     width: '100%',
+    display: 'flex',
+    minHeight: 0,
   },
   preview: {
     display: 'inline-flex',
-    // padding: '25px 25px 25px 25px',
     justifyContent: 'center',
     overflow: 'hidden',
     width: '100%',
@@ -29,30 +30,23 @@ const EditStyles = theme => ({
     backgroundColor: 'lightgray',
   },
   media: {
-  	height: 150,
-  	width: 150,
+    height: 150,
+    width: 150,
   },
   pref: {
-  	// width: '100%',
-  	// padding: '25px 25px 25px 25px',
-    margin: '10%',
-  	// display: 'inline-flex',
-    // marginTop: '7%',
-    // marginLeft: '11%',
-    // marginRight: '11%',
+    margin: '10% 10% 5% 10%',
     backgroundColor: 'pink',
   },
   info: {
-  	display: 'inline-grid',
-  	textAlign: 'left',
-  	padding: '0px 25px 0px 25px',
+    display: 'inline-grid',
+    textAlign: 'left',
+    padding: '0px 25px 0px 25px',
   },
   linkWrapper: {
     margin: '0 auto',
   },
   addLink: {
     width: '50%',
-    // height: '100%',
     marginLeft: '25%',
     display: 'inline-block',
   },
@@ -76,6 +70,10 @@ const EditStyles = theme => ({
   iconSmall: {
     fontSize: 20,
   },
+  overflowWrapper: {
+    overflowY: 'auto',
+    maxHeight: '100%',
+  }
 });
 
 export default EditStyles;

@@ -4,6 +4,7 @@ const EditableLinkCardStyles = {
     display: 'inline-flex',
     position: 'relative',
     backgroundColor: '#DECE8D',
+    marginBottom: 20,
   },
   media: {
     height: 120,
