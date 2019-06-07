@@ -86,5 +86,8 @@ export default theme => ({
   listDivider: {
     marginBottom: theme.spacing.unit * 2,
     marginTop: theme.spacing.unit * 2
+  },
+  calendar: {
+    paddingTop: 10,
   }
 });

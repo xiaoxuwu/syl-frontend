@@ -35,6 +35,13 @@ import styles from './styles';
 
 import LogoImage from '../../assets/images/syl-logo-color.svg'
 
+import InfiniteCalendar, {
+  Calendar,
+  withRange,
+} from 'react-infinite-calendar';
+import 'react-infinite-calendar/styles.css';
+
+const CalendarWithRange = withRange(Calendar);
 
 class Sidebar extends Component {
   constructor(props) {
@@ -46,6 +53,8 @@ class Sidebar extends Component {
       profile_pic: null,
       base_url: process.env.REACT_APP_API_URL,
       dateLimit: '7days',
+      start_date: new Date(2019, 6, 1),
+      end_date: new Date(),
     };
   }
 
@@ -71,8 +80,23 @@ class Sidebar extends Component {
     this.setState({
       [event.target.id]: event.target.value
     });
-    this.props.updateDateLimit(event.target.value)
+    if (event.target.value !== 'custom') {
+      this.props.updateDateLimit(event.target.value)
+    }
     // console.log('Sidebar Updated DateLimit: ', event.target.value)
+  }
+
+  onCalendarSelect = (e) => {
+    console.log(e.start)
+    console.log(e.end)
+    // 3 means has selected range (start and end)
+    if (e.eventType === 3) {
+      this.setState({
+        start_date: e.start,
+        end_date: e.end,
+      })
+      this.props.updateStartEndDates(e.start, e.end)
+    }
   }
 
   render() {
@@ -110,25 +134,6 @@ class Sidebar extends Component {
           </Typography>
         </div>
         <Divider className={classes.profileDivider} />
-        <Typography
-          variant="h5"
-        >
-          See data for the past:
-        </Typography>
-        <FormControl variant="outlined" className={classes.select}>
-            <Select
-              native
-              onChange={this.handleChange}
-              input={
-                <OutlinedInput id="dateLimit" labelWidth={0}/>
-              }
-              >
-              <option value="7days">7 days</option>
-              <option value="30days">30 days</option>
-              <option value="90days">90 days</option>
-            </Select>
-          </FormControl>
-        <Divider className={classes.profileDivider} />
         <List
           component="div"
           disablePadding
@@ -162,6 +167,50 @@ class Sidebar extends Component {
             />
           </ListItem>
         </List>
+        <Divider className={classes.profileDivider} />
+        <Typography
+          variant="h5"
+        >
+          See data for the past:
+        </Typography>
+        <FormControl variant="outlined" className={classes.select}>
+          <Select
+            native
+            onChange={this.handleChange}
+            input={
+              <OutlinedInput id="dateLimit" labelWidth={0}/>
+            }
+            >
+            <option value="7days">7 days</option>
+            <option value="30days">30 days</option>
+            <option value="90days">90 days</option>
+            <option value="custom">custom date range</option>
+          </Select>
+        </FormControl>
+        <div style={{display: this.state.dateLimit === 'custom' ? 'block': 'none'}}>
+          <InfiniteCalendar   
+            className={classes.calendar}
+            Component={CalendarWithRange}
+            width={270}
+            height={300}
+            displayOptions={{
+              showOverlay: true,
+              showHeader: false,
+            }}
+            selected={{
+              start: this.state.start_date,
+              end: this.state.end_date,
+            }}
+            min={new Date(2018, 1, 1)}
+            max={new Date()}
+            minDate={new Date(2018, 1, 1)}
+            maxDate={new Date()}
+            locale={{
+              headerFormat: 'MMM Do',
+            }}
+            onSelect={this.onCalendarSelect}
+          />
+        </div>
       </nav>
     );
   }

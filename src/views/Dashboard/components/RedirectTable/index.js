@@ -50,23 +50,52 @@ class RedirectTable extends Component {
   }
   
   componentDidMount() {
-    this.getData(this.props.dateLimit)
+    this.getLimitData(this.props.dateLimit)
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.dateLimit != prevProps.dateLimit) {
-      this.getData(this.props.dateLimit);
+      this.getLimitData(this.props.dateLimit);
+    } else if (this.props.start_date != prevProps.start_date || this.props.end_date != prevProps.end_date) {
+      this.getStartEndData(this.props.start_date, this.props.end_date)
     }
   } 
 
   // Get event counts per day for authenticated user
-  getData = (limit) => {
+  getLimitData = (limit) => {
     // console.log('RedirectTable Updated Data: ', limit)
     axios.get('/api/events/stats', {
       params: {
         'method': 'count',
         'time': 'daily',
         'limit': limit,
+      },
+      headers: {
+        'Authorization': 'Token ' + localStorage.getItem('token')
+      }
+    }).then(res => {
+      var data = res.data.data.map(period => {
+        let d = moment(period.period).format('LL')
+        return {date: d, 'redirects' : period.count}
+      });
+      this.setState({
+        rows: data,
+      });
+      console.log(res.data)
+      console.log(data)
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
+  getStartEndData = (start_date, end_date) => {
+    // console.log('RedirectTable Updated Data: ', limit)
+    axios.get('/api/events/stats', {
+      params: {
+        'method': 'count',
+        'time': 'daily',
+        'start': start_date,
+        'end': end_date,
       },
       headers: {
         'Authorization': 'Token ' + localStorage.getItem('token')

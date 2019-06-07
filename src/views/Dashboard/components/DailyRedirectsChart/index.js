@@ -44,21 +44,49 @@ class DailyRedirectsChart extends Component {
   }
   
   componentDidMount() {
-    this.updateData(this.props.dateLimit)
+    this.updateLimitData(this.props.dateLimit)
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.dateLimit != prevProps.dateLimit) {
-      this.updateData(this.props.dateLimit);
+      this.updateLimitData(this.props.dateLimit);
+    } else if (this.props.start_date != prevProps.start_date || this.props.end_date != prevProps.end_date) {
+      this.updateStartEndData(this.props.start_date, this.props.end_date)
     }
   } 
 
-  updateData = (limit) => {
+  updateLimitData = (limit) => {
     // console.log('DailyRedirectsChart Updated Data: ', limit)
     axios.get('/api/events/stats', {
       params: {
         'time': 'daily',
         'limit': limit
+      },
+      headers: {
+        'Authorization': 'Token ' + localStorage.getItem('token')
+      }
+    }).then(res => {
+      var viewsVsTime = res.data.data.map(period => {
+        return {name: period.period.substring(0, 10), 'Redirects' : period.count}
+      });
+      this.setState({
+        viewsVsTime: viewsVsTime,
+        raw: res.data.raw,
+        totalViewCount: res.data.raw.length
+      });
+      console.log(res.data)
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
+  updateStartEndData = (start_date, end_date) => {
+    // console.log('DailyRedirectsChart Updated Data: ', limit)
+    axios.get('/api/events/stats', {
+      params: {
+        'time': 'daily',
+        'start': start_date,
+        'end': end_date,
       },
       headers: {
         'Authorization': 'Token ' + localStorage.getItem('token')

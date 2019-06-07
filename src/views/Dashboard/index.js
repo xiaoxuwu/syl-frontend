@@ -43,12 +43,19 @@ class Dashboard extends Component {
 
     this.state = {
       dateLimit: '7days',
+      start_date: null,
+      end_date: null,
     }
   }
 
   updateDateLimit = (dateLimit) => {
     this.setState({ dateLimit: dateLimit });
     // console.log('Dashboard Updated DateLimit: ', dateLimit)
+  }
+
+  updateStartEndDates = (start_date, end_date) => {
+    this.setState({ start_date: start_date, end_date: end_date });
+    // console.log('Dashboard Updated updateStartEndDates: ', dateLimit)
   }
 
   render() {
@@ -59,7 +66,8 @@ class Dashboard extends Component {
         title="Dashboard" 
         isOpen={isOpen} 
         onChange={onChange}
-        updateDateLimit={this.updateDateLimit}>
+        updateDateLimit={this.updateDateLimit}
+        updateStartEndDates={this.updateStartEndDates}>
         <div className={classes.root}>
           <Grid
             container
@@ -108,7 +116,12 @@ class Dashboard extends Component {
               xl={9}
               xs={12}
             >
-              <DailyRedirectsChart className={classes.item} dateLimit={this.state.dateLimit}/>
+              <DailyRedirectsChart 
+                className={classes.item} 
+                dateLimit={this.state.dateLimit}
+                start_date={this.state.start_date}
+                end_date={this.state.end_date}
+              />
             </Grid>
             <Grid
               item
@@ -117,7 +130,12 @@ class Dashboard extends Component {
               xl={3}
               xs={12}
             >
-              <RedirectTable className={classes.item} dateLimit={this.state.dateLimit}/>
+              <RedirectTable 
+                className={classes.item} 
+                dateLimit={this.state.dateLimit}
+                start_date={this.state.start_date}
+                end_date={this.state.end_date}
+              />
             </Grid>
             <Grid
               item
