@@ -15,7 +15,6 @@ import NavBar from './components/NavBar';
 import Home from './components/Home';
 // import NotFound from './components/NotFound'
 import Preview from './components/Preview'
-import Download from './components/Download'
 import Login from './components/auth/Login';
 import Logout from './components/auth/Logout';
 import { isAuthenticated } from './components/auth/AuthService';
