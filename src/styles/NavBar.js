@@ -2,10 +2,11 @@ const NavBarStyles = theme => ({
   '@global': {
     body: {
       backgroundColor: theme.palette.common.white,
+      fontFamily: "'Oxygen', sans-serif"
     },
   },
   appBar: {
-    position: 'relative',
+    position: 'fixed',
     boxShadow: 'none',
     backgroundColor: theme.palette.common.white,
   },

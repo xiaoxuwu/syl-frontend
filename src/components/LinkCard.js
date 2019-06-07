@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from './AxiosClient';
+import clsx from 'clsx';
 
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -7,6 +8,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import LinkCardStyles from '../styles/LinkCard.js'
 
@@ -36,38 +38,59 @@ class LinkCard extends Component {
   }
 
   handleClick = (e) => {
-    window.open(this.state.URL);
-    // this.setState({count: this.state.count+1});
+    var url = this.props.URL;
+    if (!url.startsWith("http://") && !url.startsWith("https://")) {
+      url = "https://"+url;
+    }
+    window.open(url);
     var apiEndpoint = '/api/events/';
-    var eventData = 'link=' + this.state.link_id;
+    var eventData = 'link=' + this.props.link_id;
     axios.post(apiEndpoint, eventData).catch(err => console.log(err));
   }
 
   render() {
-    const { classes } = this.props;
+    const { parentClasses, classes } = this.props;
+    var previewCardText = null
+    if (parentClasses !== undefined) {
+      previewCardText = parentClasses.previewCardText
+    }
+
+    var IMG = this.props.image ? this.props.image : this.getFavicon(this.props.URL);
+
     return(
-    	<Card className={classes.card}>
-        {this.state.IMG ?
-          <CardMedia
-            className={classes.media}
-            image={this.state.IMG}
-          /> 
-          : null
-        }
-    		<CardActionArea onClick={this.handleClick}> 
-          <CardContent>
-            {this.state.IMG ? 
-      				<Typography gutterBottom variant="h5" component="h2" className={classes.cardText}>
-      					{this.state.title}
-      				</Typography> 
-              : 
-              <Typography gutterBottom variant="h5" component="h2" align='center' className={classes.cardText}>
-                {this.state.title}
-              </Typography>
-            }
-          </CardContent>
-    		</CardActionArea>
-    	</Card>
+      <Tooltip title={this.props.URL}>
+      	<Card className={classes.card}>
+          {IMG ?
+            <CardMedia
+              className={classes.media}
+              image={IMG}
+            /> 
+            : null
+          }
+      		<CardActionArea className={classes.content} onClick={this.handleClick}> 
+            <CardContent>
+              {IMG ? 
+        				<Typography 
+                  gutterBottom 
+                  variant="h5" 
+                  component="h2" 
+                  className={clsx(classes.cardText, previewCardText)}>
+        					{this.props.title}
+        				</Typography> 
+                : 
+                <Typography 
+                  gutterBottom v
+                  ariant="h5" 
+                  component="h2" 
+                  align='center' 
+                  className={clsx(classes.cardText, previewCardText)}>
+                  {this.props.title}
+                </Typography>
+              }
+            </CardContent>
+      		</CardActionArea>
+      	</Card>
+      </Tooltip>
     );
   }
 }
