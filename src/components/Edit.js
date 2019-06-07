@@ -55,7 +55,6 @@ class Edit extends Component {
 
   // Makes GET request to retrieve links
   getLinks = () => {
-    console.log("GETTING LINKS")
     let username = localStorage.getItem('username');
     var apiEndpoint = '/api/links/?username=' + username;
 
@@ -80,6 +79,8 @@ class Edit extends Component {
         return <EditableLinkCard 
           key={link.id}
           link_id={link.id} 
+          order={link.order}
+          links={links}
           image={IMG} 
           URL={link.url} 
           title={link.text}
@@ -142,7 +143,6 @@ class Edit extends Component {
       axios.post(apiEndpoint, data, {'headers' : { 'Authorization': 'Token ' + token,
                                               'Content-Type': 'application/json' }})
         .then(result => {
-          console.log(result.data);
           this.getLinks();
           })
         .catch(err => console.log(err.response));
