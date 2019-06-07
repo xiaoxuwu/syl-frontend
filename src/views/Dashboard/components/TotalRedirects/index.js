@@ -19,7 +19,34 @@ import { Paper } from 'dashboard';
 // Component styles
 import styles from './styles';
 
+import axios from 'components/AxiosClient';
+
 class TotalRedirects extends Component {
+  state = {
+    totalClickCount: 0,
+  };
+
+  componentDidMount() {
+    this.updateData()
+  }
+
+  updateData = () => {
+    axios.get('/api/events/stats', {
+      params: {
+        'method': 'count',
+      },
+      headers: {
+        'Authorization': 'Token ' + localStorage.getItem('token')
+      }
+    }).then(res => {
+      this.setState({
+        totalClickCount: res.data.count,
+      });
+      console.log(res.data)
+    }).catch(err => {
+      console.log(err)
+    })
+  }
   render() {
     const { classes, className, ...rest } = this.props;
 
@@ -36,13 +63,13 @@ class TotalRedirects extends Component {
               className={classes.title}
               variant="body2"
             >
-              TOTAL REDIRECTS
+              ALL TIME
             </Typography>
             <Typography
               className={classes.value}
               variant="h3"
             >
-              978,328
+              {this.state.totalClickCount} clicks
             </Typography>
           </div>
           <div className={classes.iconWrapper}>
