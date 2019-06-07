@@ -34,7 +34,7 @@ class Edit extends Component {
       addedURL: '',
       addedTitle: '',
       invalidURL: false,
-      baseURL: process.env.REACT_APP_API_URL 
+      baseURL: process.env.REACT_APP_API_URL
     };
 
     this.handleAddLink = this.handleAddLink.bind(this);
@@ -224,7 +224,7 @@ class Edit extends Component {
           </Grid>
         </Grid>
         <Grid item xs={4} className={classes.preview}>
-          <Preview />
+          <Preview links={this.state.links}/>
         </Grid>
       </Grid>
     </div>

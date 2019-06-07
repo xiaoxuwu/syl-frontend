@@ -48,7 +48,7 @@ class Links extends Component {
 
         // Checks if links changed before changing state
         if (this.state.links.length !== links.length) {
-            this.setState({ 
+            this.setState({
             links: links,
           });
         }
@@ -59,7 +59,7 @@ class Links extends Component {
               if (stateLink.url !== link.url || stateLink.creator_id !== link.creator_id ||
                   stateLink.text !== link.text || stateLink.image !== link.image ||
                   stateLink.order !== link.order || stateLink.media_prefix !== link.media_prefix) {
-                this.setState({ 
+                this.setState({
                   links: links,
                 });
               }
@@ -84,7 +84,7 @@ class Links extends Component {
   }
 
   render() {
-    this.getUserLinks();
+    // this.getUserLinks();
 
     if (this.state.userPref === null) {
       return <div> </div>
@@ -119,20 +119,20 @@ class Links extends Component {
           </Typography>
           <div className={classes.paper}>
             <Grid container wrap="nowrap" spacing={2} className={classes.list}>
-              {this.state.links.map(link => {
+              {this.props.links.map(link => {
                 var IMG = link.image ? this.state.baseURL + '/' + link.media_prefix + link.image : null;
                 var text = link.text ? link.text : link.url;
-                var linkcard = <LinkCard 
+                var linkcard = <LinkCard
                           key={link.id}
                           title={text}
-                          link_id={link.id} 
-                          image={IMG} 
+                          link_id={link.id}
+                          image={IMG}
                           URL={link.url}
                           />;
                 return <Grid item xs={this.state.pCol} md={this.state.dCol} lg={this.state.dCol}>
                           {linkcard}
                     </Grid>
-                })  
+                })
               }
             </Grid>
           </div>
