@@ -71,9 +71,8 @@ class Sidebar extends Component {
     this.setState({
       [event.target.id]: event.target.value
     });
-    console.log(event.target.id)
     this.props.updateDateLimit(event.target.value)
-    console.log('Sidebar Updated DateLimit: ', event.target.value)
+    // console.log('Sidebar Updated DateLimit: ', event.target.value)
   }
 
   render() {

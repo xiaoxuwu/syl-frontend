@@ -54,7 +54,7 @@ class DailyRedirectsChart extends Component {
   } 
 
   updateData = (limit) => {
-    console.log('DailyRedirectsChart Updated Data: ', limit)
+    // console.log('DailyRedirectsChart Updated Data: ', limit)
     axios.get('/api/events/stats', {
       params: {
         'time': 'daily',

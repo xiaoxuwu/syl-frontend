@@ -48,7 +48,7 @@ class Dashboard extends Component {
 
   updateDateLimit = (dateLimit) => {
     this.setState({ dateLimit: dateLimit });
-    console.log('Dashboard Updated DateLimit: ', dateLimit)
+    // console.log('Dashboard Updated DateLimit: ', dateLimit)
   }
 
   render() {

@@ -61,7 +61,7 @@ class RedirectTable extends Component {
 
   // Get event counts per day for authenticated user
   getData = (limit) => {
-    console.log('RedirectTable Updated Data: ', limit)
+    // console.log('RedirectTable Updated Data: ', limit)
     axios.get('/api/events/stats', {
       params: {
         'method': 'count',
