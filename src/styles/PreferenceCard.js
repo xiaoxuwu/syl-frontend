@@ -6,7 +6,7 @@ const PreferenceCardStyles = theme => ({
 		width: '100%',
 		display: 'inline-flex',
 		color: 'white',
-		backgroundColor: 'pink',
+		backgroundColor: '#ff6666',
 		boxShadow: 'none',
 		borderRadius: 6
 	},
@@ -39,10 +39,24 @@ const PreferenceCardStyles = theme => ({
 		fontSize: 20,
 	},
 	prefButtons: {
-		textAlign: 'right'
+		textAlign: 'right',
+		marginTop: 20
 	},
 	username: {
 		color: 'white'
+	},
+	fileUpload: {
+		color: 'white'
+	},
+	noMargin: {
+		marginBottom: 0,
+	},
+	uploadWrapper: {
+		paddingLeft: 20,
+		paddingRight: 20,
+		paddingBottom: 20,
+		// borderRadius: 10,
+    	// border: 'white solid 2px'
 	}
 });
 

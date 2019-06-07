@@ -172,32 +172,40 @@ class PreferenceCard extends Component {
             <Typography variant="display1" component="h3" className={classes.username}>
               @{user}
             </Typography>
-
+            <Grid container> 
+            <Grid item sm={6}> 
             <FormControl>
-                <span>
-                <p>Profile Picture:</p>
+                <span className={classes.uploadWrapper}>
                 <IconButton className={classes.action} aria-label="Delete" onClick={this.handleDeleteProfile}>
                   <DeleteIcon/>
                 </IconButton>
+                <span className={classes.noMargin}>Profile Picture</span>
                 <Input
+                  disableUnderline={true}
                   type="file"
                   name="profile"
+                  className={classes.fileUpload}
                   onChange={this.handleProfile}
                   value={this.state.newProfile ? this.state.newProfile.value : ''}/></span>
             </FormControl>
-
+            </Grid>
+            <Grid item sm={6}> 
             <FormControl>
-              <span>
-              <p>Background Image:</p> <IconButton className={classes.action} aria-label="Delete" onClick={this.handleDeleteBg}>
+              <span className={classes.uploadWrapper}>
+                <IconButton className={classes.action} aria-label="Delete" onClick={this.handleDeleteBg}>
                   <DeleteIcon/>
                 </IconButton>
+                <span className={classes.noMargin}>Background Image</span> 
                 <Input
+                  disableUnderline={true}
                   type="file"
                   name="background"
+                  className={classes.fileUpload}
                   onChange={this.handleBackground}
                   value={this.state.newBg ? this.state.newBg.value : ''}/></span>
             </FormControl>
-
+            </Grid>
+            </Grid>
             <div className={classes.prefButtons}>
               <Button
                 variant="contained"

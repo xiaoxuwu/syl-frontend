@@ -1,14 +1,6 @@
 import React, { useImperativeHandle, useRef } from 'react'
 import { DragSource, DropTarget } from 'react-dnd'
 import ItemTypes from '../ItemTypes'
-import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import SaveIcon from '@material-ui/icons/Save';
-
-import TextField from '@material-ui/core/TextField';
 
 import EditableLinkCard from './EditableLinkCard';
 
@@ -20,7 +12,7 @@ const style = {
   cursor: 'move',
 }
 const DraggableCard = React.forwardRef(
-  ({ index, id, text, url, img, order, links, token, username, getParentLinks, isDragging, connectDragSource, connectDropTarget }, ref) => {
+  ({ index, id, text, url, img, order, links, token, username, getParentLinks, isDragging, connectDragSource, connectDropTarget, classes }, ref) => {
     const elementRef = useRef(null)
     connectDragSource(elementRef)
     connectDropTarget(elementRef)
@@ -29,7 +21,7 @@ const DraggableCard = React.forwardRef(
       getNode: () => elementRef.current,
     }))
     return (
-      <div ref={elementRef} style={Object.assign({}, style, { opacity })}>
+      <div ref={elementRef} style={Object.assign({}, style, { opacity })} className={classes.editCardWrapper} >
         <EditableLinkCard
           link_id={id}
           URL={url}
