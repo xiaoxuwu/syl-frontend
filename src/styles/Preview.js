@@ -54,6 +54,16 @@ const PreviewStyles = theme => ({
     backgroundColor: '#fff',
     overflowY: 'auto',
   },
+  previewContainer: {
+    paddingLeft: 0,
+    paddingRight: 0
+  },
+  previewCardText: {
+    right: 25,
+    fontSize: '150%',
+    position: 'relative',
+    paddingRight: 0
+  }
 });
 
 export default PreviewStyles;

@@ -4,104 +4,88 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 
 import { mainListItems, secondaryListItems } from './ListItems';
-import SimpleLineChart from './SimpleLineChart';
-import SimpleTable from './SimpleTable';
-
-const drawerWidth = 240;
-
-const styles = theme => ({
-  root: {
-    display: 'flex',
-  },
-  toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginLeft: 12,
-    marginRight: 36,
-  },
-  menuButtonHidden: {
-    display: 'none',
-  },
-  title: {
-    flexGrow: 1,
-  },
-  drawerPaper: {
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPaperClose: {
-    overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: theme.spacing.unit * 7,
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing.unit * 9,
-    },
-  },
-  appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing.unit * 3,
-    height: '100vh',
-    overflow: 'auto',
-  },
-  chartContainer: {
-    marginLeft: -22,
-  },
-  tableContainer: {
-    height: 320,
-  },
-  h5: {
-    marginBottom: theme.spacing.unit * 2,
-  },
-});
+import SylLineChart from './SylLineChart';
+import SylTable from './SylTable';
+import DashboardStyles from '../styles/Dashboard'
+import axios from './AxiosClient';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Grid from '@material-ui/core/Grid';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import clsx from 'clsx';
+import { injectLogo } from './SVGInjectors'
 
 class Dashboard extends React.Component {
   state = {
     open: true,
+    viewsVsTime: [],
+    raw: [],
+    userPref: {},
+    username: localStorage.getItem('username'),
+    dateLimit: '',
+    totalViewCount: 0,
+    profilePic: ""
   };
+
+  getPreferences = () => {
+    var apiEndpoint = '/api/preferences/?username=' + this.state.username;
+    axios.get(apiEndpoint, {})
+      .then(result => {
+        let userPref = result.data;
+
+        this.setState({ 
+          userPref: userPref,
+        });
+        this.setState({profilePic: process.env.REACT_APP_API_URL + '/' + userPref.media_prefix + userPref.profile_img})
+      })
+      .catch(err => console.log(err));
+  }
+
+  updateData(limit) {
+    axios.get('/api/events/stats', {
+      params: {
+        'time': 'daily',
+        'limit': limit
+      },
+      headers: {
+        'Authorization': 'Token ' + localStorage.getItem('token')
+      }
+    }).then(res => {
+      var viewsVsTime = res.data.data.map(period => {
+        return {name: period.period.substring(0, 10), 'Visits' : period.count}
+      });
+      this.setState({
+        viewsVsTime: viewsVsTime,
+        raw: res.data.raw,
+        totalViewCount: res.data.raw.length
+      });
+      console.log(res.data)
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
+  handleChange = event => {
+    this.setState({
+      [event.target.id]: event.target.value
+    });
+    console.log(event.target.id)
+    if (event.target.id === 'dateLimit') {
+      this.updateData(event.target.value)
+    }
+  }
+
+  componentDidMount() {
+    this.updateData('7days')
+    this.getPreferences();
+  }
 
   handleDrawerOpen = () => {
     this.setState({ open: true });
@@ -114,41 +98,11 @@ class Dashboard extends React.Component {
   render() {
     const { classes } = this.props;
 
+    var user = this.state.username;
+
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar
-          position="absolute"
-          className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
-        >
-          <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={this.handleDrawerOpen}
-              className={classNames(
-                classes.menuButton,
-                this.state.open && classes.menuButtonHidden,
-              )}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              className={classes.title}
-            >
-              Dashboard
-            </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-          </Toolbar>
-        </AppBar>
         <Drawer
           variant="permanent"
           classes={{
@@ -156,30 +110,116 @@ class Dashboard extends React.Component {
           }}
           open={this.state.open}
         >
-          <div className={classes.toolbarIcon}>
-            <IconButton onClick={this.handleDrawerClose}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </div>
+          <img
+            src={this.state.profilePic}
+            className={classes.profilePic}
+            alt="link"
+          />
+          <Typography variant="h5" component="h5" className={classes.usernameText}>
+            @{user}
+          </Typography>
           <Divider />
           <List>{mainListItems}</List>
           <Divider />
           <List>{secondaryListItems}</List>
         </Drawer>
         <main className={classes.content}>
-          <div className={classes.appBarSpacer} />
-          <Typography variant="h4" gutterBottom component="h2">
-            Orders
-          </Typography>
-          <Typography component="div" className={classes.chartContainer}>
-            <SimpleLineChart />
-          </Typography>
-          <Typography variant="h4" gutterBottom component="h2">
-            Products
-          </Typography>
-          <div className={classes.tableContainer}>
-            <SimpleTable />
-          </div>
+          <Grid container className={classes.topFilterWrapper}>
+            <Grid item lg={3} sm={4} xs={6} className={classes.logo}>
+              <span>
+                {injectLogo()}
+              </span>
+            </Grid>
+            <Grid item lg={3} sm={2} xs={6}>
+              <Typography variant="h4" gutterBottom component="h4" className={classes.subtitle}>
+                links
+              </Typography>
+            </Grid>
+            <Grid item lg={6} xs={6}>
+              <FormControl variant="outlined" className={classes.select}>
+                  <Select
+                    native
+                    onChange={this.handleChange}
+                    input={
+                      <OutlinedInput id="dateLimit" labelWidth={0}/>
+                    }
+                    >
+                    <option value="7days">last week</option>
+                    <option value="30days">last month</option>
+                    <option value="90days">last 3 months</option>
+                </Select>
+              </FormControl>
+              <FormControl variant="outlined" className={classes.select}>
+                  <Select
+                    native
+                    onChange={this.handleChange}
+                    input={
+                      <OutlinedInput id="link_limit" labelWidth={0}/>
+                    }
+                    >
+                    <option value="all">all links</option>
+                    <option value="link1">link 1</option>
+                    <option value="link2">link 2</option>
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
+          <Grid container className={classes.root}>
+              <Grid item sm={2} xs={6} className={clsx(classes.topContentWrapper, classes.noLeftPadding)}>
+                <Card elevation={0} className={clsx(classes.contentCard, classes.fullHeight)}>
+                  <Grid container>
+                    <Typography variant="h6" gutterBottom component="h2" className={clsx(classes.contentHeaderText, classes.centerTitle)}>
+                      Total Clicks
+                    </Typography>
+                  </Grid>
+                  <Typography variant="h1" gutterBottom component="h1" className={classes.highlightText}>
+                    {this.state.totalViewCount}
+                  </Typography>
+                </Card>
+              </Grid>
+              <Grid item sm={4} xs={6} className={classes.topContentWrapper}>
+                <Card elevation={0} className={clsx(classes.contentCard, classes.fullHeight)}>
+                  <Grid container className={classes.contentHeader} spacing={8}>
+                    <Typography variant="h6" gutterBottom component="h2" className={classes.contentHeaderText}>
+                      Top Links
+                    </Typography>
+                  </Grid>
+                </Card>
+              </Grid>
+              <Grid item sm={6} xs={12} className={clsx(classes.topContentWrapper, classes.noRightPadding)}>
+              <Card elevation={0} className={clsx(classes.contentCard, classes.fullHeight)}>
+                  <Grid container className={classes.contentHeader} spacing={8}>
+                    <Typography variant="h6" gutterBottom component="h2" className={classes.contentHeaderText}>
+                      Traffic by Hour
+                    </Typography>
+                  </Grid>
+                </Card>
+              </Grid>
+          </Grid>
+          <Card elevation={0} className={classes.contentCard}>
+            <Grid container className={classes.contentHeader}>
+              <Grid item sm={10} xs={8}>
+              <Typography variant="h6" gutterBottom component="h2" className={classes.contentHeaderText}>
+                Traffic by Day
+              </Typography>
+              </Grid>
+            </Grid>
+            <CardContent><SylLineChart data={this.state.viewsVsTime}/></CardContent>
+          </Card>
+          <Card elevation={0} className={(classes.contentCard, classes.rawWrapper)}>
+            <Grid container className={classes.contentHeader}>
+              <Grid item sm={10} xs={8}>
+              <Typography variant="h6" gutterBottom component="h2" className={classes.contentHeaderText}>
+                Raw Data
+              </Typography>
+              </Grid>
+            </Grid>
+            <CardContent>
+              <div className={classes.tableContainer}>
+                <SylTable data={this.state.raw}/>
+              </div>
+            </CardContent>
+          </Card>
         </main>
       </div>
     );
@@ -190,4 +230,4 @@ Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Dashboard);
+export default withStyles(DashboardStyles)(Dashboard);

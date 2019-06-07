@@ -10,11 +10,11 @@ class Preview extends Component {
     return(
       <div className={classes.wrapper}>
         <section className={classes.preview}>
-          <div className={classes.previewTitle}>Live Preview</div>
+          <div className={classes.previewTitle}>Live Edit</div>
           <div className={classes.inner}>
             <div className={classes.previewWrap}>
               <div className={classes.previewInner}>
-                <Links username={username}/>
+                <Links username={username} parentClasses={classes}/>
               </div>
             </div>
           </div>

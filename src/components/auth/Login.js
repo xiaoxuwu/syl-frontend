@@ -48,18 +48,7 @@ class Login extends Component {
     event.preventDefault();
     authenticate(this.state)
       .then(res => {
-        // Get username then store username + token on success
-        getUserInfo(res.data.token)
-          .then(result => {
-            let user = result.data;
-            setUserInfo(res.data.token, user.username)
-          })
-          .catch(err => {
-            setToken(res)
-            this.setState(() => ({
-              errMsg: "Unable to retrieve username."
-            }))
-          })
+        setUserInfo(res.data.token, this.state.username)
         this.props.setLoginCallback(true)
       })
       .catch(err => {

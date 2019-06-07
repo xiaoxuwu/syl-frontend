@@ -7,7 +7,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-
+import clsx from 'clsx';
 import LinkCardStyles from '../styles/LinkCard.js'
 
 class LinkCard extends Component {
@@ -44,7 +44,11 @@ class LinkCard extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { parentClasses, classes } = this.props;
+    var previewCardText = null
+    if (parentClasses !== undefined) {
+      previewCardText = parentClasses.previewCardText
+    }
     return(
     	<Card className={classes.card}>
         {this.state.IMG ?
@@ -57,11 +61,11 @@ class LinkCard extends Component {
     		<CardActionArea onClick={this.handleClick}> 
           <CardContent>
             {this.state.IMG ? 
-      				<Typography gutterBottom variant="h5" component="h2" className={classes.cardText}>
+      				<Typography gutterBottom variant="h5" component="h2" className={clsx(classes.cardText, previewCardText)}>
       					{this.state.title}
       				</Typography> 
               : 
-              <Typography gutterBottom variant="h5" component="h2" align='center' className={classes.cardText}>
+              <Typography gutterBottom variant="h5" component="h2" align='center' className={clsx(classes.cardText, previewCardText)}>
                 {this.state.title}
               </Typography>
             }
