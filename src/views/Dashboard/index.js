@@ -22,8 +22,6 @@ import {
   SalesChart,
   RedirectTable,
   DevicesChart,
-  ProductList,
-  OrdersTable
 } from './components';
 
 // Component styles
@@ -154,24 +152,6 @@ class Dashboard extends Component {
               xs={12}
             >
               <DevicesChart className={classes.item} />
-            </Grid>
-            <Grid
-              item
-              lg={4}
-              md={6}
-              xl={3}
-              xs={12}
-            >
-              <ProductList className={classes.item} />
-            </Grid>
-            <Grid
-              item
-              lg={8}
-              md={12}
-              xl={9}
-              xs={12}
-            >
-              <OrdersTable className={classes.item} />
             </Grid>
           </Grid>
         </div>

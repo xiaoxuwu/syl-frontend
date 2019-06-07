@@ -7,44 +7,53 @@ import axios from './AxiosClient';
 
 class Download extends Component {
 
-  downloadCSV = () => {
-    const rows = [
-      ["name1", "city1", "some other info"],
-      ["name2", "city2", "more info"]
-    ];
+  downloadEventData = () => {
+    axios.get('/api/events/stats', {
+      params: {
+        'method': 'count',
+        'time': 'daily'
+      },
+      headers: {
+        'Authorization': 'Token ' + localStorage.getItem('token')
+      }
+    }).then(res => {
+      this.downloadCSV(res.data.raw_csv, "event_data.csv")
+    }).catch(err => {
+      console.log(err)
+    })
+  }
 
-    let csvContent = "data:text/csv;charset=utf-8,";
-    rows.forEach(function(rowArray) {
-        let row = rowArray.join(",");
-        csvContent += row + "\r\n";
-    });
+  downloadLinkData = () => {
+    axios.get('/api/events/stats', {
+      params: {
+        'method': 'links',
+      },
+      headers: {
+        'Authorization': 'Token ' + localStorage.getItem('token')
+      }
+    }).then(res => {
+      this.downloadCSV(res.data.raw_csv, "link_data.csv")
+    }).catch(err => {
+      console.log(err)
+    })
+  }
 
-    // let csvContent = "data:text/csv;charset=utf-8," 
-    // + rows.map(e => e.join(",")).join("\n");
+  downloadCSV = (raw_csv, filename) => {
+    let csvContent = "data:text/csv;charset=utf-8," + raw_csv;
 
     var encodedUri = encodeURI(csvContent);
     var link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "my_data.csv");
+    link.setAttribute("download", filename);
     document.body.appendChild(link);
 
     link.click();
-  };
+  }
 
   render() {
-    const { classes } = this.props;
+    const { classes, isLink } = this.props;
     return(
-      <div>
-        <Button
-          fullWidth
-          variant="contained"
-          color="primary"
-          onClick={this.downloadCSV}
-        >
-          Download
-        </Button>
-        <SaveAltRoundedIcon onClick={this.downloadCSV} className={classes.icon} />
-      </div>
+      <SaveAltRoundedIcon onClick={isLink ? this.downloadLinkData : this.downloadEventData} className={classes.icon} />
     )
   }
 }

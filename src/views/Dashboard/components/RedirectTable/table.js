@@ -20,6 +20,7 @@ import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
+import Download from 'components/Download';
 
 const rows = [
   { date: '11/04/2019', redirects: 123},
@@ -182,6 +183,7 @@ function EnhancedTable(props) {
             </TableBody>
           </Table>
         </div>
+        <Download isLink={false} className={classes.download} />
         <TablePagination
           rowsPerPageOptions={[]}
           component="div"
