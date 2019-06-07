@@ -9,17 +9,18 @@ const ListStyles = theme => ({
   },
   paper: {
     maxWidth: 400,
-    margin: `${theme.spacing.unit}px auto`,
+    margin: 'auto',
     padding: theme.spacing.unit*2,
     backgroundColor: 'transparent',
   },
   handleText: {
+    textAlign: 'center',
     color: 'white',
     fontFamily: "'Oxygen', sans-serif"
   },
   list: {
     display: 'inline',
-    padding: '50px 25px 25px 25px',
+    padding: '25px 25px 25px 25px',
     minWidth: '300px',
   },
   imgWrapper: {
