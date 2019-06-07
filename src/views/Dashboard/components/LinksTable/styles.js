@@ -1,7 +1,7 @@
 export default theme => ({
   root: {},
   portletContent: {
-    minWidth: '600px'
+    minWidth: '300px'
   },
   newEntryButton: {
     marginLeft: theme.spacing.unit

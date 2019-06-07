@@ -54,5 +54,29 @@ export default [
     products: ['DEV795381'],
     createdAt: 1554325200000,
     status: 'refund'
+  },
+  {
+    id: 'DEV512340',
+    amount: 92.54,
+    customer: 'DEV728981',
+    products: ['DEV738089'],
+    createdAt: 1554670800000,
+    status: 'delivered'
+  },
+  {
+    id: 'DEV754323',
+    amount: 54.2,
+    customer: 'DEV883167',
+    products: ['DEV773559'],
+    createdAt: 1554325200000,
+    status: 'delivered'
+  },
+  {
+    id: 'DEV59834',
+    amount: 13.75,
+    customer: 'DEV883167',
+    products: ['DEV795381'],
+    createdAt: 1554325200000,
+    status: 'refund'
   }
 ];

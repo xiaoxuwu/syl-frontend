@@ -17,6 +17,7 @@ import {
   TableBody,
   TableCell,
   TableHead,
+  TablePagination,
   TableRow,
   Tooltip,
   TableSortLabel
@@ -126,16 +127,6 @@ class LinksTable extends Component {
             subtitle={`${ordersTotal} in total`}
             title="Orders"
           />
-          <PortletToolbar>
-            <Button
-              className={classes.newEntryButton}
-              color="primary"
-              size="small"
-              variant="outlined"
-            >
-              New entry
-            </Button>
-          </PortletToolbar>
         </PortletHeader>
         <PerfectScrollbar>
           <PortletContent
@@ -151,8 +142,6 @@ class LinksTable extends Component {
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Order ID</TableCell>
-                    <TableCell align="left">Customer</TableCell>
                     <TableCell
                       align="left"
                       sortDirection="desc"
@@ -169,7 +158,7 @@ class LinksTable extends Component {
                         </TableSortLabel>
                       </Tooltip>
                     </TableCell>
-                    <TableCell align="left">Status</TableCell>
+                    <TableCell align="left">Redirects</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -179,23 +168,10 @@ class LinksTable extends Component {
                       hover
                       key={order.id}
                     >
-                      <TableCell>{order.id}</TableCell>
-                      <TableCell className={classes.customerCell}>
-                        {order.customer.name}
-                      </TableCell>
                       <TableCell>
                         {moment(order.createdAt).format('DD/MM/YYYY')}
                       </TableCell>
-                      <TableCell>
-                        <div className={classes.statusWrapper}>
-                          <Status
-                            className={classes.status}
-                            color={statusColors[order.status]}
-                            size="sm"
-                          />
-                          {order.status}
-                        </div>
-                      </TableCell>
+                      <TableCell>{order.id}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

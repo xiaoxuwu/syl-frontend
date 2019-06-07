@@ -18,6 +18,7 @@ import {
   KeepItUp,
   Recently,
   TotalRedirects,
+  DailyRedirectsChart,
   SalesChart,
   LinksTable,
   DevicesChart,
@@ -90,7 +91,7 @@ class Dashboard extends Component {
               xl={9}
               xs={12}
             >
-              <SalesChart className={classes.item} />
+              <DailyRedirectsChart className={classes.item} />
             </Grid>
             <Grid
               item
