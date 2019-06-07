@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import axios from 'components/AxiosClient';
 
 // Externals
 import classNames from 'classnames';
@@ -32,9 +33,37 @@ import LogoImage from '../../assets/images/syl-logo-color.svg'
 
 
 class Sidebar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      username: localStorage.getItem('username'),
+      links_url: '/links/' + localStorage.getItem('username'),
+      profile_pic: null,
+      base_url: process.env.REACT_APP_API_URL 
+    };
+  }
+
+  componentDidMount() {
+    this.getPreferences();
+  }
+
+  // Makes GET requests to retrieve user profile and background picture
+  getPreferences = () => {
+    var apiEndpoint = '/api/preferences/?username=' + this.state.username;
+    axios.get(apiEndpoint, {})
+      .then(result => {
+        let userPref = result.data;
+
+        this.setState({ 
+          profile_pic: this.state.base_url + '/' + userPref.media_prefix + userPref.profile_img,
+        });
+      })
+      .catch(err => console.log(err));
+  }
+
   render() {
     const { classes, className } = this.props;
-
     const rootClassName = classNames(classes.root, className);
 
     return (
@@ -53,24 +82,18 @@ class Sidebar extends Component {
         </div>
         <Divider className={classes.logoDivider} />
         <div className={classes.profile}>
-          <Link to="/account">
+          <Link to={this.state.links_url}>
             <Avatar
-              alt="Roman Kutepov"
+              alt={this.state.username}
               className={classes.avatar}
-              src="/images/avatars/avatar_1.png"
+              src={this.state.profile_pic}
             />
           </Link>
           <Typography
             className={classes.nameText}
             variant="h6"
           >
-            Roman Kutepov
-          </Typography>
-          <Typography
-            className={classes.bioText}
-            variant="caption"
-          >
-            Brain Director
+            @{this.state.username}
           </Typography>
         </div>
         <Divider className={classes.profileDivider} />

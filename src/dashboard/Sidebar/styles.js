@@ -37,7 +37,9 @@ export default theme => ({
     height: '100px'
   },
   nameText: {
-    marginTop: theme.spacing.unit * 2
+    marginTop: theme.spacing.unit * 2,
+    textTransform: 'uppercase',
+    fontSize: 20,
   },
   bioText: {},
   profileDivider: {

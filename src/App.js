@@ -95,8 +95,7 @@ export default class App extends Component {
                                                       ></CreateAccount>} />
             <Route
               component={NotFound}
-              exact
-              path="/not-found"
+              exact path="/not-found"
             />
             <Redirect to="/not-found" />
           </Switch>
