@@ -55,6 +55,7 @@ class Edit extends Component {
 
   // Makes GET request to retrieve links
   getLinks = () => {
+    console.log("GETTING LINKS")
     let username = localStorage.getItem('username');
     var apiEndpoint = '/api/links/?username=' + username;
 
@@ -142,7 +143,7 @@ class Edit extends Component {
                                               'Content-Type': 'application/json' }})
         .then(result => {
           console.log(result.data);
-          this.props.getParentLinks();
+          this.getLinks();
           })
         .catch(err => console.log(err.response));
 
@@ -150,7 +151,6 @@ class Edit extends Component {
       if (reset) {
         reset.value="";
       }
-      this.getLinks();
     }
   }
 
