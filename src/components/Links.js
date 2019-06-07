@@ -22,6 +22,7 @@ class Links extends Component {
       username: this.props.username ? this.props.username : this.props.match.params.username,
       baseURL: process.env.REACT_APP_API_URL
     };
+    this.getUserLinks();
   }
 
   // Called when component has been initialized
@@ -105,6 +106,8 @@ class Links extends Component {
       backgroundSize: 'cover',
     }: {background: 'linear-gradient(to left, #f7ff00, #db36a4)'};
 
+    let links = this.props.links ? this.props.links : this.state.links;
+
     return (
         <div style={background} className={classes.content}>
           <div className={classes.imgWrapper}>
@@ -119,7 +122,7 @@ class Links extends Component {
           </Typography>
           <div className={classes.paper}>
             <Grid container wrap="nowrap" spacing={2} className={classes.list}>
-              {this.props.links.map(link => {
+              {links.map(link => {
                 var IMG = link.image ? this.state.baseURL + '/' + link.media_prefix + link.image : null;
                 var text = link.text ? link.text : link.url;
                 var linkcard = <LinkCard
