@@ -43,7 +43,7 @@ const PreviewStyles = theme => ({
     transformOrigin: 'top left',
   },
   previewInner: {
-    height: '80%',
+    height: '85%',
     marginTop: '15%',
     position: 'relative',
     backgroundColor: '#fff',

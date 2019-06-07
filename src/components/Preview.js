@@ -17,7 +17,7 @@ class Preview extends Component {
           <div className={classes.inner}>
             <div className={classes.previewWrap}>
               <div className={classes.previewInner}>
-                <Links username={username} parentClasses={classes} />
+                <Links links={this.props.links} username={username} parentClasses={classes} />
               </div>
             </div>
           </div>
