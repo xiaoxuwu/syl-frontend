@@ -27,5 +27,8 @@ export default theme => ({
   },
   status: {
     marginRight: theme.spacing.unit
+  },
+  scrollbarContainer: {
+    height: 'auto',
   }
 });

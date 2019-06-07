@@ -4,7 +4,7 @@ export default theme => ({
     marginRight: -theme.spacing.unit * 2
   },
   chartWrapper: {
-    height: '400px',
+    minHeight: '300px',
     position: 'relative'
   },
   portletFooter: {

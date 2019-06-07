@@ -4,11 +4,15 @@ export default theme => ({
     marginRight: -theme.spacing.unit * 2
   },
   chartWrapper: {
-    height: '400px',
-    position: 'relative'
+    height: '300px',
+    position: 'relative',
+    margin: '0 auto',
   },
   portletFooter: {
     display: 'flex',
     justifyContent: 'flex-end'
+  },
+  portletWrapper: {
+    height: '350px',
   }
 });

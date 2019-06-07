@@ -82,10 +82,8 @@ class SalesChart extends Component {
         <PortletHeader noDivider>
           <PortletLabel title="Daily Traffic" />
         </PortletHeader>
-        <PortletContent>
-          <div className={classes.chartWrapper}>
+        <PortletContent className={classes.portletWrapper}>
             <SylLineChart data={this.state.viewsVsTime} dataKey="Redirects"/>
-          </div>
         </PortletContent>
       </Portlet>
     );

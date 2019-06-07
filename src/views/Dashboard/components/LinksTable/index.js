@@ -27,6 +27,8 @@ import {
 import orders from 'data/orders';
 import users from 'data/users';
 
+import EnhancedTable from './table';
+
 // Shared components
 import {
   Portlet,
@@ -122,62 +124,8 @@ class LinksTable extends Component {
 
     return (
       <Portlet className={rootClassName}>
-        <PortletHeader noDivider>
-          <PortletLabel
-            subtitle={`${ordersTotal} in total`}
-            title="Orders"
-          />
-        </PortletHeader>
-        <PerfectScrollbar>
-          <PortletContent
-            className={classes.portletContent}
-            noPadding
-          >
-            {isLoading && (
-              <div className={classes.progressWrapper}>
-                <CircularProgress />
-              </div>
-            )}
-            {showOrders && (
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell
-                      align="left"
-                      sortDirection="desc"
-                    >
-                      <Tooltip
-                        enterDelay={300}
-                        title="Sort"
-                      >
-                        <TableSortLabel
-                          active
-                          direction="desc"
-                        >
-                          Date
-                        </TableSortLabel>
-                      </Tooltip>
-                    </TableCell>
-                    <TableCell align="left">Redirects</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {orders.map(order => (
-                    <TableRow
-                      className={classes.tableRow}
-                      hover
-                      key={order.id}
-                    >
-                      <TableCell>
-                        {moment(order.createdAt).format('DD/MM/YYYY')}
-                      </TableCell>
-                      <TableCell>{order.id}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            )}
-          </PortletContent>
+        <PerfectScrollbar className={classes.scrollbarContainer}>
+          <EnhancedTable />
         </PerfectScrollbar>
       </Portlet>
     );
