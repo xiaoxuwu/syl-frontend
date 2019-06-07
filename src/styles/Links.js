@@ -1,18 +1,25 @@
 const ListStyles = theme => ({
   content: {
+    flexGrow: 1,
+    overflow: 'hidden',
     textAlign: 'center',
     padding: '25px 25px 25px 25px',
     minHeight: '100vh',
     minWidth: '300px',
+  },
+  paper: {
+    maxWidth: 400,
+    margin: `${theme.spacing.unit}px auto`,
+    padding: theme.spacing.unit*2,
+    backgroundColor: 'transparent',
   },
   handleText: {
     color: 'white',
     fontFamily: "'Oxygen', sans-serif"
   },
   list: {
-    display: 'inline-flex',
+    display: 'inline',
     padding: '50px 25px 25px 25px',
-    textAlign: 'left',
     minWidth: '300px',
   },
   imgWrapper: {

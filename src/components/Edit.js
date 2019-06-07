@@ -45,6 +45,8 @@ class Edit extends Component {
       });
 
       var apiEndpoint = '/api/links/?username=' + user.username;
+      console.log("get username");
+      console.log(user.username);
 
       return axios.get(apiEndpoint, {})}).then(result => {
 
@@ -64,6 +66,8 @@ class Edit extends Component {
           links: links,
         });
       }).catch(err => console.log(err));
+      console.log("EDIT LINKS!!!!")
+      console.log(this.state.links);
   }
 
   handleAddLink() {
@@ -119,7 +123,7 @@ class Edit extends Component {
 
     return (
         <div className={classes.content}>
-          <Grid container spacing={10} className={classes.list}>
+          <Grid container spacing={16} className={classes.list}>
             <Grid item xs className={classes.overflowWrapper}>
               <div className={classes.pref}>
                 {preferenceCard}
@@ -133,7 +137,7 @@ class Edit extends Component {
                   <Button variant="contained" className={classes.addLinkButton}>+ ADD NEW LINK</Button>
                 </Paper>
               </div>
-              <Grid container spacing={12} className={classes.editList}>
+              <Grid container spacing={16} className={classes.editList}>
                 {editableLinks.map(editableLinkCard =>
                   <Grid item xs={10} md={10}>
                     {editableLinkCard}
