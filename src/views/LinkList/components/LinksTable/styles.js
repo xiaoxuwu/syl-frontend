@@ -13,6 +13,14 @@ export default theme => ({
     display: 'flex',
     alignItems: 'center'
   },
+  tableEnd: {
+    display: 'inline-flex',
+    width: '100%',
+    alignItems: 'center'
+  },
+  pagination: {
+    width: '100%'
+  },
   avatar: {
     backgroundColor: theme.palette.common.white,
     display: 'inline-flex',
