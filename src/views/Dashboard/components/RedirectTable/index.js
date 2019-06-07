@@ -13,12 +13,7 @@ import EnhancedTable from './table';
 
 // Shared components
 import {
-  Portlet,
-  PortletHeader,
-  PortletLabel,
-  PortletToolbar,
-  PortletContent,
-  Status
+  Portlet
 } from 'dashboard';
 
 // Component styles
@@ -102,7 +97,7 @@ class RedirectTable extends Component {
   }
 
   render() {
-    const { classes, dateLimit, className } = this.props;
+    const { classes, className } = this.props;
     const rootClassName = classNames(classes.root, className);
 
     return (

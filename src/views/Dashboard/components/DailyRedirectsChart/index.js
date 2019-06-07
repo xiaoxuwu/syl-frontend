@@ -8,22 +8,14 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 
 // Material components
-import { Button, Switch } from '@material-ui/core';
-
-// Material icons
-import {
-  ArrowDropDown as ArrowDropDownIcon,
-  ArrowRight as ArrowRightIcon
-} from '@material-ui/icons';
+import { Switch } from '@material-ui/core';
 
 // Shared components
 import {
   Portlet,
   PortletHeader,
   PortletLabel,
-  PortletToolbar,
   PortletContent,
-  PortletFooter
 } from 'dashboard';
 
 // Component styles
@@ -50,9 +42,9 @@ class DailyRedirectsChart extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.dateLimit != prevProps.dateLimit) {
+    if (this.props.dateLimit !== prevProps.dateLimit) {
       this.updateLimitData(this.props.dateLimit);
-    } else if (this.props.start_date != prevProps.start_date || this.props.end_date != prevProps.end_date) {
+    } else if (this.props.start_date !== prevProps.start_date || this.props.end_date !== prevProps.end_date) {
       this.updateStartEndData(this.props.start_date, this.props.end_date)
     }
   } 

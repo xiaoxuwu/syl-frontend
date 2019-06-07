@@ -22,11 +22,6 @@ import {
   TablePagination
 } from '@material-ui/core';
 
-// Material icons
-import {
-  Warning as WarningIcon,
-} from '@material-ui/icons';
-
 // Shared components
 import { Portlet, PortletContent } from 'dashboard';
 import Download from 'components/Download';
@@ -64,7 +59,7 @@ class LinksTable extends Component {
 
   render() {
     const { classes, className, links } = this.props;
-    const { activeTab, rowsPerPage, page } = this.state;
+    const { rowsPerPage, page } = this.state;
 
     const rootClassName = classNames(classes.root, className);
 
