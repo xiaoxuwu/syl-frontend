@@ -37,7 +37,11 @@ class LinkCard extends Component {
   }
 
   handleClick = (e) => {
-    window.open(this.state.URL);
+    var url = this.state.URL;
+    if (!url.startsWith("http://") && !url.startsWith("https://")) {
+      url = "https://"+url;
+    }
+    window.open(url);
     // this.setState({count: this.state.count+1});
     var apiEndpoint = '/api/events/';
     var eventData = 'link=' + this.state.link_id;
