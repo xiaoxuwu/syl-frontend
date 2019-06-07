@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import update from 'immutability-helper';
 import axios from './AxiosClient';
 
@@ -6,21 +6,14 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
-import Paper from "@material-ui/core/Paper";
-import InputBase from "@material-ui/core/InputBase";
-
 import EditStyles from '../styles/Edit.js';
 
-import EditableLinkCard from '../components/EditableLinkCard.js';
 import PreferenceCard from '../components/PreferenceCard.js';
 import DraggableCard from './DraggableCard.js';
 import Preview from '../components/Preview.js';
 import ErrorIcon from '@material-ui/icons/Error';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import SaveIcon from '@material-ui/icons/Save';
 
 import TextField from '@material-ui/core/TextField';
 

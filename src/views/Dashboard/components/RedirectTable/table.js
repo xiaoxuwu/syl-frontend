@@ -1,5 +1,4 @@
 import React from 'react';
-import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -9,31 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
-import DeleteIcon from '@material-ui/icons/Delete';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import { lighten } from '@material-ui/core/styles/colorManipulator';
 import Download from 'components/Download';
-
-const rows = [
-  { date: '11/04/2019', redirects: 123},
-  { date: '11/04/2019', redirects: 123},
-  { date: '10/04/2019', redirects: 123},
-  { date: '08/04/2019', redirects: 123},
-  { date: '07/04/2019', redirects: 123},
-  { date: '03/04/2019', redirects: 123},
-  { date: '03/04/2019', redirects: 123},
-  { date: '07/04/2019', redirects: 123},
-  { date: '03/04/2019', redirects: 123},
-  { date: '03/04/2019', redirects: 123},
-];
 
 const headRows = [
   { id: 'date', numeric: false, disablePadding: false, label: 'Date' },
@@ -65,7 +41,7 @@ function getSorting(order, orderBy) {
 }
 
 function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+  const { order, orderBy, onRequestSort } = props;
   const createSortHandler = property => event => {
     onRequestSort(event, property);
   };
@@ -95,12 +71,9 @@ function EnhancedTableHead(props) {
 }
 
 EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.string.isRequired,
   orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
 };
 
 const useStyles = makeStyles(theme => ({
@@ -123,6 +96,9 @@ const useStyles = makeStyles(theme => ({
   },
   pagination: {
     width: '100%'
+  },
+  download: {
+    marginLeft: '15px',
   }
 }));
 
@@ -132,10 +108,8 @@ function EnhancedTable(props) {
   const classes = useStyles();
   const [order, setOrder] = React.useState('desc');
   const [orderBy, setOrderBy] = React.useState('date');
-  const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(6);
+  const [rowsPerPage] = React.useState(6);
 
   function handleRequestSort(event, property) {
     const isDesc = orderBy === property && order === 'desc';
@@ -145,10 +119,6 @@ function EnhancedTable(props) {
 
   function handleChangePage(event, newPage) {
     setPage(newPage);
-  }
-
-  function handleChangeRowsPerPage(event) {
-    setRowsPerPage(+event.target.value);
   }
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rowData.length - page * rowsPerPage);

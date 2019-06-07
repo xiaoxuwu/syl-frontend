@@ -136,7 +136,6 @@ class CreateAccount extends Component {
 
   render() {
     const { classes, getLoginCallback } = this.props;
-    const { errors } = this.state;
 
     // if already logged in, redirect to home
     if (getLoginCallback()) {

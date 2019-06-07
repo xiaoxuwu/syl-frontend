@@ -27,11 +27,14 @@ import {
 // Component styles
 const styles = theme => ({
   root: {
-    padding: theme.spacing.unit * 4
+    padding: theme.spacing.unit * 4,
   },
   item: {
     height: '100%',
     minWidth: '225px',
+  },
+  gridContainer: {
+    marginTop: 64,
   }
 });
 
@@ -70,6 +73,7 @@ class Dashboard extends Component {
           <Grid
             container
             spacing={4}
+            className={classes.gridContainer}
           >
             <Grid
               item
@@ -134,24 +138,6 @@ class Dashboard extends Component {
                 start_date={this.state.start_date}
                 end_date={this.state.end_date}
               />
-            </Grid>
-            <Grid
-              item
-              lg={8}
-              md={12}
-              xl={9}
-              xs={12}
-            >
-              <SalesChart className={classes.item} />
-            </Grid>
-            <Grid
-              item
-              lg={4}
-              md={6}
-              xl={3}
-              xs={12}
-            >
-              <DevicesChart className={classes.item} />
             </Grid>
           </Grid>
         </div>

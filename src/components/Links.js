@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from './AxiosClient';
-import clsx from 'clsx';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';

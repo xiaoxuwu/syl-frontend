@@ -89,5 +89,8 @@ export default theme => ({
   },
   calendar: {
     paddingTop: 10,
+  },
+  pastHeader: {
+    paddingBottom: 10,
   }
 });

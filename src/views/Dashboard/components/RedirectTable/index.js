@@ -9,30 +9,11 @@ import PropTypes from 'prop-types';
 // Material helpers
 import { withStyles } from '@material-ui/core';
 
-// Material components
-import {
-  Button,
-  CircularProgress,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TablePagination,
-  TableRow,
-  Tooltip,
-  TableSortLabel
-} from '@material-ui/core';
-
 import EnhancedTable from './table';
 
 // Shared components
 import {
-  Portlet,
-  PortletHeader,
-  PortletLabel,
-  PortletToolbar,
-  PortletContent,
-  Status
+  Portlet
 } from 'dashboard';
 
 // Component styles
@@ -54,9 +35,9 @@ class RedirectTable extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.dateLimit != prevProps.dateLimit) {
+    if (this.props.dateLimit !== prevProps.dateLimit) {
       this.getLimitData(this.props.dateLimit);
-    } else if (this.props.start_date != prevProps.start_date || this.props.end_date != prevProps.end_date) {
+    } else if (this.props.start_date !== prevProps.start_date || this.props.end_date !== prevProps.end_date) {
       this.getStartEndData(this.props.start_date, this.props.end_date)
     }
   } 
@@ -116,7 +97,7 @@ class RedirectTable extends Component {
   }
 
   render() {
-    const { classes, dateLimit, className } = this.props;
+    const { classes, className } = this.props;
     const rootClassName = classNames(classes.root, className);
 
     return (

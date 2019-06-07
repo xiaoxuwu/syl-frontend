@@ -13,7 +13,6 @@ import { withStyles } from '@material-ui/core';
 // Material components
 import {
   Avatar,
-  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -23,13 +22,9 @@ import {
   TablePagination
 } from '@material-ui/core';
 
-// Material icons
-import {
-  Warning as WarningIcon,
-} from '@material-ui/icons';
-
 // Shared components
-import { Portlet, PortletContent, Status } from 'dashboard';
+import { Portlet, PortletContent } from 'dashboard';
+import Download from 'components/Download';
 
 // Component styles
 import styles from './styles';
@@ -64,7 +59,7 @@ class LinksTable extends Component {
 
   render() {
     const { classes, className, links } = this.props;
-    const { activeTab, rowsPerPage, page } = this.state;
+    const { rowsPerPage, page } = this.state;
 
     const rootClassName = classNames(classes.root, className);
 
@@ -123,21 +118,25 @@ class LinksTable extends Component {
               </TableBody>
             </Table>
           </PerfectScrollbar>
-          <TablePagination
-            backIconButtonProps={{
-              'aria-label': 'Previous Page'
-            }}
-            component="div"
-            count={links.length}
-            nextIconButtonProps={{
-              'aria-label': 'Next Page'
-            }}
-            onChangePage={this.handleChangePage}
-            onChangeRowsPerPage={this.handleChangeRowsPerPage}
-            page={page}
-            rowsPerPage={rowsPerPage}
-            rowsPerPageOptions={[5, 10, 25]}
-          />
+          <div className={classes.tableEnd}>
+            <Download isLink={true} className={classes.download} />
+            <TablePagination
+              backIconButtonProps={{
+                'aria-label': 'Previous Page'
+              }}
+              component="div"
+              count={links.length}
+              nextIconButtonProps={{
+                'aria-label': 'Next Page'
+              }}
+              onChangePage={this.handleChangePage}
+              onChangeRowsPerPage={this.handleChangeRowsPerPage}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              rowsPerPageOptions={[5, 10, 25]}
+              className={classes.pagination}
+            />
+          </div>
         </PortletContent>
       </Portlet>
     );

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 
 // Material components
-import { CircularProgress, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 // Shared layouts
 import { Layout as DashboardLayout } from 'dashboard';
@@ -21,7 +21,6 @@ import styles from './style';
 // Shared components
 import {
   PortletHeader,
-  PortletLabel,
 } from 'dashboard';
 
 import axios from 'components/AxiosClient';
@@ -55,8 +54,6 @@ class LinkList extends Component {
   }
 
   renderLinks() {
-    const { classes } = this.props;
-
     return (
       <div>
         <LinksTable

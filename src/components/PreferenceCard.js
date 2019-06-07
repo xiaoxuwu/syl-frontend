@@ -151,7 +151,6 @@ class PreferenceCard extends Component {
     const { classes, parentClasses } = this.props;
     var user = this.state.username;
     var profile_pic = this.state.baseURL + '/' + this.state.media_prefix + this.state.curProfile;
-    var background_pic = this.state.baseURL + '/' + this.state.media_prefix + this.state.curBg;
     var previewContainer = null;
     if (parentClasses !== undefined) {
       previewContainer = parentClasses.previewContainer

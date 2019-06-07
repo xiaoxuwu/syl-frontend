@@ -51,6 +51,7 @@ const EditStyles = theme => ({
     width: '50%',
     marginLeft: '25%',
     display: 'inline-block',
+    padding: 20
   },
   addLinkButton: {
     color: 'white',
@@ -83,9 +84,6 @@ const EditStyles = theme => ({
   },
   errorMsg: {
     color: 'red',
-  },
-  addLink: {
-    padding: 20
   },
   addLinkInner: {
     padding: 25,

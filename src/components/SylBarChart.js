@@ -7,7 +7,7 @@ import Tooltip from 'recharts/lib/component/Tooltip';
 import Legend from 'recharts/lib/component/Legend';
 
 import {
-  BarChart, Bar, Cell
+  BarChart, Bar
 } from 'recharts';
 
 class SylBarChart extends React.Component {
