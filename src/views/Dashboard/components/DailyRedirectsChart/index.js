@@ -29,10 +29,8 @@ import {
 // Component styles
 import styles from './styles';
 
-
 import SylLineChart from 'components/SylLineChart';
 import axios from 'components/AxiosClient';
-
 
 class SalesChart extends Component {
   state = {

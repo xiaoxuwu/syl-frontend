@@ -22,7 +22,36 @@ import { Paper } from 'dashboard';
 // Component styles
 import styles from './styles';
 
+import axios from 'components/AxiosClient';
+
 class Progress extends Component {
+  state = {
+    recentClickCount: 0,
+  };
+
+  componentDidMount() {
+    this.updateData('30days')
+  }
+
+  updateData = (limit) => {
+    axios.get('/api/events/stats', {
+      params: {
+        'method': 'count',
+        'limit': limit
+      },
+      headers: {
+        'Authorization': 'Token ' + localStorage.getItem('token')
+      }
+    }).then(res => {
+      this.setState({
+        recentClickCount: res.data.count,
+      });
+      console.log(res.data)
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
   render() {
     const { classes, className, ...rest } = this.props;
 
@@ -45,7 +74,7 @@ class Progress extends Component {
               className={classes.value}
               variant="h3"
             >
-              299,749 clicks
+              {this.state.recentClickCount} clicks
             </Typography>
           </div>
           <div className={classes.iconWrapper}>
