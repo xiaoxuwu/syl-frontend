@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
+import update from 'immutability-helper';
 import axios from './AxiosClient';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -11,15 +12,17 @@ import InputBase from "@material-ui/core/InputBase";
 import EditStyles from '../styles/Edit.js';
 
 import EditableLinkCard from '../components/EditableLinkCard.js';
-import PreferenceCard from '../components/PreferenceCard.js'
+import PreferenceCard from '../components/PreferenceCard.js';
+import DraggableCard from './DraggableCard.js';
 import Preview from '../components/Preview.js';
 import ErrorIcon from '@material-ui/icons/Error';
-
+import { DragDropContextProvider } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 
 class Edit extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       links: [],
       editableLinks: [],
       user: {},
@@ -29,13 +32,15 @@ class Edit extends Component {
       updatePreview: 0,
       baseURL: process.env.REACT_APP_API_URL 
     };
-    this.handleAddLink = this.handleAddLink.bind(this);
-  }
 
-  // Called when component has been initialized
-  componentDidMount() {
+    this.handleAddLink = this.handleAddLink.bind(this);
     this.getUser();
   }
+
+  // // Called when component has been initialized
+  // componentDidMount() {
+  //   this.getUser();
+  // }
 
   // Makes GET request to retrieve user
   getUser = () => {
@@ -45,7 +50,7 @@ class Edit extends Component {
     axios.get(apiEndpoint, { 'headers': { 'Authorization': 'Token ' + token } }).then(result => {
       let user = result.data;
 
-      this.setState({ 
+      this.setState({
         user: user,
       });
     }).then(this.getLinks()).catch(err => console.log(err));
@@ -58,36 +63,35 @@ class Edit extends Component {
 
     return axios.get(apiEndpoint, {}).then(result => {
 
-      let links = result.data.map(function(link) { 
-        return { 
-          id: link.id, 
-          url: link.url, 
+      let links = result.data.map(function(link) {
+        return {
+          id: link.id,
+          url: link.url,
           creator_id: link.creator,
           text: link.text,
           image: link.image,
           order: link.order,
           media_prefix: link.media_prefix
         }
-      });
+      }).sort((a,b) => (a.order < b.order) ? 1 : -1);
 
       var editableLinks = links
-      .sort((a,b) => (a.order < b.order) ? 1 : -1)
       .map(link => {
         var IMG = this.state.baseURL + '/' + link.media_prefix + link.image;
-        return <EditableLinkCard 
+        return <EditableLinkCard
           key={link.id}
-          link_id={link.id} 
+          link_id={link.id}
           order={link.order}
           links={links}
-          image={IMG} 
-          URL={link.url} 
+          image={IMG}
+          URL={link.url}
           title={link.text}
           token={localStorage.getItem('token')}
           username={this.state.user.username}
           getParentLinks={this.getLinks}  />
       });
 
-      this.setState({ 
+      this.setState({
         links: links,
         editableLinks: editableLinks,
         updatePreview: this.state.updatePreview+1,
@@ -102,7 +106,7 @@ class Edit extends Component {
 
   handleAddLink() {
     if (!this.isURL(this.state.addedURL)) {
-      this.setState({ 
+      this.setState({
           invalidURL: true,
       });
     } else {
@@ -158,52 +162,94 @@ class Edit extends Component {
                     </Grid>
                   </Grid> : null;
 
-    return (
-        <div className={classes.content}>
-          <Grid container spacing={16} className={classes.list}>
-            <Grid item xs className={classes.overflowWrapper}>
-              <div className={classes.pref}>
-                {preferenceCard}
-              </div>
-              <Grid container>
-                <Grid item sm={4}>
-                  <InputBase
-                    id="InputTitle"
-                    placeholder="Link Title"
-                    className={classes.addLinkInput}
-                    onChange={e => this.setState({addedTitle: e.target.value})}
-                  />
-                </Grid>
-                <Grid item sm={4}>
-                  <InputBase
-                    id="InputUrl"
-                    placeholder="www.example.com"
-                    className={classes.addLinkInput}
-                    onChange={e => this.setState({addedURL: e.target.value, invalidURL: false})}
-                  />
-                </Grid>
-                <Grid item sm={4}>
-                  <Button variant="contained" className={classes.addLinkButton} onClick={this.handleAddLink}>+ ADD NEW LINK</Button>
-                </Grid>
-              </Grid>
-              <div className={classes.linkWrapper}>
-              </div>
-              {errorMsg}
-              <Grid container spacing={12} className={classes.editList}>
-                {this.state.editableLinks.map(editableLinkCard =>
-                  <Grid item xs={10} md={10}>
-                    {editableLinkCard}
-                  </Grid>
-                  )  
-                }
-              </Grid>
-            </Grid>
-            <Grid item xs={4} className={classes.preview}>
-              <Preview updatePreview={this.state.updatePreview+1}/>
-            </Grid>
-          </Grid>
+    const moveCard = (dragIndex, hoverIndex) => {
+      const dragCard = this.state.links[dragIndex]
+      var updateLink = update(this.state.links, {
+        $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]]
+      });
+      console.log(updateLink)
+      this.setState({
+        links: updateLink
+      });
+      console.log(dragIndex);
+      console.log(hoverIndex);
+      for (var i = 0; i < this.state.links.length; i++) {
+        if (dragIndex !== hoverIndex) {
+          console.log(this.state.links[i])
+          var apiEndpoint = '/api/links/' + this.state.links[i].id;
 
-        </div>
+          var data = {
+            'order': this.state.links.length-i
+          }
+
+          let token = localStorage.getItem('token');
+          axios.patch(apiEndpoint, data, {'headers' : { 'Authorization': 'Token ' + token,
+                                                  'Content-Type': 'application/json' }})
+            .then(result => {
+              this.props.getParentLinks();
+              })
+            .catch(err => console.log(err.response));
+        }
+      }
+    }
+    return (
+      <div className={classes.content}>
+        <Grid container spacing={10} className={classes.list}>
+          <Grid item xs className={classes.overflowWrapper}>
+            <div className={classes.pref}>
+              {preferenceCard}
+            </div>
+            <Grid container>
+              <Grid item sm={4}>
+                <InputBase
+                  id="InputTitle"
+                  placeholder="Link Title"
+                  className={classes.addLinkInput}
+                  onChange={e => this.setState({addedTitle: e.target.value})}
+                />
+              </Grid>
+              <Grid item sm={4}>
+                <InputBase
+                  id="InputUrl"
+                  placeholder="www.example.com"
+                  className={classes.addLinkInput}
+                  onChange={e => this.setState({addedURL: e.target.value, invalidURL: false})}
+                />
+              </Grid>
+              <Grid item sm={4}>
+                <Button variant="contained" className={classes.addLinkButton} onClick={this.handleAddLink}>+ ADD NEW LINK</Button>
+              </Grid>
+            </Grid>
+            <div className={classes.linkWrapper}>
+            </div>
+          {errorMsg}
+          <Grid container spacing={12} className={classes.editList}>
+            <DragDropContextProvider backend={HTML5Backend}>
+              <div>
+                {this.state.links.map((link, i) => (
+                  <DraggableCard
+                    key={link.id}
+                    index={i}
+                    id={link.id}
+                    text={link.text}
+                    order={link.order}
+                    links={this.state.links}
+                    moveCard={moveCard}
+                    url={link.url}
+                    img={link.image}
+                    token={localStorage.getItem('token')}
+                    username={this.state.user.username}
+                  />
+                ))}
+              </div>
+            </DragDropContextProvider>
+          </Grid>
+        </Grid>
+        <Grid item xs={4} className={classes.preview}>
+          <Preview />
+        </Grid>
+      </Grid>
+    </div>
     );
   }
 }

@@ -1,11 +1,12 @@
-const LinkCardStyles = theme => ({
-	card: {
+const PreferenceCardStyles = theme => ({
+	content: {
 		width: '100%',
 		display: 'inline-flex',
 		color: 'white',
-		backgroundColor: 'transparent',
+		backgroundColor: 'pink',
 		border: '2px solid white',
 		boxShadow: 'none',
+		borderRadius: 6
 	},
 	cardText: {
 		color: 'white',
@@ -20,8 +21,13 @@ const LinkCardStyles = theme => ({
 	info: {
 		display: 'inline-grid',
 		textAlign: 'left',
-		padding: '3% 0 3% 5%',
+		padding: '3% 5% 3% 5%',
 		width: '100%',
+	},
+	pref: {
+		overflowWrap: 'break-word',
+		wordWrap: 'break-word',
+		wordBreak: 'break-word',
 	},
 	button: {
 		margin: theme.spacing.unit,
@@ -39,4 +45,4 @@ const LinkCardStyles = theme => ({
 	}
 });
 
-export default LinkCardStyles;
+export default PreferenceCardStyles;

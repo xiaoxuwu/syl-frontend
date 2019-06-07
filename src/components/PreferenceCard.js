@@ -31,7 +31,7 @@ class PreferenceCard extends Component {
       media_prefix: '',
       newProfile: null,
       newBg: null,
-      baseURL: process.env.REACT_APP_API_URL 
+      baseURL: process.env.REACT_APP_API_URL
     };
     this.handleProfile = this.handleProfile.bind(this);
     this.handleBackground= this.handleBackground.bind(this);
@@ -64,9 +64,9 @@ class PreferenceCard extends Component {
     var apiEndpoint = '/api/preferences/'+this.state.pref_id;
     var updateData = { profile_img: null };
     var config = {
-      'headers' : { 
-        'Authorization': 'Token ' + this.state.token, 
-        'Content-Type': 'application/json' 
+      'headers' : {
+        'Authorization': 'Token ' + this.state.token,
+        'Content-Type': 'application/json'
       }
     }
     axios.patch(apiEndpoint, updateData, config).then(
@@ -80,9 +80,9 @@ class PreferenceCard extends Component {
     var apiEndpoint = '/api/preferences/'+this.state.pref_id;
     var updateData = { background_img: null };
     var config = {
-      'headers' : { 
-        'Authorization': 'Token ' + this.state.token, 
-        'Content-Type': 'application/json' 
+      'headers' : {
+        'Authorization': 'Token ' + this.state.token,
+        'Content-Type': 'application/json'
       }
     }
     axios.patch(apiEndpoint, updateData, config).then(
@@ -96,9 +96,9 @@ class PreferenceCard extends Component {
     var apiEndpoint = '/api/preferences/'+this.state.pref_id;
     var updateData = new FormData();
     var config = {
-      'headers' : { 
-        'Authorization': 'Token ' + this.state.token, 
-        'Content-Type': 'multipart/form-data' 
+      'headers' : {
+        'Authorization': 'Token ' + this.state.token,
+        'Content-Type': 'multipart/form-data'
       }
     }
 
@@ -108,13 +108,11 @@ class PreferenceCard extends Component {
 
     if (this.state.newProfile !== null) {
       updateData.append('profile_img', this.state.newProfile);
-    } 
+    }
 
     if (this.state.newBg !== null) {
       updateData.append('background_img', this.state.newBg);
-    } 
-    console.log(this.state.newProfile);
-    console.log(updateData);
+    }
     axios.patch(apiEndpoint, updateData, config).then(
       this.setState({
         curProfile: this.state.newProfile ? this.state.newProfile.name : this.state.curProfile,
@@ -137,7 +135,7 @@ class PreferenceCard extends Component {
       .then(result => {
         let users = result.data;
 
-        this.setState({ 
+        this.setState({
           pref_id: users.id,
           curProfile: users.profile_img,
           curBg: users.background_img,
@@ -148,64 +146,81 @@ class PreferenceCard extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    if (this.state.pref_id === '') {
+      return <div> </div>
+    }
+    const { classes, parentClasses } = this.props;
     var user = this.state.username;
     var profile_pic = this.state.baseURL + '/' + this.state.media_prefix + this.state.curProfile;
     var background_pic = this.state.baseURL + '/' + this.state.media_prefix + this.state.curBg;
+    var previewContainer = null;
+    if (parentClasses !== undefined) {
+      previewContainer = parentClasses.previewContainer
+    }
 
     return(
-    	<Card className={classes.card}>
-          <CardMedia
-            className={classes.media}
-            image={profile_pic}
-          /> 
+    	<Card className={clsx(classes.content, previewContainer)}>
+        <CardMedia
+          className={classes.media}
+          image={profile_pic}
+        />
         <CardContent className={classes.info}>
-          <Typography variant="display1" component="h3">
+          <Typography gutterBottom variant="display1">
             @{user}
           </Typography>
-
-          <FormControl>
-            <InputLabel htmlFor="profile"> Profile Picture </InputLabel> <br/> <br/>
+          <br />
+          <FormControl className={classes.pref} >
+            <Typography variant="body1">
+              Profile Picture
+            </Typography>
+            <div>
               Currently: <a href={profile_pic}>{this.state.curProfile}</a>
-              <IconButton className={classes.action} aria-label="Delete" onClick={this.handleDeleteProfile}> 
+              <IconButton className={classes.action} aria-label="Delete" onClick={this.handleDeleteProfile}>
                 <DeleteIcon/>
               </IconButton>
+              <br />
               Change: <Input 
                 type="file" 
                 name="profile" 
                 onChange={this.handleProfile}
                 value={this.state.newProfile ? this.state.newProfile.value : ''}/>
+            </div>
           </FormControl>
-   
+          <br />
           <FormControl>
-            <InputLabel htmlFor="background"> Background Picture </InputLabel> <br/> <br/>
+            <Typography gutterBottom variant="body1">
+              Profile Picture
+            </Typography>
+            <div>
               Currently: <a href={background_pic}>{this.state.curBg}</a>
               <IconButton className={classes.action} aria-label="Delete" onClick={this.handleDeleteBg}>
                 <DeleteIcon/>
               </IconButton>
+              <br />
               Change: <Input 
                 type="file" 
                 name="background" 
                 onChange={this.handleBackground}
                 value={this.state.newBg ? this.state.newBg.value : ''}/>
+            </div>
           </FormControl>
 
           <div className={classes.prefButtons}>
-            <Button 
-              variant="contained" 
-              color="primary" 
-              className={classes.button} 
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
               onClick={this.handlePrefSubmit}>
               <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
               Save
             </Button>
-            <Button 
-              variant="contained" 
-              color="secondary" 
-              className={classes.button} 
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.button}
               onClick={this.cancleUpdate}>
               <ClearIcon className={classes.leftIcon} />
-              Cancle
+              Cancel
             </Button>
           </div>
         </CardContent>
@@ -215,5 +230,3 @@ class PreferenceCard extends Component {
 }
 
 export default withStyles(PreferenceCardStyles)(PreferenceCard);
-
-

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from './AxiosClient';
+import clsx from 'clsx';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -12,14 +13,14 @@ import LinkCard from '../components/LinkCard.js';
 class Links extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
-      pCol: 12, 
-      dCol: 12, 
+    this.state = {
+      pCol: 12,
+      dCol: 12,
       links: [],
-      userPref: {},
+      userPref: null,
       updateLinks: this.props.updateLinks,
       username: this.props.username ? this.props.username : this.props.match.params.username,
-      baseURL: process.env.REACT_APP_API_URL 
+      baseURL: process.env.REACT_APP_API_URL
     };
   }
 
@@ -34,17 +35,17 @@ class Links extends Component {
     var apiEndpoint = '/api/links/?username=' + this.state.username;
     axios.get(apiEndpoint, {})
       .then(result => {
-        let links = result.data.map(function(link) { 
-          return { 
-            id: link.id, 
-            url: link.url, 
+        let links = result.data.map(function(link) {
+          return {
+            id: link.id,
+            url: link.url,
             creator_id: link.creator,
             text: link.text,
             image: link.image,
             order: link.order,
             media_prefix: link.media_prefix
           }
-        });
+        }).sort((a,b) => (a.order < b.order) ? 1 : -1);
 
         // Checks if links changed before changing state
         if (this.state.links.length !== links.length) {
@@ -76,7 +77,7 @@ class Links extends Component {
       .then(result => {
         let users = result.data;
 
-        this.setState({ 
+        this.setState({
           userPref: users,
         });
       })
@@ -86,12 +87,19 @@ class Links extends Component {
   render() {
     this.getUserLinks();
 
-    const { classes } = this.props;
+    if (this.state.userPref === null) {
+      return <div> </div>
+    }
+    const { classes, parentClasses } = this.props;
     var user = this.state.username;
     var userPref = this.state.userPref;
     var profile_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.profile_img;
     var background_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.background_img;
-    
+    var previewContainer = null;
+    if (parentClasses !== undefined) {
+      previewContainer = parentClasses.previewContainer
+    }
+
     const background = userPref.background_img ? {
       backgroundImage: `url(${background_pic})`,
       backgroundRepeat: 'no-repeat',
@@ -99,7 +107,7 @@ class Links extends Component {
     }: {background: 'linear-gradient(to left, #f7ff00, #db36a4)'};
 
     return (
-        <div style={background} className={classes.content} >
+        <div style={background} >
           <div className={classes.imgWrapper}>
             <img
               src={profile_pic}
@@ -112,7 +120,7 @@ class Links extends Component {
           </Typography>
           <div className={classes.paper}>
             <Grid container wrap="nowrap" spacing={16} className={classes.list}>
-              {this.state.links.sort((a,b) => (a.order < b.order) ? 1 : -1).map(link => {
+              {this.state.links.map(link => {
                 console.log(link);
                 var IMG = link.image ? this.state.baseURL + '/' + link.media_prefix + link.image : null;
                 var text = link.text ? link.text : link.url;

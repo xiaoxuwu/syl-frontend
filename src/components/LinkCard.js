@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from './AxiosClient';
+import clsx from 'clsx';
 
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -36,7 +37,11 @@ class LinkCard extends Component {
   }
 
   handleClick = (e) => {
-    window.open(this.state.URL);
+    var url = this.state.URL;
+    if (!url.startsWith("http://") && !url.startsWith("https://")) {
+      url = "https://"+url;
+    }
+    window.open(url);
     // this.setState({count: this.state.count+1});
     var apiEndpoint = '/api/events/';
     var eventData = 'link=' + this.state.link_id;
@@ -44,7 +49,11 @@ class LinkCard extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { parentClasses, classes } = this.props;
+    var previewCardText = null
+    if (parentClasses !== undefined) {
+      previewCardText = parentClasses.previewCardText
+    }
     return(
     	<Card className={classes.card}>
         {this.state.IMG ?
@@ -54,14 +63,23 @@ class LinkCard extends Component {
           /> 
           : null
         }
-    		<CardActionArea onClick={this.handleClick}> 
+    		<CardActionArea className={classes.content} onClick={this.handleClick}> 
           <CardContent>
             {this.state.IMG ? 
-      				<Typography gutterBottom variant="h5" component="h2" className={classes.cardText}>
+      				<Typography 
+                gutterBottom 
+                variant="h5" 
+                component="h2" 
+                className={clsx(classes.cardText, previewCardText)}>
       					{this.state.title}
       				</Typography> 
               : 
-              <Typography gutterBottom variant="h5" component="h2" align='center' className={classes.cardText}>
+              <Typography 
+                gutterBottom v
+                ariant="h5" 
+                component="h2" 
+                align='center' 
+                className={clsx(classes.cardText, previewCardText)}>
                 {this.state.title}
               </Typography>
             }
