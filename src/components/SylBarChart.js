@@ -1,32 +1,38 @@
 import React from 'react';
 import ResponsiveContainer from 'recharts/lib/component/ResponsiveContainer';
-import LineChart from 'recharts/lib/chart/LineChart';
-import Line from 'recharts/lib/cartesian/Line';
 import XAxis from 'recharts/lib/cartesian/XAxis';
 import YAxis from 'recharts/lib/cartesian/YAxis';
 import CartesianGrid from 'recharts/lib/cartesian/CartesianGrid';
 import Tooltip from 'recharts/lib/component/Tooltip';
 import Legend from 'recharts/lib/component/Legend';
 
-class SylLineChart extends React.Component {
+import {
+  BarChart, Bar, Cell
+} from 'recharts';
+
+class SylBarChart extends React.Component {
 
   render() {
     const { data, dataKey } = this.props;
 
     return (
-      // 99% per https://github.com/recharts/recharts/issues/172
       <ResponsiveContainer width="99%" height={320}>
-        <LineChart data={data} >
-          <XAxis dataKey="name" tickLine={false} dy={15} />
-          <YAxis tickLine={false} dx={-15} />
-          <CartesianGrid vertical={false} strokeDasharray="3 3" />
+        <BarChart
+          data={data}
+          margin={{
+            top: 5, right: 30, left: 20, bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey={dataKey} stroke="#ff6666" legendType="none" strokeWidth={4} />
-        </LineChart>
+          <Bar dataKey={dataKey} fill="#ff6666" legendType="none" />
+        </BarChart>
       </ResponsiveContainer>
     );
   }
 }
 
-export default SylLineChart;
+export default SylBarChart;

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 
 // Material components
-import { Button } from '@material-ui/core';
+import { Button, Switch } from '@material-ui/core';
 
 // Material icons
 import {
@@ -30,6 +30,7 @@ import {
 import styles from './styles';
 
 import SylLineChart from 'components/SylLineChart';
+import SylBarChart from 'components/SylBarChart';
 import axios from 'components/AxiosClient';
 
 class DailyRedirectsChart extends Component {
@@ -40,6 +41,7 @@ class DailyRedirectsChart extends Component {
       viewsVsTime: [],
       raw: [],
       totalViewCount: 0,
+      useLineChart: true,
     }
   }
   
@@ -106,6 +108,12 @@ class DailyRedirectsChart extends Component {
     })
   }
 
+  handleChange = name => event => {
+    this.setState({ 
+      [name]: event.target.checked 
+    });
+  };
+
   render() {
     const { classes, className, ...rest } = this.props;
 
@@ -118,9 +126,16 @@ class DailyRedirectsChart extends Component {
       >
         <PortletHeader noDivider>
           <PortletLabel title="Daily Traffic" />
+          <Switch
+            checked={this.state.useLineChart}
+            onChange={this.handleChange('useLineChart')}
+            value="cheuseLineChartckedB"
+            color="primary"
+            inputProps={{ 'aria-label': 'primary checkbox' }}
+          />
         </PortletHeader>
         <PortletContent className={classes.portletWrapper}>
-            <SylLineChart data={this.state.viewsVsTime} dataKey="Redirects"/>
+            {this.state.useLineChart ? <SylLineChart data={this.state.viewsVsTime} dataKey="Redirects"/> : <SylBarChart data={this.state.viewsVsTime} dataKey="Redirects"/> }
         </PortletContent>
       </Portlet>
     );
