@@ -75,7 +75,7 @@ class EditableLinkCard extends Component {
   render() {
     const { classes } = this.props;
     return(
-      <Card className={classes.card}>
+      <Card className={classes.card} elevation={0}>
         <CardContent
           className={classes.content}>
             <TextField
