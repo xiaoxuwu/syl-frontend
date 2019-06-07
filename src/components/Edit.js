@@ -16,31 +16,22 @@ import PreferenceCard from '../components/PreferenceCard.js';
 import DraggableCard from './DraggableCard.js';
 import Preview from '../components/Preview.js';
 import ErrorIcon from '@material-ui/icons/Error';
-import { DragDropContextProvider } from 'react-dnd'
-import HTML5Backend from 'react-dnd-html5-backend'
 
 class Edit extends Component {
   constructor(props) {
     super(props);
     this.state = {
       links: [],
-      editableLinks: [],
       user: {},
       addedURL: '',
       addedTitle: '',
       invalidURL: false,
-      updatePreview: 0,
       baseURL: process.env.REACT_APP_API_URL 
     };
 
     this.handleAddLink = this.handleAddLink.bind(this);
     this.getUser();
   }
-
-  // // Called when component has been initialized
-  // componentDidMount() {
-  //   this.getUser();
-  // }
 
   // Makes GET request to retrieve user
   getUser = () => {
@@ -75,26 +66,8 @@ class Edit extends Component {
         }
       }).sort((a,b) => (a.order < b.order) ? 1 : -1);
 
-      var editableLinks = links
-      .map(link => {
-        var IMG = this.state.baseURL + '/' + link.media_prefix + link.image;
-        return <EditableLinkCard
-          key={link.id}
-          link_id={link.id}
-          order={link.order}
-          links={links}
-          image={IMG}
-          URL={link.url}
-          title={link.text}
-          token={localStorage.getItem('token')}
-          username={this.state.user.username}
-          getParentLinks={this.getLinks}  />
-      });
-
       this.setState({
         links: links,
-        editableLinks: editableLinks,
-        updatePreview: this.state.updatePreview+1,
       });
     }).catch(err => console.log(err));
   }
@@ -167,15 +140,11 @@ class Edit extends Component {
       var updateLink = update(this.state.links, {
         $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]]
       });
-      console.log(updateLink)
       this.setState({
         links: updateLink
       });
-      console.log(dragIndex);
-      console.log(hoverIndex);
       for (var i = 0; i < this.state.links.length; i++) {
         if (dragIndex !== hoverIndex) {
-          console.log(this.state.links[i])
           var apiEndpoint = '/api/links/' + this.state.links[i].id;
 
           var data = {
@@ -224,25 +193,24 @@ class Edit extends Component {
             </div>
           {errorMsg}
           <Grid container spacing={12} className={classes.editList}>
-            <DragDropContextProvider backend={HTML5Backend}>
-              <div>
-                {this.state.links.map((link, i) => (
-                  <DraggableCard
-                    key={link.id}
-                    index={i}
-                    id={link.id}
-                    text={link.text}
-                    order={link.order}
-                    links={this.state.links}
-                    moveCard={moveCard}
-                    url={link.url}
-                    img={link.image}
-                    token={localStorage.getItem('token')}
-                    username={this.state.user.username}
-                  />
-                ))}
-              </div>
-            </DragDropContextProvider>
+            <div>
+              {this.state.links.map((link, i) => (
+                <DraggableCard
+                  key={link.id}
+                  index={i}
+                  id={link.id}
+                  text={link.text}
+                  order={link.order}
+                  links={this.state.links}
+                  moveCard={moveCard}
+                  url={link.url}
+                  img={link.image}
+                  token={localStorage.getItem('token')}
+                  username={this.state.user.username}
+                  getParentLinks={this.getLinks}
+                />
+              ))}
+            </div>
           </Grid>
         </Grid>
         <Grid item xs={4} className={classes.preview}>

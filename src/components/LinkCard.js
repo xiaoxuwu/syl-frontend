@@ -38,14 +38,13 @@ class LinkCard extends Component {
   }
 
   handleClick = (e) => {
-    var url = this.state.URL;
+    var url = this.props.URL;
     if (!url.startsWith("http://") && !url.startsWith("https://")) {
       url = "https://"+url;
     }
     window.open(url);
-    // this.setState({count: this.state.count+1});
     var apiEndpoint = '/api/events/';
-    var eventData = 'link=' + this.state.link_id;
+    var eventData = 'link=' + this.props.link_id;
     axios.post(apiEndpoint, eventData).catch(err => console.log(err));
   }
 
@@ -55,25 +54,28 @@ class LinkCard extends Component {
     if (parentClasses !== undefined) {
       previewCardText = parentClasses.previewCardText
     }
+
+    var IMG = this.props.image ? this.props.image : this.getFavicon(this.props.URL);
+
     return(
-      <Tooltip title={this.state.URL}>
+      <Tooltip title={this.props.URL}>
       	<Card className={classes.card}>
-          {this.state.IMG ?
+          {IMG ?
             <CardMedia
               className={classes.media}
-              image={this.state.IMG}
+              image={IMG}
             /> 
             : null
           }
       		<CardActionArea className={classes.content} onClick={this.handleClick}> 
             <CardContent>
-              {this.state.IMG ? 
+              {IMG ? 
         				<Typography 
                   gutterBottom 
                   variant="h5" 
                   component="h2" 
                   className={clsx(classes.cardText, previewCardText)}>
-        					{this.state.title}
+        					{this.props.title}
         				</Typography> 
                 : 
                 <Typography 
@@ -82,7 +84,7 @@ class LinkCard extends Component {
                   component="h2" 
                   align='center' 
                   className={clsx(classes.cardText, previewCardText)}>
-                  {this.state.title}
+                  {this.props.title}
                 </Typography>
               }
             </CardContent>
