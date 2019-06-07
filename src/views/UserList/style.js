@@ -10,5 +10,14 @@ export default theme => ({
     paddingBottom: '24px',
     display: 'flex',
     justifyContent: 'center'
+  },
+  header: {
+    margin: '0 auto',
+    paddingTop: 10,
+    paddingBottom: 0,
+  },
+  titleLabel: {
+    margin: '0 auto',
+    fontSize: 50,
   }
 });

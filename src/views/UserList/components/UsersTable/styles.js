@@ -3,6 +3,9 @@ export default theme => ({
   tableRow: {
     height: '64px'
   },
+  padLeft: {
+    paddingLeft: 75,
+  },
   tableCell: {
     whiteSpace: 'nowrap'
   },
@@ -11,7 +14,7 @@ export default theme => ({
     alignItems: 'center'
   },
   avatar: {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.common.white,
     display: 'inline-flex',
     fontSize: '14px',
     fontWeight: 500,
@@ -23,5 +26,8 @@ export default theme => ({
     marginLeft: theme.spacing.unit * 2,
     fontWeight: 500,
     cursor: 'pointer'
+  },
+  warning: {
+    paddingRight: 10,
   }
 });

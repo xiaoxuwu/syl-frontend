@@ -23,61 +23,23 @@ import {
   TablePagination
 } from '@material-ui/core';
 
-// Shared helpers
-// import { getInitials } from 'helpers';
+// Material icons
+import {
+  Warning as WarningIcon,
+} from '@material-ui/icons';
 
 // Shared components
-import { Portlet, PortletContent } from 'dashboard';
+import { Portlet, PortletContent, Status } from 'dashboard';
 
 // Component styles
 import styles from './styles';
 
+import SimplePopover from './popover';
+
 class UsersTable extends Component {
   state = {
-    selectedUsers: [],
     rowsPerPage: 10,
-    page: 0
-  };
-
-  handleSelectAll = event => {
-    const { users, onSelect } = this.props;
-
-    let selectedUsers;
-
-    if (event.target.checked) {
-      selectedUsers = users.map(user => user.id);
-    } else {
-      selectedUsers = [];
-    }
-
-    this.setState({ selectedUsers });
-
-    onSelect(selectedUsers);
-  };
-
-  handleSelectOne = (event, id) => {
-    const { onSelect } = this.props;
-    const { selectedUsers } = this.state;
-
-    const selectedIndex = selectedUsers.indexOf(id);
-    let newSelectedUsers = [];
-
-    if (selectedIndex === -1) {
-      newSelectedUsers = newSelectedUsers.concat(selectedUsers, id);
-    } else if (selectedIndex === 0) {
-      newSelectedUsers = newSelectedUsers.concat(selectedUsers.slice(1));
-    } else if (selectedIndex === selectedUsers.length - 1) {
-      newSelectedUsers = newSelectedUsers.concat(selectedUsers.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelectedUsers = newSelectedUsers.concat(
-        selectedUsers.slice(0, selectedIndex),
-        selectedUsers.slice(selectedIndex + 1)
-      );
-    }
-
-    this.setState({ selectedUsers: newSelectedUsers });
-
-    onSelect(newSelectedUsers);
+    page: 0,
   };
 
   handleChangePage = (event, page) => {
@@ -88,9 +50,21 @@ class UsersTable extends Component {
     this.setState({ rowsPerPage: event.target.value });
   };
 
+  checkLinkFields = (title, img) => {
+    if (!title && !img) {
+      return 'Links with titles and images perform better'
+    } else if (!title) {
+      return 'Links with titles perform better'
+    } else if (!img) {
+      return 'Links with images perform better'
+    } else {
+      return ''
+    }
+  }
+
   render() {
-    const { classes, className, users } = this.props;
-    const { activeTab, selectedUsers, rowsPerPage, page } = this.state;
+    const { classes, className, links } = this.props;
+    const { activeTab, rowsPerPage, page } = this.state;
 
     const rootClassName = classNames(classes.root, className);
 
@@ -101,80 +75,48 @@ class UsersTable extends Component {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell align="left">
-                    <Checkbox
-                      checked={selectedUsers.length === users.length}
-                      color="primary"
-                      indeterminate={
-                        selectedUsers.length > 0 &&
-                        selectedUsers.length < users.length
-                      }
-                      onChange={this.handleSelectAll}
-                    />
-                    Name
-                  </TableCell>
-                  <TableCell align="left">ID</TableCell>
-                  <TableCell align="left">State</TableCell>
-                  <TableCell align="left">Phone</TableCell>
-                  <TableCell align="left">Registration date</TableCell>
+                  <TableCell align="left" className={classes.padLeft}>Title</TableCell>
+                  <TableCell align="left">Date</TableCell>
+                  <TableCell align="left">URL</TableCell>
+                  <TableCell align="left">Clicks</TableCell>
+                  <TableCell align="left">Tips</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {users
-                  .filter(user => {
-                    if (activeTab === 1) {
-                      return !user.returning;
-                    }
-
-                    if (activeTab === 2) {
-                      return user.returning;
-                    }
-
-                    return user;
-                  })
-                  .slice(0, rowsPerPage)
-                  .map(user => (
+                {links.slice(0, rowsPerPage)
+                  .map(link => (
                     <TableRow
                       className={classes.tableRow}
                       hover
-                      key={user.id}
-                      selected={selectedUsers.indexOf(user.id) !== -1}
+                      key={link.id}
                     >
                       <TableCell className={classes.tableCell}>
                         <div className={classes.tableCellInner}>
-                          <Checkbox
-                            checked={selectedUsers.indexOf(user.id) !== -1}
-                            color="primary"
-                            onChange={event =>
-                              this.handleSelectOne(event, user.id)
-                            }
-                            value="true"
-                          />
                           <Avatar
                             className={classes.avatar}
-                            src={user.avatarUrl}
+                            src={link.img ? process.env.REACT_APP_API_URL + '/' + link.media_prefix + link.img : null}
                           ></Avatar>
                           <Link to="#">
                             <Typography
                               className={classes.nameText}
                               variant="body1"
                             >
-                              {user.name}
+                              {link.title}
                             </Typography>
                           </Link>
                         </div>
                       </TableCell>
                       <TableCell className={classes.tableCell}>
-                        {user.id}
+                        {moment(link.date).format('LL')}
                       </TableCell>
                       <TableCell className={classes.tableCell}>
-                        {user.address.state}
+                        {link.url}
                       </TableCell>
                       <TableCell className={classes.tableCell}>
-                        {user.phone}
+                        {link.count}
                       </TableCell>
                       <TableCell className={classes.tableCell}>
-                        {moment(user.createdAt).format('DD/MM/YYYY')}
+                        {!link.title || !link.img ? <SimplePopover message={this.checkLinkFields(link.title, link.img)}/> : null}
                       </TableCell>
                     </TableRow>
                   ))}
@@ -186,7 +128,7 @@ class UsersTable extends Component {
               'aria-label': 'Previous Page'
             }}
             component="div"
-            count={users.length}
+            count={links.length}
             nextIconButtonProps={{
               'aria-label': 'Next Page'
             }}
@@ -205,14 +147,12 @@ class UsersTable extends Component {
 UsersTable.propTypes = {
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
-  onSelect: PropTypes.func,
   onShowDetails: PropTypes.func,
-  users: PropTypes.array.isRequired
+  links: PropTypes.array.isRequired
 };
 
 UsersTable.defaultProps = {
-  users: [],
-  onSelect: () => {},
+  links: [],
   onShowDetails: () => {}
 };
 
