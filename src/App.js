@@ -12,6 +12,8 @@ import { isAuthenticated } from './components/auth/AuthService';
 import Links from './components/Links.js';
 import CreateAccount from './components/CreateAccount';
 import { loadCSS } from 'fg-loadcss';
+import { DragDropContextProvider } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 
 class App extends Component {
   constructor(props) {
@@ -37,24 +39,26 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
-        <Route exact strict path="/:url*" render={props => <Redirect to={`${props.location.pathname}/`}/>} />
-        <Route path="/influencer/*" render={() => <NavBar getLoginCallback={this.getLoggedIn} />} />
-        <Switch>
-          <Route exact path="/influencer" component={Home} />
-          <Route exact path="/influencer/preview" component={Preview} />
-          {this.getLoggedIn() ? <Route exact path="/influencer/dashboard" component={Dashboard} /> : null}
-          {this.getLoggedIn() ? <Route exact path="/influencer/edit" component={Edit} /> : null}
-          <Route exact path="/influencer/login" render={(props) => <Login {...props} setLoginCallback={this.setLoggedIn}
-                                                    getLoginCallback={this.getLoggedIn}></Login>} />
-          <Route exact path="/influencer/logout" render={() => <Logout setLoginCallback={this.setLoggedIn}></Logout>} />
-          <Route exact path="/links/:username" component={Links} />
-          <Route exact path="/influencer/create_account" render={(props) => <CreateAccount {...props} setLoginCallback={this.setLoggedIn}
-                                                    getLoginCallback={this.getLoggedIn}
-                                                    ></CreateAccount>} />
-          <NotFound default />
-        </Switch>
-      </Router>
+      <DragDropContextProvider backend={HTML5Backend}>
+        <Router>
+          <Route exact strict path="/:url*" render={props => <Redirect to={`${props.location.pathname}/`}/>} />
+          <Route path="/influencer/*" render={() => <NavBar getLoginCallback={this.getLoggedIn} />} />
+          <Switch>
+            <Route exact path="/influencer" component={Home} />
+            <Route exact path="/influencer/preview" component={Preview} />
+            {this.getLoggedIn() ? <Route exact path="/influencer/dashboard" component={Dashboard} /> : null}
+            {this.getLoggedIn() ? <Route exact path="/influencer/edit" component={Edit} /> : null}
+            <Route exact path="/influencer/login" render={(props) => <Login {...props} setLoginCallback={this.setLoggedIn}
+                                                      getLoginCallback={this.getLoggedIn}></Login>} />
+            <Route exact path="/influencer/logout" render={() => <Logout setLoginCallback={this.setLoggedIn}></Logout>} />
+            <Route exact path="/links/:username" component={Links} />
+            <Route exact path="/influencer/create_account" render={(props) => <CreateAccount {...props} setLoginCallback={this.setLoggedIn}
+                                                      getLoginCallback={this.getLoggedIn}
+                                                      ></CreateAccount>} />
+            <NotFound default />
+          </Switch>
+        </Router>
+      </DragDropContextProvider>
     )
   }
 }
