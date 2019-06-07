@@ -76,7 +76,7 @@ class UsersTable extends Component {
               <TableHead>
                 <TableRow>
                   <TableCell align="left" className={classes.padLeft}>Title</TableCell>
-                  <TableCell align="left">Date</TableCell>
+                  <TableCell align="left">Date Created</TableCell>
                   <TableCell align="left">URL</TableCell>
                   <TableCell align="left">Clicks</TableCell>
                   <TableCell align="left">Tips</TableCell>

@@ -41,16 +41,27 @@ import styles from './styles';
 import axios from 'components/AxiosClient';
 
 class RedirectTable extends Component {
-  state = {
-    rows: [],
-  };
+  constructor(props) {
+    super(props);
 
-  componentDidMount() {
-    this.getData('7days');
+    this.state = {
+      rows: [],
+    }
   }
+  
+  componentDidMount() {
+    this.getData(this.props.dateLimit)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.dateLimit != prevProps.dateLimit) {
+      this.getData(this.props.dateLimit);
+    }
+  } 
 
   // Get event counts per day for authenticated user
   getData = (limit) => {
+    console.log('RedirectTable Updated Data: ', limit)
     axios.get('/api/events/stats', {
       params: {
         'method': 'count',
@@ -76,7 +87,7 @@ class RedirectTable extends Component {
   }
 
   render() {
-    const { classes, className } = this.props;
+    const { classes, dateLimit, className } = this.props;
     const rootClassName = classNames(classes.root, className);
 
     return (

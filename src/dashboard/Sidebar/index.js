@@ -26,6 +26,10 @@ import {
   PeopleOutlined as PeopleIcon,
 } from '@material-ui/icons';
 
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
 // Component styles
 import styles from './styles';
 
@@ -40,7 +44,8 @@ class Sidebar extends Component {
       username: localStorage.getItem('username'),
       links_url: '/links/' + localStorage.getItem('username'),
       profile_pic: null,
-      base_url: process.env.REACT_APP_API_URL 
+      base_url: process.env.REACT_APP_API_URL,
+      dateLimit: '7days',
     };
   }
 
@@ -60,6 +65,15 @@ class Sidebar extends Component {
         });
       })
       .catch(err => console.log(err));
+  }
+
+  handleChange = event => {
+    this.setState({
+      [event.target.id]: event.target.value
+    });
+    console.log(event.target.id)
+    this.props.updateDateLimit(event.target.value)
+    console.log('Sidebar Updated DateLimit: ', event.target.value)
   }
 
   render() {
@@ -96,6 +110,25 @@ class Sidebar extends Component {
             @{this.state.username}
           </Typography>
         </div>
+        <Divider className={classes.profileDivider} />
+        <Typography
+          variant="h5"
+        >
+          See data for the past:
+        </Typography>
+        <FormControl variant="outlined" className={classes.select}>
+            <Select
+              native
+              onChange={this.handleChange}
+              input={
+                <OutlinedInput id="dateLimit" labelWidth={0}/>
+              }
+              >
+              <option value="7days">7 days</option>
+              <option value="30days">30 days</option>
+              <option value="90days">90 days</option>
+            </Select>
+          </FormControl>
         <Divider className={classes.profileDivider} />
         <List
           component="div"

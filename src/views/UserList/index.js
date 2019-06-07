@@ -65,9 +65,11 @@ class UserList extends Component {
     const { classes } = this.props;
 
     return (
-      <UsersTable
-        links={this.state.links}
-      />
+      <div>
+        <UsersTable
+          links={this.state.links}
+        />
+      </div>
     );
   }
 

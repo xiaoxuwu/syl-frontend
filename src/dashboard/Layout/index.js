@@ -23,6 +23,7 @@ class Dashboard extends Component {
 
     this.state = {
       isOpen: this.props.isOpen,
+      dateLimit: '7days',
     };
     // console.log('dashboard: ', this.state.isOpen)
   }
@@ -36,6 +37,12 @@ class Dashboard extends Component {
       });
     }
   };
+
+  getDateLimit = (dateLimit) => {
+    this.setState({ dateLimit: dateLimit });
+    this.props.updateDateLimit(dateLimit);
+    console.log('Layout Updated DateLimit: ', dateLimit)
+  }
 
   render() {
     const { classes, isOpen, width, children } = this.props;
@@ -51,7 +58,7 @@ class Dashboard extends Component {
           open={isOpen}
           variant={isMobile ? 'temporary' : 'persistent'}
         >
-          <Sidebar className={classes.sidebar} />
+          <Sidebar className={classes.sidebar} updateDateLimit={this.getDateLimit} />
         </Drawer>
         <main
           className={classNames(classes.content, {

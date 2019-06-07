@@ -38,11 +38,28 @@ const styles = theme => ({
 });
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      dateLimit: '7days',
+    }
+  }
+
+  updateDateLimit = (dateLimit) => {
+    this.setState({ dateLimit: dateLimit });
+    console.log('Dashboard Updated DateLimit: ', dateLimit)
+  }
+
   render() {
     const { classes, onChange, isOpen } = this.props;
 
     return (
-      <DashboardLayout title="Dashboard" isOpen={isOpen} onChange={onChange}>
+      <DashboardLayout 
+        title="Dashboard" 
+        isOpen={isOpen} 
+        onChange={onChange}
+        updateDateLimit={this.updateDateLimit}>
         <div className={classes.root}>
           <Grid
             container
@@ -91,7 +108,7 @@ class Dashboard extends Component {
               xl={9}
               xs={12}
             >
-              <DailyRedirectsChart className={classes.item} />
+              <DailyRedirectsChart className={classes.item} dateLimit={this.state.dateLimit}/>
             </Grid>
             <Grid
               item
@@ -100,7 +117,7 @@ class Dashboard extends Component {
               xl={3}
               xs={12}
             >
-              <RedirectTable className={classes.item} />
+              <RedirectTable className={classes.item} dateLimit={this.state.dateLimit}/>
             </Grid>
             <Grid
               item

@@ -32,18 +32,29 @@ import styles from './styles';
 import SylLineChart from 'components/SylLineChart';
 import axios from 'components/AxiosClient';
 
-class SalesChart extends Component {
-  state = {
-    viewsVsTime: [],
-    raw: [],
-    totalViewCount: 0,
-  };
+class DailyRedirectsChart extends Component {
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      viewsVsTime: [],
+      raw: [],
+      totalViewCount: 0,
+    }
+  }
+  
   componentDidMount() {
-    this.updateData('7days')
+    this.updateData(this.props.dateLimit)
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.dateLimit != prevProps.dateLimit) {
+      this.updateData(this.props.dateLimit);
+    }
+  } 
+
   updateData = (limit) => {
+    console.log('DailyRedirectsChart Updated Data: ', limit)
     axios.get('/api/events/stats', {
       params: {
         'time': 'daily',
@@ -88,9 +99,9 @@ class SalesChart extends Component {
   }
 }
 
-SalesChart.propTypes = {
+DailyRedirectsChart.propTypes = {
   className: PropTypes.string,
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SalesChart);
+export default withStyles(styles)(DailyRedirectsChart);
