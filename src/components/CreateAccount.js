@@ -183,9 +183,6 @@ class CreateAccount extends Component {
           {title}
           {errorSnackBar}
           <form className={classes.form} onSubmit={this.handleSubmit}>
-            {errors.map(error => (
-              <p key={error}>Error: {error}</p>
-            ))}
             <FormControl margin="normal" fullWidth>
               <TextField
                 id="username"

@@ -169,30 +169,36 @@ class PreferenceCard extends Component {
             @{user}
           </Typography>
 
-          <FormControl>
-            <InputLabel htmlFor="profile"> Profile Picture </InputLabel> <br/> <br/>
+          <FormControl className={classes.pref} >
+            <InputLabel htmlFor="profile"> Profile Picture </InputLabel>
+            <div>
               Currently: <a href={profile_pic}>{this.state.curProfile}</a>
               <IconButton className={classes.action} aria-label="Delete" onClick={this.handleDeleteProfile}> 
                 <DeleteIcon/>
               </IconButton>
+              <br />
               Change: <Input 
                 type="file" 
                 name="profile" 
                 onChange={this.handleProfile}
                 value={this.state.newProfile ? this.state.newProfile.value : ''}/>
+            </div>
           </FormControl>
    
           <FormControl>
-            <InputLabel htmlFor="background"> Background Picture </InputLabel> <br/> <br/>
+            <InputLabel htmlFor="background"> Background Picture </InputLabel>
+            <div>
               Currently: <a href={background_pic}>{this.state.curBg}</a>
               <IconButton className={classes.action} aria-label="Delete" onClick={this.handleDeleteBg}>
                 <DeleteIcon/>
               </IconButton>
+              <br />
               Change: <Input 
                 type="file" 
                 name="background" 
                 onChange={this.handleBackground}
                 value={this.state.newBg ? this.state.newBg.value : ''}/>
+            </div>
           </FormControl>
 
           <div className={classes.prefButtons}>

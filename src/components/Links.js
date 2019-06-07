@@ -44,7 +44,7 @@ class Links extends Component {
             order: link.order,
             media_prefix: link.media_prefix
           }
-        }).sort((a,b) => (a.order > b.order) ? 1 : -1);
+        }).sort((a,b) => (a.order < b.order) ? 1 : -1);
 
         this.setState({ 
           links: links,

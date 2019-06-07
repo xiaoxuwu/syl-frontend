@@ -23,7 +23,7 @@ const EditStyles = theme => ({
     overflow: 'hidden',
     width: '100%',
     height: '100vh',
-    paddingTop: '10%',
+    paddingTop: '6%',
     padding: 'auto',
     backgroundColor: 'lightgray',
   },
@@ -33,7 +33,6 @@ const EditStyles = theme => ({
   },
   pref: {
     margin: '10% 10% 5% 10%',
-    backgroundColor: 'pink',
   },
   info: {
     display: 'inline-grid',
