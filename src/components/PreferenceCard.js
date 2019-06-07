@@ -23,7 +23,7 @@ class PreferenceCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: this.props.username,
+      username: localStorage.getItem('username'),
       token: localStorage.getItem('token'),
       pref_id: '',
       curProfile: '',
@@ -62,14 +62,13 @@ class PreferenceCard extends Component {
 
   handleDeleteProfile(e) {
     var apiEndpoint = '/api/preferences/'+this.state.pref_id;
-    var updateData = new FormData();
+    var updateData = { profile_img: null };
     var config = {
       'headers' : { 
         'Authorization': 'Token ' + this.state.token, 
-        'Content-Type': 'multipart/form-data' 
+        'Content-Type': 'application/json' 
       }
     }
-    updateData.append('profile_img', null);
     axios.patch(apiEndpoint, updateData, config).then(
       this.setState({
         curProfile: '',
@@ -79,14 +78,13 @@ class PreferenceCard extends Component {
 
   handleDeleteBg(e) {
     var apiEndpoint = '/api/preferences/'+this.state.pref_id;
-    var updateData = new FormData();
+    var updateData = { background_img: null };
     var config = {
       'headers' : { 
         'Authorization': 'Token ' + this.state.token, 
-        'Content-Type': 'multipart/form-data' 
+        'Content-Type': 'application/json' 
       }
     }
-    updateData.append('background_img', null);
     axios.patch(apiEndpoint, updateData, config).then(
       this.setState({
         curBg: '',

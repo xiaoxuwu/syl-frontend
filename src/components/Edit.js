@@ -3,6 +3,10 @@ import axios from './AxiosClient';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+
+import Paper from "@material-ui/core/Paper";
+import InputBase from "@material-ui/core/InputBase";
 
 import EditStyles from '../styles/Edit.js';
 
@@ -16,8 +20,7 @@ class Edit extends Component {
     super(props);
     this.state = { 
       links: [],
-      userPref: {},
-      username: localStorage.getItem('username'),
+      user: {},
       newProfile: '',
       newBg: '',
       baseURL: process.env.REACT_APP_API_URL 
@@ -27,10 +30,9 @@ class Edit extends Component {
   // Called when component has been initialized
   componentDidMount() {
     this.getUserLinks();
-    this.getUserPref();
   }
 
-  // Makes GET requests to retrieve username and links
+  // Makes GET requests to retrieve user and links
   getUserLinks = () => {
     let token = localStorage.getItem('token');
     var apiEndpoint = '/api/users/';
@@ -39,10 +41,10 @@ class Edit extends Component {
       let user = result.data;
 
       this.setState({ 
-        username: user.username,
+        user: user,
       });
 
-      var apiEndpoint = '/api/links/?username=' + this.state.username;
+      var apiEndpoint = '/api/links/?username=' + user.username;
 
       return axios.get(apiEndpoint, {})}).then(result => {
 
@@ -64,25 +66,42 @@ class Edit extends Component {
       }).catch(err => console.log(err));
   }
 
-  // Makes GET requests to retrieve user profile and background picture
-  getUserPref() {
-    var apiEndpoint = '/api/preferences/?username=' + this.state.username;
+  handleAddLink() {
+    // let token = localStorage.getItem('token');
+    // var apiEndpoint = '/api/links/';
 
-    axios.get(apiEndpoint, {}).then(result => {
-      let users = result.data;
+    // var maxOrder = 0;
 
-      this.setState({ 
-        userPref: users,
-      });
-    })
-    .catch(err => console.log(err));
+    // this.state.links.map(link => {
+    //   if (link.order > maxOrder) {
+    //     maxOrder = link.order
+    //   }
+    // })
+
+
+    // var data = {
+    //   'url': '',
+    //   'creator': this.state.user.id,
+    //   'text': '',
+    //   'image': null,
+    //   'order': maxOrder+1,
+    //   "media_prefix": "media/"
+    // }
+
+    // axios.post(apiEndpoint, data, {'headers' : { 'Authorization': 'Token ' + this.state.token,
+    //                                         'Content-Type': 'application/json' }})
+    //   .then(result => {
+    //     console.log(result.data);
+    //     this.props.getParentLinks();
+    //     })
+    //   .catch(err => console.log(err.response));
   }
 
   render() {
     const { classes } = this.props;
 
     var editableLinks = this.state.links
-      .sort((a,b) => (a.order > b.order) ? 1 : -1)
+      .sort((a,b) => (a.order < b.order) ? 1 : -1)
       .map(link => {
         var IMG = this.state.baseURL + '/' + link.media_prefix + link.image;
         return <EditableLinkCard 
@@ -92,39 +111,42 @@ class Edit extends Component {
           URL={link.url} 
           title={link.text}
           token={localStorage.getItem('token')}
-          username={this.state.username}
+          username={this.state.user.username}
           getParentLinks={this.getUserLinks}  />
     });
 
-    var userPref = this.state.userPref;
-    var background_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.background_img;
-    var preferenceCard = <PreferenceCard username={this.state.username} />
-
-    const background = {
-      backgroundImage: `url(${background_pic})`,
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-    };
+    var preferenceCard = <PreferenceCard/>
 
     return (
-        <div style={background} className={classes.content}>
-          <Grid container spacing={16} md="8" className={classes.list}>
-            <Grid item spacing={16} md="12" className={classes.pref}>
-              {preferenceCard}
+        <div className={classes.content}>
+          <Grid container spacing={10} className={classes.list}>
+            <Grid item xs className={classes.overflowWrapper}>
+              <div className={classes.pref}>
+                {preferenceCard}
+              </div>
+              <div className={classes.linkWrapper}>
+                <Paper className={classes.addLink}>
+                  <InputBase
+                    placeholder="www.example.com"
+                    className={classes.addLinkInput}
+                  />
+                  <Button variant="contained" className={classes.addLinkButton}>+ ADD NEW LINK</Button>
+                </Paper>
+              </div>
+              <Grid container spacing={12} className={classes.editList}>
+                {editableLinks.map(editableLinkCard =>
+                  <Grid item xs={10} md={10}>
+                    {editableLinkCard}
+                  </Grid>
+                  )  
+                }
+              </Grid>
             </Grid>
+            <Grid item xs={4} className={classes.preview}>
+              <Preview />
+            </Grid>
+          </Grid>
 
-            <Grid container spacing={16} md="12" className={classes.editList}>
-              {editableLinks.map(editableLinkCard =>
-                <Grid item xs={10} md={10}>
-                  {editableLinkCard}
-                </Grid>
-                )  
-              }
-            </Grid>
-          </Grid>
-          <Grid container spacing={16} md="4" className={classes.list}>
-            <Preview />
-          </Grid>
         </div>
     );
   }

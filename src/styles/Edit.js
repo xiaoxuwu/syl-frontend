@@ -1,35 +1,68 @@
 const EditStyles = theme => ({
   content: {
-    textAlign: 'center',
+    height: '100%',
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column',
   },
   editList: {
     display: 'inline-flex',
-    padding: '25px 25px 25px 25px',
-    justifyContent: 'left'
+    justifyContent: 'center',
+    paddingTop: '30px',
   },
   list: {
     display: 'inline-flex',
-    padding: '25px 25px 25px 25px',
     justifyContent: 'center',
     maxHeight: '100vh',
-    overflow: 'auto',
+    height: '100vh',
+    width: '100%',
+    display: 'flex',
+    minHeight: 0,
+  },
+  preview: {
+    display: 'inline-flex',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    width: '100%',
+    height: '100vh',
+    paddingTop: '10%',
+    padding: 'auto',
+    backgroundColor: 'lightgray',
   },
   media: {
-  	height: 150,
-  	width: 150,
+    height: 150,
+    width: 150,
   },
   pref: {
-  	width: '100%',
-  	padding: '25px 25px 25px 25px',
-  	display: 'inline-flex',
+    margin: '10% 10% 5% 10%',
+    backgroundColor: 'pink',
   },
   info: {
-  	display: 'inline-grid',
-  	textAlign: 'left',
-  	padding: '0px 25px 0px 25px',
+    display: 'inline-grid',
+    textAlign: 'left',
+    padding: '0px 25px 0px 25px',
   },
-  button: {
-    margin: theme.spacing.unit,
+  linkWrapper: {
+    margin: '0 auto',
+  },
+  addLink: {
+    width: '50%',
+    marginLeft: '25%',
+    display: 'inline-block',
+  },
+  addLinkButton: {
+    color: 'white',
+    backgroundColor: '#ff6666',
+    '&:hover': {
+      backgroundColor: '#e65c5c',
+    },
+    float: 'right',
+  },
+  addLinkInput: {
+    width: '60%',
+    height: '100%',
+    alignItems: 'center',
+    marginLeft: 10,
   },
   leftIcon: {
     marginRight: theme.spacing.unit,
@@ -37,6 +70,10 @@ const EditStyles = theme => ({
   iconSmall: {
     fontSize: 20,
   },
+  overflowWrapper: {
+    overflowY: 'auto',
+    maxHeight: '100%',
+  }
 });
 
 export default EditStyles;

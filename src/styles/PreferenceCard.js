@@ -5,20 +5,22 @@ const LinkCardStyles = theme => ({
 		color: 'white',
 		backgroundColor: 'transparent',
 		border: '2px solid white',
-		boxShadow: 'none'
+		boxShadow: 'none',
 	},
 	cardText: {
 		color: 'white',
 		fontFamily: "'Oxygen', sans-serif"
 	},
 	media: {
-		height: 150,
-		width: 150,
+		height: 'auto',
+		width: '30%',
+		paddingLeft: '10%', 
+		paddingRight: '5%', 
 	},
 	info: {
 		display: 'inline-grid',
 		textAlign: 'left',
-		padding: '0px 25px 0px 25px',
+		padding: '3% 0 3% 5%',
 		width: '100%',
 	},
 	button: {
