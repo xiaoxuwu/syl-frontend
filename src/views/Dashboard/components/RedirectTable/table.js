@@ -117,7 +117,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function EnhancedTable() {
+function EnhancedTable(props) {
+  const { rowData } = props;
+
   const classes = useStyles();
   const [order, setOrder] = React.useState('desc');
   const [orderBy, setOrderBy] = React.useState('date');
@@ -140,7 +142,7 @@ function EnhancedTable() {
     setRowsPerPage(+event.target.value);
   }
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rowData.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -155,10 +157,10 @@ function EnhancedTable() {
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={rowData.length}
             />
             <TableBody>
-              {stableSort(rows, getSorting(order, orderBy))
+              {stableSort(rowData, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   return (
@@ -183,7 +185,7 @@ function EnhancedTable() {
         <TablePagination
           rowsPerPageOptions={[]}
           component="div"
-          count={rows.length}
+          count={rowData.length}
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{

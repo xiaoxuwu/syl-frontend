@@ -20,7 +20,7 @@ import {
   TotalRedirects,
   DailyRedirectsChart,
   SalesChart,
-  LinksTable,
+  RedirectTable,
   DevicesChart,
   ProductList,
   OrdersTable
@@ -100,7 +100,7 @@ class Dashboard extends Component {
               xl={3}
               xs={12}
             >
-              <LinksTable className={classes.item} />
+              <RedirectTable className={classes.item} />
             </Grid>
             <Grid
               item
