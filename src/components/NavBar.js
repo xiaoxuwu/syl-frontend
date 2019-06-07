@@ -79,9 +79,8 @@ class NavBar extends Component {
             {isOpen ? <CloseIcon /> : <MenuIcon />}
           </IconButton>
           <div className={classes.grow} />
-          <Button className={classes.navlink} component={Link} to="/influencer/download">Download</Button>
           <Button className={classes.navlink} component={Link} to="/influencer">Home</Button>
-          <Button className={classes.navlink} component={Link} to="/influencer/edit">Edit</Button>
+          {loggedIn ? <Button className={classes.navlink} component={Link} to="/influencer/edit">Edit</Button> : null }
           {loggedIn ? <Button component={Link} className={classes.navlink} to="/influencer/dashboard">Dashboard</Button> : null }
           {authButton}
         </Toolbar>

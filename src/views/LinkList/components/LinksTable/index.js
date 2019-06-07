@@ -37,7 +37,7 @@ import styles from './styles';
 
 import SimplePopover from './popover';
 
-class UsersTable extends Component {
+class LinksTable extends Component {
   state = {
     rowsPerPage: 10,
     page: 0,
@@ -149,16 +149,16 @@ class UsersTable extends Component {
   }
 }
 
-UsersTable.propTypes = {
+LinksTable.propTypes = {
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
   onShowDetails: PropTypes.func,
   links: PropTypes.array.isRequired
 };
 
-UsersTable.defaultProps = {
+LinksTable.defaultProps = {
   links: [],
   onShowDetails: () => {}
 };
 
-export default withStyles(styles)(UsersTable);
+export default withStyles(styles)(LinksTable);

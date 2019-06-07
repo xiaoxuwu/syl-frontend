@@ -11,14 +11,10 @@ import theme from './theme';
 // Styles
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
-// Routes
-// import Routes from './Routes';
-
 import NavBar from './components/NavBar';
 import Home from './components/Home'
 import Edit from './components/Edit';
 import Preview from './components/Preview'
-import Download from './components/Download'
 import Login from './components/auth/Login';
 import Logout from './components/auth/Logout';
 import { isAuthenticated } from './components/auth/AuthService';
@@ -29,7 +25,7 @@ import { DragDropContextProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
 import Dashboard from './views/Dashboard';
-import UserList from './views/UserList';
+import LinkList from './views/LinkList';
 import NotFound from './views/NotFound';
 
 // Browser history
@@ -88,8 +84,8 @@ export default class App extends Component {
             />
             {this.getLoggedIn() ? <Route exact path="/influencer/edit" component={Edit} /> : null}
             <Route
-              render={props => <UserList isOpen={this.state.isOpen} onChange={this.toggleSidebar} />}
-              exact path="/influencer/dashboard/users/"
+              render={props => <LinkList isOpen={this.state.isOpen} onChange={this.toggleSidebar} />}
+              exact path="/influencer/dashboard/links/"
             />
             <Route exact path="/influencer/login" render={(props) => <Login {...props} setLoginCallback={this.setLoggedIn}
                                                       getLoginCallback={this.getLoggedIn}></Login>} />
