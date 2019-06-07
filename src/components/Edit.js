@@ -16,8 +16,6 @@ import PreferenceCard from '../components/PreferenceCard.js';
 import DraggableCard from './DraggableCard.js';
 import Preview from '../components/Preview.js';
 import ErrorIcon from '@material-ui/icons/Error';
-import { DragDropContextProvider } from 'react-dnd'
-import HTML5Backend from 'react-dnd-html5-backend'
 
 class Edit extends Component {
   constructor(props) {
@@ -224,25 +222,23 @@ class Edit extends Component {
             </div>
           {errorMsg}
           <Grid container spacing={12} className={classes.editList}>
-            <DragDropContextProvider backend={HTML5Backend}>
-              <div>
-                {this.state.links.map((link, i) => (
-                  <DraggableCard
-                    key={link.id}
-                    index={i}
-                    id={link.id}
-                    text={link.text}
-                    order={link.order}
-                    links={this.state.links}
-                    moveCard={moveCard}
-                    url={link.url}
-                    img={link.image}
-                    token={localStorage.getItem('token')}
-                    username={this.state.user.username}
-                  />
-                ))}
-              </div>
-            </DragDropContextProvider>
+            <div>
+              {this.state.links.map((link, i) => (
+                <DraggableCard
+                  key={link.id}
+                  index={i}
+                  id={link.id}
+                  text={link.text}
+                  order={link.order}
+                  links={this.state.links}
+                  moveCard={moveCard}
+                  url={link.url}
+                  img={link.image}
+                  token={localStorage.getItem('token')}
+                  username={this.state.user.username}
+                />
+              ))}
+            </div>
           </Grid>
         </Grid>
         <Grid item xs={4} className={classes.preview}>
