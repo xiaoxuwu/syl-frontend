@@ -6,7 +6,8 @@ const EditStyles = theme => ({
   editList: {
     display: 'inline-flex',
     // padding: '25px 25px 25px 25px',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingTop: '30px',
   },
   list: {
     display: 'inline-flex',
@@ -46,9 +47,13 @@ const EditStyles = theme => ({
   	textAlign: 'left',
   	padding: '0px 25px 0px 25px',
   },
+  linkWrapper: {
+    margin: '0 auto',
+  },
   addLink: {
-    width: '70%',
-    height: '100%',
+    width: '50%',
+    // height: '100%',
+    marginLeft: '25%',
     display: 'inline-block',
   },
   addLinkButton: {
@@ -61,6 +66,9 @@ const EditStyles = theme => ({
   },
   addLinkInput: {
     width: '60%',
+    height: '100%',
+    alignItems: 'center',
+    marginLeft: 10,
   },
   leftIcon: {
     marginRight: theme.spacing.unit,

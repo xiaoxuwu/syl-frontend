@@ -170,7 +170,7 @@ class Edit extends Component {
                 <div className={classes.pref}>
                   {preferenceCard}
                 </div>
-                <div>
+                <div className={classes.linkWrapper}>
                   <Paper className={classes.addLink}>
                     <InputBase
                       placeholder="www.example.com"
@@ -179,14 +179,14 @@ class Edit extends Component {
                     <Button variant="contained" className={classes.addLinkButton}>+ ADD NEW LINK</Button>
                   </Paper>
                 </div>
-                <div className={classes.editList}>
+                <Grid container spacing={12} className={classes.editList}>
                   {editableLinks.map(editableLinkCard =>
                     <Grid item xs={10} md={10}>
                       {editableLinkCard}
                     </Grid>
                     )  
                   }
-                </div>
+                </Grid>
              </Grid>
             <Grid item xs={4} className={classes.preview}>
               <Preview />
