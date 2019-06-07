@@ -116,6 +116,14 @@ const useStyles = makeStyles(theme => ({
   tableWrapper: {
     overflowX: 'auto',
   },
+  tableEnd: {
+    display: 'inline-flex',
+    width: '100%',
+    alignItems: 'center'
+  },
+  pagination: {
+    width: '100%'
+  }
 }));
 
 function EnhancedTable(props) {
@@ -183,21 +191,24 @@ function EnhancedTable(props) {
             </TableBody>
           </Table>
         </div>
-        <Download isLink={false} className={classes.download} />
-        <TablePagination
-          rowsPerPageOptions={[]}
-          component="div"
-          count={rowData.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          backIconButtonProps={{
-            'aria-label': 'Previous Page',
-          }}
-          nextIconButtonProps={{
-            'aria-label': 'Next Page',
-          }}
-          onChangePage={handleChangePage}
-        />
+        <div className={classes.tableEnd}>
+          <Download isLink={false} className={classes.download} />
+          <TablePagination
+            rowsPerPageOptions={[]}
+            component="div"
+            count={rowData.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            backIconButtonProps={{
+              'aria-label': 'Previous Page',
+            }}
+            nextIconButtonProps={{
+              'aria-label': 'Next Page',
+            }}
+            onChangePage={handleChangePage}
+            className={classes.pagination}
+          />
+        </div>
       </Paper>
     </div>
   );
