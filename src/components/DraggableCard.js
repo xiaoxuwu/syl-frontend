@@ -20,7 +20,7 @@ const style = {
   cursor: 'move',
 }
 const DraggableCard = React.forwardRef(
-  ({ index, id, text, url, img, order, links, token, username, isDragging, connectDragSource, connectDropTarget }, ref) => {
+  ({ index, id, text, url, img, order, links, token, username, getParentLinks, isDragging, connectDragSource, connectDropTarget }, ref) => {
     const elementRef = useRef(null)
     connectDragSource(elementRef)
     connectDropTarget(elementRef)
@@ -39,6 +39,7 @@ const DraggableCard = React.forwardRef(
           title={text}
           token={token}
           username={username}
+          getParentLinks={getParentLinks}
         />
       </div>
     )
