@@ -48,10 +48,10 @@ class App extends Component {
           <Route exact path="/influencer/login" render={(props) => <Login {...props} setLoginCallback={this.setLoggedIn}
                                                     getLoginCallback={this.getLoggedIn}></Login>} />
           <Route exact path="/influencer/logout" render={() => <Logout setLoginCallback={this.setLoggedIn}></Logout>} />
-          <Route exact path="/links/:username" component={Links} />
           <Route exact path="/influencer/create_account" render={(props) => <CreateAccount {...props} setLoginCallback={this.setLoggedIn}
                                                     getLoginCallback={this.getLoggedIn}
                                                     ></CreateAccount>} />
+          <Route exact path="/links/:username" component={Links} />
           <NotFound default />
         </Switch>
       </Router>
