@@ -165,12 +165,14 @@ class PreferenceCard extends Component {
           image={profile_pic}
         />
         <CardContent className={classes.info}>
-          <Typography variant="display1" component="h3">
+          <Typography gutterBottom variant="display1">
             @{user}
           </Typography>
-
+          <br />
           <FormControl className={classes.pref} >
-            <InputLabel htmlFor="profile"> Profile Picture </InputLabel>
+            <Typography variant="body1">
+              Profile Picture
+            </Typography>
             <div>
               Currently: <a href={profile_pic}>{this.state.curProfile}</a>
               <IconButton className={classes.action} aria-label="Delete" onClick={this.handleDeleteProfile}>
@@ -184,9 +186,11 @@ class PreferenceCard extends Component {
                 value={this.state.newProfile ? this.state.newProfile.value : ''}/>
             </div>
           </FormControl>
-
+          <br />
           <FormControl>
-            <InputLabel htmlFor="background"> Background Picture </InputLabel>
+            <Typography gutterBottom variant="body1">
+              Profile Picture
+            </Typography>
             <div>
               Currently: <a href={background_pic}>{this.state.curBg}</a>
               <IconButton className={classes.action} aria-label="Delete" onClick={this.handleDeleteBg}>

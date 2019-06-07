@@ -99,7 +99,7 @@ class Links extends Component {
     }: {background: 'linear-gradient(to left, #f7ff00, #db36a4)'};
 
     return (
-        <div style={background} className={classes.content} >
+        <div style={background} >
           <div className={classes.imgWrapper}>
             <img
               src={profile_pic}

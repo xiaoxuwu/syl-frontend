@@ -59,7 +59,7 @@ class LinkCard extends Component {
           /> 
           : null
         }
-    		<CardActionArea onClick={this.handleClick}> 
+    		<CardActionArea className={classes.content} onClick={this.handleClick}> 
           <CardContent>
             {this.state.IMG ? 
       				<Typography 
