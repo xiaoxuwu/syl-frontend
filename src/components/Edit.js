@@ -85,7 +85,34 @@ class Edit extends Component {
   }
 
   handleAddLink() {
-    // TBD
+    // let token = localStorage.getItem('token');
+    // var apiEndpoint = '/api/links/';
+
+    // var maxOrder = 0;
+
+    // this.state.links.map(link => {
+    //   if (link.order > maxOrder) {
+    //     maxOrder = link.order
+    //   }
+    // })
+
+
+    // var data = {
+    //   'url': '',
+    //   'creator': this.state.user.id,
+    //   'text': '',
+    //   'image': null,
+    //   'order': maxOrder+1,
+    //   "media_prefix": "media/"
+    // }
+
+    // axios.post(apiEndpoint, data, {'headers' : { 'Authorization': 'Token ' + this.state.token,
+    //                                         'Content-Type': 'application/json' }})
+    //   .then(result => {
+    //     console.log(result.data);
+    //     this.props.getParentLinks();
+    //     })
+    //   .catch(err => console.log(err.response));
   }
 
   render() {
@@ -109,35 +136,63 @@ class Edit extends Component {
     var userPref = this.state.userPref;
     var background_pic = this.state.baseURL + '/' + userPref.media_prefix + userPref.background_img;
     var preferenceCard = <PreferenceCard username={this.state.user.username} />
+    // <Grid container spacing={16} md="8" className={classes.list}>
+    //         <Grid item md="12" className={classes.pref}>
+    //           {preferenceCard}
+    //         </Grid>
+
+    //         <Grid container spacing={16} md="12" className={classes.editList}>
+    //           <Grid item xs={10} md={10}>
+    //             <Paper className={classes.addLink}>
+    //               <InputBase
+    //                 placeholder="www.example.com"
+    //                 className={classes.addLinkInput}
+    //               />
+    //               <Button variant="contained" className={classes.addLinkButton}>+ ADD NEW LINK</Button>
+    //             </Paper>
+    //           </Grid>
+    //           {editableLinks.map(editableLinkCard =>
+    //             <Grid item xs={10} md={10}>
+    //               {editableLinkCard}
+    //             </Grid>
+    //             )  
+    //           }
+    //         </Grid>
+    //       </Grid>
+    //       <Grid container spacing={16} md="4" className={classes.preview}>
+    //         <Preview />
+    //       </Grid>
 
     return (
         <div className={classes.content}>
-          <Grid container spacing={16} md="8" className={classes.list}>
-            <Grid item md="12" className={classes.pref}>
-              {preferenceCard}
+          <Grid container spacing={10} className={classes.list}>
+            <Grid item xs>
+                <div className={classes.pref}>
+                  {preferenceCard}
+                </div>
+                <div>
+                  <Paper className={classes.addLink}>
+                    <InputBase
+                      placeholder="www.example.com"
+                      className={classes.addLinkInput}
+                    />
+                    <Button variant="contained" className={classes.addLinkButton}>+ ADD NEW LINK</Button>
+                  </Paper>
+                </div>
+                <div className={classes.editList}>
+                  {editableLinks.map(editableLinkCard =>
+                    <Grid item xs={10} md={10}>
+                      {editableLinkCard}
+                    </Grid>
+                    )  
+                  }
+                </div>
+             </Grid>
+            <Grid item xs={4} className={classes.preview}>
+              <Preview />
             </Grid>
+          </Grid>
 
-            <Grid container spacing={16} md="12" className={classes.editList}>
-              <Grid item xs={10} md={10}>
-                <Paper className={classes.addLink}>
-                  <InputBase
-                    placeholder="www.example.com"
-                    className={classes.addLinkInput}
-                  />
-                  <Button variant="contained" className={classes.addLinkButton}>+ ADD NEW LINK</Button>
-                </Paper>
-              </Grid>
-              {editableLinks.map(editableLinkCard =>
-                <Grid item xs={10} md={10}>
-                  {editableLinkCard}
-                </Grid>
-                )  
-              }
-            </Grid>
-          </Grid>
-          <Grid container spacing={16} md="4" className={classes.preview}>
-            <Preview />
-          </Grid>
         </div>
     );
   }

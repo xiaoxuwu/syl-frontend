@@ -1,15 +1,16 @@
 const EditStyles = theme => ({
   content: {
-    textAlign: 'center',
+    // textAlign: 'center',
+    height: '100%',
   },
   editList: {
     display: 'inline-flex',
-    padding: '25px 25px 25px 25px',
+    // padding: '25px 25px 25px 25px',
     justifyContent: 'center'
   },
   list: {
     display: 'inline-flex',
-    padding: '25px 25px 25px 25px',
+    // padding: '25px 25px 25px 25px',
     justifyContent: 'center',
     maxHeight: '100vh',
     overflow: 'auto',
@@ -17,10 +18,13 @@ const EditStyles = theme => ({
   },
   preview: {
     display: 'inline-flex',
-    padding: '25px 25px 25px 25px',
+    // padding: '25px 25px 25px 25px',
     justifyContent: 'center',
-    overflow: 'auto',
+    overflow: 'hidden',
     width: '100%',
+    height: '100vh',
+    paddingTop: '10%',
+    padding: 'auto',
     backgroundColor: 'lightgray',
   },
   media: {
@@ -28,12 +32,13 @@ const EditStyles = theme => ({
   	width: 150,
   },
   pref: {
-  	width: '100%',
-  	padding: '25px 25px 25px 25px',
-  	display: 'inline-flex',
-    marginTop: '7%',
-    marginLeft: '11%',
-    marginRight: '11%',
+  	// width: '100%',
+  	// padding: '25px 25px 25px 25px',
+    margin: '10%',
+  	// display: 'inline-flex',
+    // marginTop: '7%',
+    // marginLeft: '11%',
+    // marginRight: '11%',
     backgroundColor: 'pink',
   },
   info: {
