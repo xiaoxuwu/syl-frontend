@@ -10,9 +10,12 @@ import Typography from '@material-ui/core/Typography';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import FormControl from '@material-ui/core/FormControl';
 
 import SaveIcon from '@material-ui/icons/Save';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ClearIcon from '@material-ui/icons/Clear';
 
 import PreferenceCardStyles from '../styles/PreferenceCard.js'
 
@@ -20,7 +23,7 @@ class PreferenceCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: this.props.username,
+      username: localStorage.getItem('username'),
       token: localStorage.getItem('token'),
       pref_id: '',
       curProfile: '',
@@ -33,6 +36,9 @@ class PreferenceCard extends Component {
     this.handleProfile = this.handleProfile.bind(this);
     this.handleBackground= this.handleBackground.bind(this);
     this.handlePrefSubmit = this.handlePrefSubmit.bind(this);
+    this.cancleUpdate = this.cancleUpdate.bind(this);
+    this.handleDeleteProfile = this.handleDeleteProfile.bind(this);
+    this.handleDeleteBg = this.handleDeleteBg.bind(this);
   }
 
   handleProfile(e) {
@@ -45,6 +51,45 @@ class PreferenceCard extends Component {
     this.setState({
       newBg: e.target.files[0]
     });
+  }
+
+  cancleUpdate(e) {
+    this.setState({
+      newProfile: null,
+      newBg: null
+    });
+  }
+
+  handleDeleteProfile(e) {
+    var apiEndpoint = '/api/preferences/'+this.state.pref_id;
+    var updateData = { profile_img: null };
+    var config = {
+      'headers' : { 
+        'Authorization': 'Token ' + this.state.token, 
+        'Content-Type': 'application/json' 
+      }
+    }
+    axios.patch(apiEndpoint, updateData, config).then(
+      this.setState({
+        curProfile: '',
+      })
+    ).catch(err => console.log(err.response));
+  }
+
+  handleDeleteBg(e) {
+    var apiEndpoint = '/api/preferences/'+this.state.pref_id;
+    var updateData = { background_img: null };
+    var config = {
+      'headers' : { 
+        'Authorization': 'Token ' + this.state.token, 
+        'Content-Type': 'application/json' 
+      }
+    }
+    axios.patch(apiEndpoint, updateData, config).then(
+      this.setState({
+        curBg: '',
+      })
+    ).catch(err => console.log(err.response));
   }
 
   handlePrefSubmit(e) {
@@ -115,40 +160,54 @@ class PreferenceCard extends Component {
             image={profile_pic}
           /> 
         <CardContent className={classes.info}>
-          <Typography variant="display5" component="h3">
-            Username: {user}
+          <Typography variant="display1" component="h3">
+            @{user}
           </Typography>
 
           <FormControl>
-            <InputLabel for="profile"> Profile Picture </InputLabel> <br/> <br/>
-            <Typography variant="body1" gutterBottom>
+            <InputLabel htmlFor="profile"> Profile Picture </InputLabel> <br/> <br/>
               Currently: <a href={profile_pic}>{this.state.curProfile}</a>
-              <br/>
+              <IconButton className={classes.action} aria-label="Delete" onClick={this.handleDeleteProfile}> 
+                <DeleteIcon/>
+              </IconButton>
               Change: <Input 
                 type="file" 
                 name="profile" 
                 onChange={this.handleProfile}
                 value={this.state.newProfile ? this.state.newProfile.value : ''}/>
-            </Typography>
           </FormControl>
    
           <FormControl>
-            <InputLabel for="background"> Background Picture </InputLabel> <br/> <br/>
-            <Typography variant="body1" gutterBottom>
+            <InputLabel htmlFor="background"> Background Picture </InputLabel> <br/> <br/>
               Currently: <a href={background_pic}>{this.state.curBg}</a>
-              <br/>
+              <IconButton className={classes.action} aria-label="Delete" onClick={this.handleDeleteBg}>
+                <DeleteIcon/>
+              </IconButton>
               Change: <Input 
                 type="file" 
                 name="background" 
                 onChange={this.handleBackground}
                 value={this.state.newBg ? this.state.newBg.value : ''}/>
-            </Typography>
           </FormControl>
 
-          <Button variant="contained" size="small" className={classes.button} onClick={this.handlePrefSubmit}>
-            <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
-            Save
-          </Button>
+          <div className={classes.prefButtons}>
+            <Button 
+              variant="contained" 
+              color="primary" 
+              className={classes.button} 
+              onClick={this.handlePrefSubmit}>
+              <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
+              Save
+            </Button>
+            <Button 
+              variant="contained" 
+              color="secondary" 
+              className={classes.button} 
+              onClick={this.cancleUpdate}>
+              <ClearIcon className={classes.leftIcon} />
+              Cancle
+            </Button>
+          </div>
         </CardContent>
     	</Card>
     );

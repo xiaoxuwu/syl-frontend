@@ -19,11 +19,14 @@ const LinkCardStyles = theme => ({
 	},
 	info: {
 		display: 'inline-grid',
-		// textAlign: 'left',
+		textAlign: 'left',
 		padding: '3% 0 3% 5%',
+		width: '100%',
 	},
 	button: {
 		margin: theme.spacing.unit,
+		width: '120px',
+		justify: 'center'
 	},
 	leftIcon: {
 		marginRight: theme.spacing.unit,
@@ -31,6 +34,9 @@ const LinkCardStyles = theme => ({
 	iconSmall: {
 		fontSize: 20,
 	},
+	prefButtons: {
+		textAlign: 'right'
+	}
 });
 
 export default LinkCardStyles;

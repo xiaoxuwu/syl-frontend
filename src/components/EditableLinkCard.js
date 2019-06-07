@@ -72,11 +72,11 @@ class EditableLinkCard extends Component {
               onChange={e => this.setState({URL: e.target.value})} />
         </CardContent>
         <div className={classes.actions}>
-          <IconButton className={classes.action} aria-label="Save">
-            <SaveIcon onClick={this.handleSaveClick}/>
+          <IconButton className={classes.action} aria-label="Save" onClick={this.handleSaveClick}>
+            <SaveIcon />
           </IconButton>
-          <IconButton className={classes.action} aria-label="Delete">
-            <DeleteIcon onClick={this.handleDeleteClick}/>
+          <IconButton className={classes.action} aria-label="Delete" onClick={this.handleDeleteClick}>
+            <DeleteIcon />
           </IconButton>
         </div>
       </Card>

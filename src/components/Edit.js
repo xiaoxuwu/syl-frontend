@@ -171,7 +171,7 @@ class Edit extends Component {
 
     return (
         <div className={classes.content}>
-          <Grid container spacing={10} className={classes.list}>
+          <Grid container spacing={16} className={classes.list}>
             <Grid item xs className={classes.overflowWrapper}>
               <div className={classes.pref}>
                 {preferenceCard}

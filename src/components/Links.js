@@ -105,14 +105,16 @@ class Links extends Component {
           <Typography variant="h4" component="h4" className={classes.handleText}>
             @{user}
           </Typography>
-          <Grid container spacing={16} md="6" lg="5" className={classes.list}>
-            {links.map(linkCard =>
-              <Grid item xs={this.state.pCol} md={this.state.dCol} lg={this.state.dCol}>
-                {linkCard}
-              </Grid>
-              )  
-            }
-          </Grid>
+          <div className={classes.paper}>
+            <Grid container wrap="nowrap" spacing={16} className={classes.list}>
+              {links.map(linkCard =>
+                <Grid item xs={this.state.pCol} md={this.state.dCol} lg={this.state.dCol}>
+                  {linkCard}
+                </Grid>
+                )  
+              }
+            </Grid>
+          </div>
         </div>
     );
   }

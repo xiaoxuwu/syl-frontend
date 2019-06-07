@@ -15,7 +15,6 @@ const EditStyles = theme => ({
     maxHeight: '100vh',
     height: '100vh',
     width: '100%',
-    display: 'flex',
     minHeight: 0,
   },
   preview: {
