@@ -113,8 +113,6 @@ class PreferenceCard extends Component {
     if (this.state.newBg !== null) {
       updateData.append('background_img', this.state.newBg);
     } 
-    console.log(this.state.newProfile);
-    console.log(updateData);
     axios.patch(apiEndpoint, updateData, config).then(
       this.setState({
         curProfile: this.state.newProfile ? this.state.newProfile.name : this.state.curProfile,
@@ -148,17 +146,24 @@ class PreferenceCard extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    if (this.state.pref_id === '') {
+      return <div> </div>
+    }
+    const { classes, parentClasses } = this.props;
     var user = this.state.username;
     var profile_pic = this.state.baseURL + '/' + this.state.media_prefix + this.state.curProfile;
     var background_pic = this.state.baseURL + '/' + this.state.media_prefix + this.state.curBg;
+    var previewContainer = null;
+    if (parentClasses !== undefined) {
+      previewContainer = parentClasses.previewContainer
+    }
 
     return(
-    	<Card className={classes.card}>
-          <CardMedia
-            className={classes.media}
-            image={profile_pic}
-          /> 
+    	<Card className={clsx(classes.content, previewContainer)}>
+        <CardMedia
+          className={classes.media}
+          image={profile_pic}
+        /> 
         <CardContent className={classes.info}>
           <Typography variant="display1" component="h3">
             @{user}
@@ -205,7 +210,7 @@ class PreferenceCard extends Component {
               className={classes.button} 
               onClick={this.cancleUpdate}>
               <ClearIcon className={classes.leftIcon} />
-              Cancle
+              Cancel
             </Button>
           </div>
         </CardContent>

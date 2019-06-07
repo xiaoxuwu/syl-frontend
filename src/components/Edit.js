@@ -45,8 +45,6 @@ class Edit extends Component {
       });
 
       var apiEndpoint = '/api/links/?username=' + user.username;
-      console.log("get username");
-      console.log(user.username);
 
       return axios.get(apiEndpoint, {})}).then(result => {
 
@@ -60,14 +58,12 @@ class Edit extends Component {
             order: link.order,
             media_prefix: link.media_prefix
           }
-        });
+        }).sort((a,b) => (a.order < b.order) ? 1 : -1);
 
         this.setState({ 
           links: links,
         });
       }).catch(err => console.log(err));
-      console.log("EDIT LINKS!!!!")
-      console.log(this.state.links);
   }
 
   handleAddLink() {
@@ -105,7 +101,6 @@ class Edit extends Component {
     const { classes } = this.props;
 
     var editableLinks = this.state.links
-      .sort((a,b) => (a.order < b.order) ? 1 : -1)
       .map(link => {
         var IMG = this.state.baseURL + '/' + link.media_prefix + link.image;
         return <EditableLinkCard 
@@ -138,11 +133,11 @@ class Edit extends Component {
                 </Paper>
               </div>
               <Grid container spacing={16} className={classes.editList}>
-                {editableLinks.map(editableLinkCard =>
-                  <Grid item xs={10} md={10}>
+                {editableLinks.map((editableLinkCard, i) => {
+                  return <Grid item key={this.state.links[i].id} xs={10} md={10}>
                     {editableLinkCard}
                   </Grid>
-                  )  
+                  })  
                 }
               </Grid>
             </Grid>

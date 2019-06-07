@@ -7,7 +7,6 @@ const LinkCardStyles = {
 		backgroundColor: 'transparent',
 		border: '2px solid white',
 		boxShadow: 'none',
-		height: 70,
 		borderRadius: 6,
 	},
 	cardText: {
@@ -15,9 +14,13 @@ const LinkCardStyles = {
 		fontFamily: "'Oxygen', sans-serif",
 		textAlign: 'center',
 		paddingRight: 70,
+		overflowWrap: 'break-word',
+		wordWrap: 'break-word',
+		wordBreak: 'break-word',
 	},
 	media: {
 		width: 50,
+		height: 50,
 		minWidth: 50,
 		margin: 10,
 		borderRadius: 6,

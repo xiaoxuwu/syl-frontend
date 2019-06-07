@@ -1,5 +1,5 @@
-const LinkCardStyles = theme => ({
-	card: {
+const PreferenceCardStyles = theme => ({
+	content: {
 		width: '100%',
 		display: 'inline-flex',
 		color: 'white',
@@ -39,4 +39,4 @@ const LinkCardStyles = theme => ({
 	}
 });
 
-export default LinkCardStyles;
+export default PreferenceCardStyles;
