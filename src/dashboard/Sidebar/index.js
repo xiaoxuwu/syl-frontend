@@ -170,6 +170,7 @@ class Sidebar extends Component {
         <Divider className={classes.profileDivider} />
         <Typography
           variant="h5"
+          className={classes.pastHeader}
         >
           See data for the past:
         </Typography>

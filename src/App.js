@@ -70,7 +70,7 @@ export default class App extends Component {
           <Route path="/influencer/*" render={ props => 
             <NavBar 
               getLoginCallback={this.getLoggedIn} 
-              isDashboard={props.location.pathname === '/influencer/dashboard/' || props.location.pathname === '/influencer/dashboard/users/'} 
+              isDashboard={props.location.pathname === '/influencer/dashboard/' || props.location.pathname === '/influencer/dashboard/links/'} 
               isOpen={this.state.isOpen}
               onChange={this.toggleSidebar} 
             />} />

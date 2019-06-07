@@ -11,7 +11,8 @@ export default theme => ({
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
-    })
+    }),
+    height: '100%',
   },
   contentShift: {
     marginLeft: '270px'
