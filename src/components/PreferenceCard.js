@@ -12,7 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import FormControl from '@material-ui/core/FormControl';
-
+import Grid from '@material-ui/core/Grid';
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -160,70 +160,65 @@ class PreferenceCard extends Component {
 
     return(
     	<Card className={clsx(classes.content, previewContainer)}>
-        <CardMedia
-          className={classes.media}
-          image={profile_pic}
-        />
-        <CardContent className={classes.info}>
-          <Typography gutterBottom variant="display1">
-            @{user}
-          </Typography>
-          <br />
-          <FormControl className={classes.pref} >
-            <Typography variant="body1">
-              Profile Picture
+        <Grid container>
+          <Grid item sm={3}>
+          <CardMedia
+            className={classes.media}
+            image={profile_pic}
+          />
+          </Grid>
+          <Grid item sm={9}>
+          <CardContent className={classes.info}>
+            <Typography variant="display1" component="h3" className={classes.username}>
+              @{user}
             </Typography>
-            <div>
-              Currently: <a href={profile_pic}>{this.state.curProfile}</a>
-              <IconButton className={classes.action} aria-label="Delete" onClick={this.handleDeleteProfile}>
-                <DeleteIcon/>
-              </IconButton>
-              <br />
-              Change: <Input 
-                type="file" 
-                name="profile" 
-                onChange={this.handleProfile}
-                value={this.state.newProfile ? this.state.newProfile.value : ''}/>
-            </div>
-          </FormControl>
-          <br />
-          <FormControl>
-            <Typography gutterBottom variant="body1">
-              Profile Picture
-            </Typography>
-            <div>
-              Currently: <a href={background_pic}>{this.state.curBg}</a>
-              <IconButton className={classes.action} aria-label="Delete" onClick={this.handleDeleteBg}>
-                <DeleteIcon/>
-              </IconButton>
-              <br />
-              Change: <Input 
-                type="file" 
-                name="background" 
-                onChange={this.handleBackground}
-                value={this.state.newBg ? this.state.newBg.value : ''}/>
-            </div>
-          </FormControl>
 
-          <div className={classes.prefButtons}>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              onClick={this.handlePrefSubmit}>
-              <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
-              Save
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.button}
-              onClick={this.cancleUpdate}>
-              <ClearIcon className={classes.leftIcon} />
-              Cancel
-            </Button>
-          </div>
-        </CardContent>
+            <FormControl>
+                <span>
+                <p>Profile Picture:</p>
+                <IconButton className={classes.action} aria-label="Delete" onClick={this.handleDeleteProfile}>
+                  <DeleteIcon/>
+                </IconButton>
+                <Input
+                  type="file"
+                  name="profile"
+                  onChange={this.handleProfile}
+                  value={this.state.newProfile ? this.state.newProfile.value : ''}/></span>
+            </FormControl>
+
+            <FormControl>
+              <span>
+              <p>Background Image:</p> <IconButton className={classes.action} aria-label="Delete" onClick={this.handleDeleteBg}>
+                  <DeleteIcon/>
+                </IconButton>
+                <Input
+                  type="file"
+                  name="background"
+                  onChange={this.handleBackground}
+                  value={this.state.newBg ? this.state.newBg.value : ''}/></span>
+            </FormControl>
+
+            <div className={classes.prefButtons}>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                onClick={this.handlePrefSubmit}>
+                <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
+                Save
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                className={classes.button}
+                onClick={this.cancleUpdate}>
+                <ClearIcon className={classes.leftIcon} />
+                Cancel
+              </Button>
+            </div>
+          </CardContent>
+          </Grid>
+        </Grid>
     	</Card>
     );
   }

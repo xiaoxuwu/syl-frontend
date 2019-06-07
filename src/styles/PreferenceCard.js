@@ -1,10 +1,12 @@
 const PreferenceCardStyles = theme => ({
+	action: {
+		color: 'white'
+	},
 	content: {
 		width: '100%',
 		display: 'inline-flex',
 		color: 'white',
 		backgroundColor: 'pink',
-		border: '2px solid white',
 		boxShadow: 'none',
 		borderRadius: 6
 	},
@@ -14,15 +16,11 @@ const PreferenceCardStyles = theme => ({
 	},
 	media: {
 		height: 'auto',
-		width: '30%',
-		paddingLeft: '10%', 
-		paddingRight: '5%', 
+		width: '100%',
+    	height: '100%'
 	},
 	info: {
-		display: 'inline-grid',
-		textAlign: 'left',
-		padding: '3% 5% 3% 5%',
-		width: '100%',
+		textAlign: 'left'
 	},
 	pref: {
 		overflowWrap: 'break-word',
@@ -42,6 +40,9 @@ const PreferenceCardStyles = theme => ({
 	},
 	prefButtons: {
 		textAlign: 'right'
+	},
+	username: {
+		color: 'white'
 	}
 });
 
