@@ -53,7 +53,6 @@ const PreferenceCardStyles = theme => ({
 	uploadWrapper: {
 		paddingLeft: 20,
 		paddingRight: 20,
-		paddingBottom: 20,
 		// borderRadius: 10,
     	// border: 'white solid 2px'
 	}
