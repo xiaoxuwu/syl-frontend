@@ -11,8 +11,7 @@ const EditableLinkCardStyles = {
   },
   content: {
     width: '100%',
-    paddingBottom: '3%',
-    paddingLeft: '4%'
+    padding: 0
   },
   actions: {
     position: 'absolute',

@@ -11,7 +11,7 @@ import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 
 import TextField from '@material-ui/core/TextField';
-
+import Grid from '@material-ui/core/Grid';
 import EditableLinkCardStyles from '../styles/EditableLinkCard.js'
 
 class EditableLinkCard extends Component {
@@ -106,18 +106,22 @@ class EditableLinkCard extends Component {
       <Card className={classes.card} elevation={0}>
         <CardContent
           className={classes.content}>
+            <Grid container>
+              <Grid item sm={6}>
             <TextField
               name="title"
               className={classes.inputs}
               value={this.state.title}
               placeholder="Enter Text"
-              onChange={e => this.setState({title: e.target.value})} />
+              onChange={e => this.setState({title: e.target.value})} /></Grid>
+              <Grid item sm={5}>
             <TextField
               name="url"
               className={classes.inputs}
               value={this.state.URL}
               placeholder="Enter URL"
-              onChange={e => this.setState({URL: e.target.value})} />
+              onChange={e => this.setState({URL: e.target.value})} /></Grid>
+            </Grid>
             <Button size='small' onClick={e => this.setState({IMG: null})}>
               Reset Image
             </Button>

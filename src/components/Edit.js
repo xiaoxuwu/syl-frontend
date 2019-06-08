@@ -174,22 +174,26 @@ class Edit extends Component {
             {errorMsg}
             <CardContent
                 className={classes.content}>
-                  <TextField
-                    id="InputTitle"
-                    name="title"
-                    label="New Link's Text"
-                    variant="outlined"
-                    className={classes.inputs}
-                    value={this.state.title}
-                    onChange={e => this.setState({addedTitle: e.target.value})} />
-                  <TextField
-                    id="InputUrl"
-                    name="url"
-                    label="New Link's URL"
-                    variant="outlined"
-                    className={classes.inputs}
-                    value={this.state.URL}
-                    onChange={e => this.setState({addedURL: e.target.value, invalidURL: false})} />
+                  <Grid container spacing={2}>
+                    <Grid item sm={6}>
+                    <TextField
+                      id="InputTitle"
+                      name="title"
+                      label="New Link's Text"
+                      variant="outlined"
+                      className={classes.inputs}
+                      value={this.state.title}
+                      onChange={e => this.setState({addedTitle: e.target.value})} /></Grid>
+                    <Grid item sm={6}>
+                    <TextField
+                      id="InputUrl"
+                      name="url"
+                      label="New Link's URL"
+                      variant="outlined"
+                      className={classes.inputs}
+                      value={this.state.URL}
+                      onChange={e => this.setState({addedURL: e.target.value, invalidURL: false})} /></Grid>
+                    </Grid>
                   <Button variant="contained" className={classes.addLinkButton} onClick={this.handleAddLink}>+ ADD NEW LINK</Button>
               </CardContent>
             </Card>

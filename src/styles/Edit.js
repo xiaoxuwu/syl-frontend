@@ -60,7 +60,7 @@ const EditStyles = theme => ({
       backgroundColor: '#e65c5c',
     },
     float: 'right',
-    margin: 10
+    marginTop: 10
   },
   addLinkInput: {
     width: '60%',
@@ -102,7 +102,7 @@ const EditStyles = theme => ({
     border: '5px solid #ff6666'
   },
   inputs: {
-    margin: 10
+    width: '100%'
   }
 });
 
