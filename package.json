@@ -9,7 +9,7 @@
     "@mdi/js": "^3.6.95",
     "@mdi/react": "^1.1.0",
     "axios": "^0.18.0",
-    "chart.js": "^2.7.3",
+    "chart.js": "^2.9.4",
     "check-files": "^0.0.2",
     "classnames": "^2.2.6",
     "clsx": "^1.0.4",
