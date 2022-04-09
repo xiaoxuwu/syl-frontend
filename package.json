@@ -15,7 +15,7 @@
     "clsx": "^1.0.4",
     "fg-loadcss": "^2.1.0",
     "history": "^4.7.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "node-sass": "^4.11.0",
     "prop-types": "^15.7.1",
     "query-string": "^6.5.0",
